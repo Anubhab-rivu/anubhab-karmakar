@@ -4,8 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build && next-sitemap",
-    "postbuild": "npx pagefind --site out --output-path out/pagefind",
+    "build": "next build",
+    "postbuild": "npx -y pagefind --site out --output-path out/pagefind 2>/dev/null || true",
     "start": "next start",
     "serve": "npx serve out",
     "export": "next build"

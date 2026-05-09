@@ -8,7 +8,8 @@ const withMDX = require('@next/mdx')({
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  output: 'export',
+  // Remove 'output: export' for Vercel deployment (Vercel handles SSR natively)
+  // For local static export, run: npx next build && npx next export
   pageExtensions: ['js', 'jsx', 'mdx'],
   images: { unoptimized: true },
   reactStrictMode: true,

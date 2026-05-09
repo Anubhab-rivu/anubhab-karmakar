@@ -11,59 +11,26 @@ import { SvgWatermark } from '@/components/Watermark';
 
 function EfficiencyDiagram() {
   const [effort, setEffort] = useState(50);
-  const load = 500;
-  const VR = 10;
+  const load = 500; const VR = 10;
   const MA = load / effort;
-  const efficiency = (MA / VR) * 100;
+  const eff = (MA / VR) * 100;
   return (
-    <InteractiveDiagram caption="Interactive: Adjust effort to see MA and efficiency change in real-time">
-      <svg viewBox="0 0 500 240" style={{ maxWidth: 500 }}>
-        <rect x="0" y="0" width="500" height="240" fill="#faf9f6" rx="6"/>
-        {/* Efficiency bar */}
-        <rect x="40" y="30" width="300" height="30" fill="#eee9e0" stroke="#ddd8cc" strokeWidth="1" rx="4"/>
-        <rect x="40" y="30" width={Math.min(efficiency, 100) * 3} height="30" fill={efficiency > 80 ? '#2d6a4f' : efficiency > 50 ? '#c8951a' : '#c0392b'} rx="4"/>
-        <text x={45 + Math.min(efficiency, 100) * 1.5} y="50" textAnchor="middle" fontSize="14" fill="white" fontWeight="700" fontFamily="Source Sans 3">
-          η = {efficiency.toFixed(1)}%
-        </text>
-        <text x="355" y="50" fontSize="12" fill="var(--ink-muted)" fontFamily="Source Sans 3">Efficiency</text>
-        {/* Values */}
-        <rect x="40" y="80" width="140" height="70" rx="6" fill="rgba(26,39,68,0.06)" stroke="#1a2744" strokeWidth="1"/>
-        <text x="110" y="100" textAnchor="middle" fontSize="11" fill="var(--ink-muted)" fontFamily="Source Sans 3">MECHANICAL</text>
-        <text x="110" y="100" textAnchor="middle" fontSize="11" fill="var(--ink-muted)" fontFamily="Source Sans 3">ADVANTAGE</text>
-        <text x="110" y="130" textAnchor="middle" fontSize="24" fill="#1a2744" fontWeight="700" fontFamily="Source Sans 3">
-          {MA.toFixed(1)}
-        </text>
-        <text x="110" y="145" textAnchor="middle" fontSize="10" fill="var(--ink-muted)" fontFamily="Source Sans 3">MA = W/P</text>
-
-        <rect x="200" y="80" width="140" height="70" rx="6" fill="rgba(26,39,68,0.06)" stroke="#1a2744" strokeWidth="1"/>
-        <text x="270" y="100" textAnchor="middle" fontSize="11" fill="var(--ink-muted)" fontFamily="Source Sans 3">VELOCITY</text>
-        <text x="270" y="100" textAnchor="middle" fontSize="11" fill="var(--ink-muted)" fontFamily="Source Sans 3">RATIO</text>
-        <text x="270" y="130" textAnchor="middle" fontSize="24" fill="#1a2744" fontWeight="700" fontFamily="Source Sans 3">
-          {VR}
-        </text>
-        <text x="270" y="145" textAnchor="middle" fontSize="10" fill="var(--ink-muted)" fontFamily="Source Sans 3">VR (fixed)</text>
-
-        <rect x="360" y="80" width="120" height="70" rx="6" fill="rgba(192,57,43,0.06)" stroke="#c0392b" strokeWidth="1"/>
-        <text x="420" y="100" textAnchor="middle" fontSize="11" fill="#c0392b" fontFamily="Source Sans 3">LOAD</text>
-        <text x="420" y="130" textAnchor="middle" fontSize="24" fill="#c0392b" fontWeight="700" fontFamily="Source Sans 3">
-          {load} N
-        </text>
-        <text x="420" y="145" textAnchor="middle" fontSize="10" fill="var(--ink-muted)" fontFamily="Source Sans 3">W (fixed)</text>
-
-        <text x="250" y="190" textAnchor="middle" fontSize="12" fill="var(--ink-light)" fontFamily="Source Code Pro, monospace">
-          η = MA/VR = ({MA.toFixed(1)}/{VR}) × 100 = {efficiency.toFixed(1)}%
-        </text>
+    <InteractiveDiagram caption="Interactive: Adjust effort to see MA and Efficiency change (Load=500N, VR=10)">
+      <svg viewBox="0 0 500 180" style={{ maxWidth: 500 }}>
+        <rect x="0" y="0" width="500" height="180" fill="#faf9f6" rx="6"/>
+        <rect x="40" y="25" width="300" height="28" fill="#eee9e0" rx="4"/>
+        <rect x="40" y="25" width={Math.min(eff, 100) * 3} height="28" fill={eff > 80 ? '#2d6a4f' : eff > 50 ? '#c8951a' : '#c0392b'} rx="4"/>
+        <text x={45 + Math.min(eff, 100) * 1.5} y="44" textAnchor="middle" fontSize="13" fill="white" fontWeight="700" fontFamily="Source Sans 3">η = {eff.toFixed(1)}%</text>
+        <text x="355" y="44" fontSize="12" fill="var(--ink-muted)" fontFamily="Source Sans 3">Efficiency</text>
+        <text x="40" y="85" fontSize="12" fill="var(--ink-light)" fontFamily="Source Code Pro, monospace">MA = W/P = {load}/{effort} = {MA.toFixed(2)}</text>
+        <text x="40" y="105" fontSize="12" fill="var(--ink-light)" fontFamily="Source Code Pro, monospace">VR = {VR} (fixed by geometry)</text>
+        <text x="40" y="125" fontSize="12" fill="var(--ink-light)" fontFamily="Source Code Pro, monospace">η = MA/VR = {MA.toFixed(2)}/{VR} = {eff.toFixed(1)}%</text>
+        <text x="40" y="155" fontSize="11" fill="var(--ink-muted)" fontFamily="Source Sans 3">Friction loss = (VR − MA) × P/VR = {((VR-MA)*effort/VR).toFixed(1)} N equivalent</text>
         <SvgWatermark />
       </svg>
-      <div style={{ marginTop: 16, textAlign: 'center' }}>
-        <label style={{ fontSize: 13, color: 'var(--ink-muted)', fontWeight: 600 }}>
-          Effort (P): <strong style={{ color: 'var(--accent)' }}>{effort} N</strong>
-        </label>
-        <br/>
-        <input type="range" min="20" max="200" step="5" value={effort}
-          onChange={(e) => setEffort(parseInt(e.target.value))}
-          style={{ width: 280, marginTop: 6, accentColor: 'var(--accent)' }}
-        />
+      <div style={{ marginTop: 12, textAlign: 'center' }}>
+        <label style={{ fontSize: 13, color: 'var(--ink-muted)', fontWeight: 600 }}>Effort (P): <strong style={{ color: 'var(--accent)' }}>{effort} N</strong></label><br/>
+        <input type="range" min="20" max="200" step="5" value={effort} onChange={(e) => setEffort(parseInt(e.target.value))} style={{ width: 280, marginTop: 6, accentColor: 'var(--accent)' }} />
       </div>
     </InteractiveDiagram>
   );
@@ -71,180 +38,123 @@ function EfficiencyDiagram() {
 
 export default function Unit6Page() {
   return (
-    <UnitLayout
-      unitNum={6} unitTitle="Simple Lifting Machines"
-      unitDescription="MA, VR, Efficiency, Law of machine, Screw jack, Pulley systems"
+    <UnitLayout unitNum={6} unitTitle="Simple Lifting Machines"
+      unitDescription="MA, VR, Efficiency, Law of machine, Ideal machine, Reversibility, Screw jack, Pulley block, Wheel & Axle, Worm wheel, Crab winch"
       subject="Engineering Mechanics" subjectSlug="engineering-mechanics"
-      semester="sem-2" degree="diploma"
-      degreeBadge="WBSCTE • Diploma Engineering"
+      semester="sem-2" degree="diploma" degreeBadge="WBSCTE • Diploma Engineering"
       prevUnit={{ num: 5, title: "Centroid & Centre of Gravity" }}
-      nextUnit={{ num: 7, title: "Motion in a Plane" }}
-    >
+      nextUnit={{ num: 7, title: "Motion in a Plane" }}>
+
       {/* 6.1 */}
       <section className="section" id="section1">
-        <div className="section-header">
-          <div className="sec-num">6.1</div>
-          <h2 id="introduction">Introduction to Simple Machines</h2>
-        </div>
-        <DefinitionCard
-          term="Simple Machine"
-          definition="A <strong>simple machine</strong> is a device that enables us to lift a heavy load (W) by applying a small effort (P). It works on the principle of mechanical advantage — trading distance for force."
-        />
-        <div className="two-col">
-          <div className="info-card">
-            <h4>Effort (P)</h4>
-            <p>The force applied by the user to operate the machine. Measured in Newtons (N).</p>
-          </div>
-          <div className="info-card">
-            <h4>Load (W)</h4>
-            <p>The heavy weight to be lifted or moved by the machine. Also in Newtons (N).</p>
-          </div>
-        </div>
+        <div className="section-header"><div className="sec-num">6.1</div><h2 id="intro">Definition, Applications & Advantages</h2></div>
+        <DefinitionCard term="Lifting Machine" definition="A <strong>lifting machine</strong> is a device that enables a heavy load (W) to be lifted by applying a comparatively small effort (P). It trades distance for force — the effort moves through a larger distance than the load." />
+        <NoteBox label="Applications"><p>Cranes, screw jacks (car repair), pulley blocks (construction), winches (ship docks), levers, gears, elevators.</p></NoteBox>
       </section>
 
-      {/* 6.2 */}
+      {/* 6.2 MA, VR, EFF */}
       <section className="section" id="section2">
-        <div className="section-header">
-          <div className="sec-num">6.2</div>
-          <h2 id="definitions">MA, VR, and Efficiency</h2>
-        </div>
-        <FormulaBox
-          title="Mechanical Advantage (MA)"
-          formula="MA = \\frac{W}{P} = \\frac{\\text{Load}}{\\text{Effort}}"
-          description="The ratio of load lifted to effort applied. Higher MA means less effort needed."
-          variables={[
-            { symbol: 'MA', name: 'Mechanical Advantage', unit: '—' },
-            { symbol: 'W', name: 'Load', unit: 'N' },
-            { symbol: 'P', name: 'Effort', unit: 'N' },
-          ]}
-        />
-        <FormulaBox
-          title="Velocity Ratio (VR)"
-          formula="VR = \\frac{d_P}{d_W} = \\frac{\\text{Distance moved by effort}}{\\text{Distance moved by load}}"
-          description="A property of the machine geometry — it does NOT depend on friction."
-          variables={[
-            { symbol: 'VR', name: 'Velocity Ratio', unit: '—' },
-            { symbol: 'd_P', name: 'Distance moved by effort', unit: 'm' },
-            { symbol: 'd_W', name: 'Distance moved by load', unit: 'm' },
-          ]}
-        />
-        <FormulaBox
-          title="Efficiency"
-          formula="\\eta = \\frac{MA}{VR} \\times 100\\%"
-          description="Efficiency is always less than 100% due to friction. For an ideal (frictionless) machine, η = 100% and MA = VR."
-        />
+        <div className="section-header"><div className="sec-num">6.2</div><h2 id="ma-vr">MA, VR, Efficiency & Relationships</h2></div>
+        <FormulaBox title="Mechanical Advantage" formula="MA = \\frac{W}{P}" variables={[{ symbol: 'W', name: 'Load', unit: 'N' },{ symbol: 'P', name: 'Effort', unit: 'N' }]} />
+        <FormulaBox title="Velocity Ratio" formula="VR = \\frac{\\text{Distance moved by effort}}{\\text{Distance moved by load}} = \\frac{d_P}{d_W}" description="VR depends ONLY on machine geometry — NOT on friction." />
+        <FormulaBox title="Efficiency" formula="\\eta = \\frac{MA}{VR} \\times 100\\% = \\frac{W \\times d_W}{P \\times d_P} \\times 100\\%" description="Output work / Input work. Always < 100% due to friction." />
         <EfficiencyDiagram />
-        <ExamTip>
-          <p><strong>Key relationship:</strong> η = MA/VR. In an ideal machine: MA = VR, η = 100%. In a real machine: MA &lt; VR, η &lt; 100%. VR is constant for a given machine — it depends only on geometry.</p>
-        </ExamTip>
+        <div className="subsection">
+          <h3 id="ideal">Ideal Machine & Friction</h3>
+          <p><strong>Ideal machine:</strong> No friction → η = 100% → MA = VR → P_ideal = W/VR.</p>
+          <FormulaBox title="Effort Lost to Friction" formula="P_{\\text{friction}} = P_{\\text{actual}} - P_{\\text{ideal}} = P - \\frac{W}{VR}" />
+        </div>
       </section>
 
-      {/* 6.3 */}
+      {/* 6.3 LAW OF MACHINE */}
       <section className="section" id="section3">
-        <div className="section-header">
-          <div className="sec-num">6.3</div>
-          <h2 id="law-of-machine">Law of a Machine</h2>
-        </div>
-        <DefinitionCard
-          term="Law of a Machine"
-          definition="The linear relationship between effort (P) and load (W) for a given machine: <strong>P = mW + C</strong>, where m is the slope and C is the effort needed to run the machine at no load."
-        />
-        <FormulaBox
-          title="Law of a Machine"
-          formula="P = mW + C"
-          description="A straight-line equation relating effort to load."
-          variables={[
-            { symbol: 'P', name: 'Effort', unit: 'N' },
-            { symbol: 'm', name: 'Slope (constant)', unit: '—' },
-            { symbol: 'W', name: 'Load', unit: 'N' },
-            { symbol: 'C', name: 'Effort at no load (friction)', unit: 'N' },
-          ]}
-        />
-        <FormulaBox
-          title="Maximum Efficiency"
-          formula="\\eta_{max} = \\frac{1}{m \\times VR} \\times 100\\%"
-          description="The maximum possible efficiency of the machine, achieved at very high loads."
-        />
+        <div className="section-header"><div className="sec-num">6.3</div><h2 id="law">Law of Machine & Max Efficiency</h2></div>
+        <FormulaBox title="Law of a Machine" formula="P = mW + C" description="Linear relationship: m = slope, C = effort at no load (friction)." variables={[{ symbol: 'm', name: 'Constant (slope)', unit: '—' },{ symbol: 'C', name: 'Effort at no load', unit: 'N' }]} />
+        <FormulaBox title="Maximum MA & Efficiency" formula="MA_{\\max} = \\frac{1}{m} \\quad ; \\quad \\eta_{\\max} = \\frac{1}{m \\times VR} \\times 100\\%" description="As W → ∞, the C becomes negligible, so MA approaches 1/m." />
       </section>
 
-      {/* 6.4 */}
+      {/* 6.4 REVERSIBILITY */}
       <section className="section" id="section4">
-        <div className="section-header">
-          <div className="sec-num">6.4</div>
-          <h2 id="types">Types of Simple Machines</h2>
-        </div>
-
-        <div className="subsection">
-          <h3 id="pulley">Simple Pulley Systems</h3>
-          <table className="data-table">
-            <thead><tr><th>Pulley System</th><th>VR</th><th>MA (ideal)</th></tr></thead>
-            <tbody>
-              <tr><td>Single fixed pulley</td><td>1</td><td>1 (changes direction only)</td></tr>
-              <tr><td>Single movable pulley</td><td>2</td><td>2</td></tr>
-              <tr><td>Block and tackle (n pulleys)</td><td>n</td><td>n</td></tr>
-            </tbody>
-          </table>
-        </div>
-
-        <div className="subsection">
-          <h3 id="screw-jack">Screw Jack</h3>
-          <FormulaBox
-            title="VR of Screw Jack"
-            formula="VR = \\frac{2\\pi L}{p}"
-            description="Where L = length of the handle, p = pitch of the screw."
-            variables={[
-              { symbol: 'L', name: 'Handle length', unit: 'mm' },
-              { symbol: 'p', name: 'Pitch of screw', unit: 'mm' },
-            ]}
-          />
-        </div>
-
-        <div className="subsection">
-          <h3 id="wheel-axle">Wheel and Axle</h3>
-          <FormulaBox
-            title="VR of Wheel and Axle"
-            formula="VR = \\frac{R}{r}"
-            description="R = radius of wheel (effort side), r = radius of axle (load side)."
-          />
-        </div>
-
-        <WorkedExample
-          title="Screw Jack Problem"
-          given={[
-            'A screw jack has pitch p = 10 mm, handle length L = 500 mm.',
-            'An effort of 30 N raises a load of 6000 N.',
-          ]}
-          find="VR, MA, and Efficiency"
-          steps={[
-            '$VR = \\frac{2\\pi L}{p} = \\frac{2\\pi \\times 500}{10} = \\frac{3141.6}{10} = 314.16$',
-            '$MA = \\frac{W}{P} = \\frac{6000}{30} = 200$',
-            '$\\eta = \\frac{MA}{VR} \\times 100 = \\frac{200}{314.16} \\times 100 = 63.66\\%$',
-          ]}
-          answer="VR = 314.16, MA = 200, η = 63.66%"
-        />
+        <div className="section-header"><div className="sec-num">6.4</div><h2 id="reversible">Reversible & Non-Reversible Machines</h2></div>
+        <DefinitionCard term="Reversible Machine" definition="A machine in which the load <strong>moves down</strong> (lowers itself) when the effort is removed. This happens when η &gt; 50%." />
+        <DefinitionCard term="Non-Reversible (Self-Locking)" definition="A machine that does NOT reverse when effort is removed. The load stays in place due to friction. This happens when <strong>η ≤ 50%</strong>." />
+        <FormulaBox title="Condition for Reversibility" formula="\\eta > 50\\% \\quad \\text{i.e.,} \\quad \\frac{MA}{VR} > \\frac{1}{2}" />
+        <ExamTip><p>A screw jack is self-locking (η &lt; 50%). This is desirable — you don&apos;t want the car to fall when you stop turning! A pulley block may be reversible (η &gt; 50%).</p></ExamTip>
       </section>
 
-      {/* QUESTION BANK */}
-      <section className="section" id="qbank">
-        <div className="section-header">
-          <div className="sec-num" style={{background:'#7b3f00'}}>Q</div>
-          <h2 id="questions">Expected Questions</h2>
+      {/* 6.5 MACHINE TYPES */}
+      <section className="section" id="section5">
+        <div className="section-header"><div className="sec-num">6.5</div><h2 id="types">VR of Specific Machines</h2></div>
+
+        <table className="data-table">
+          <thead><tr><th>Machine</th><th>Velocity Ratio</th><th>Key Variables</th></tr></thead>
+          <tbody>
+            <tr><td>Simple Axle & Wheel</td><td>R / r</td><td>R = wheel radius, r = axle radius</td></tr>
+            <tr><td>Differential Axle & Wheel</td><td>2R / (r₁ − r₂)</td><td>R = wheel, r₁ &amp; r₂ = axle radii</td></tr>
+            <tr><td>Worm & Worm Wheel</td><td>T / n</td><td>T = teeth on worm wheel, n = starts of worm</td></tr>
+            <tr><td>Single Purchase Crab Winch</td><td>(T₂/T₁) × (L/r)</td><td>Gear ratio × handle/drum ratio</td></tr>
+            <tr><td>Double Purchase Crab Winch</td><td>(T₂/T₁) × (T₄/T₃) × (L/r)</td><td>Two gear stages</td></tr>
+            <tr><td>Simple Screw Jack</td><td>2πL / p</td><td>L = handle, p = pitch</td></tr>
+            <tr><td>Simple Pulley Block (n pulleys)</td><td>n</td><td>n = number of pulleys in movable block</td></tr>
+          </tbody>
+        </table>
+
+        <div className="subsection">
+          <h3 id="screw-jack">Simple Screw Jack</h3>
+          <FormulaBox title="VR of Screw Jack" formula="VR = \\frac{2\\pi L}{p}" variables={[{ symbol: 'L', name: 'Handle length', unit: 'mm' },{ symbol: 'p', name: 'Pitch of screw', unit: 'mm' }]} />
         </div>
+
+        <div className="subsection">
+          <h3 id="diff-wheel">Differential Axle & Wheel</h3>
+          <FormulaBox title="VR of Differential Wheel & Axle" formula="VR = \\frac{2R}{r_1 - r_2}" description="R = radius of effort wheel, r₁ and r₂ are the two axle radii (r₁ > r₂). The load rope winds on one axle and unwinds from the other." />
+        </div>
+
+        <div className="subsection">
+          <h3 id="worm">Worm & Worm Wheel</h3>
+          <FormulaBox title="VR of Worm & Worm Wheel" formula="VR = \\frac{T}{n}" description="T = number of teeth on the worm wheel, n = number of starts (threads) on the worm." />
+        </div>
+
+        <WorkedExample title="Screw Jack"
+          given={['Pitch = 10 mm, handle = 500 mm, effort = 30 N lifts 6000 N.']}
+          find="VR, MA, η, Is it self-locking?"
+          steps={[
+            '$VR = 2\\pi L/p = 2\\pi(500)/10 = 314.16$',
+            '$MA = W/P = 6000/30 = 200$',
+            '$\\eta = 200/314.16 \\times 100 = 63.66\\%$',
+            'Since η > 50%, it is <strong>reversible</strong>. (In practice, screw jacks are self-locking due to thread friction.)',
+          ]}
+          answer="VR=314.16, MA=200, η=63.66%" />
+
+        <WorkedExample title="Law of Machine"
+          given={['P = 0.04W + 8 (law of machine), VR = 30.']}
+          find="(a) P for W=3000N, (b) MA, (c) η, (d) η_max"
+          steps={[
+            '(a) $P = 0.04(3000) + 8 = 128$ N',
+            '(b) $MA = W/P = 3000/128 = 23.44$',
+            '(c) $\\eta = 23.44/30 \\times 100 = 78.1\\%$',
+            '(d) $\\eta_{max} = 1/(m \\times VR) = 1/(0.04 \\times 30) = 83.33\\%$',
+          ]}
+          answer="(a) 128 N, (b) 23.44, (c) 78.1%, (d) 83.33%" />
+      </section>
+
+      {/* QUESTIONS */}
+      <section className="section" id="qbank">
+        <div className="section-header"><div className="sec-num" style={{background:'#7b3f00'}}>Q</div><h2 id="questions">Expected Questions (WBSCTE)</h2></div>
         <div className="question-box">
-          <div className="q-label">Short Answer (2–5 marks)</div>
+          <div className="q-label">Short (2–5 marks)</div>
           <ul>
-            <li>Define: MA, VR, and Efficiency of a machine.</li>
-            <li>What is the law of a machine? Write the equation.</li>
-            <li>Prove that η = MA/VR.</li>
-            <li>What is the VR of a screw jack?</li>
+            <li>Define MA, VR, Efficiency. Derive η = MA/VR.</li>
+            <li>What is the law of a machine? Derive max efficiency formula.</li>
+            <li>Differentiate between reversible and non-reversible machines.</li>
+            <li>Write VR formulas for screw jack, worm wheel, differential axle.</li>
           </ul>
         </div>
         <div className="question-box" style={{marginTop:14}}>
-          <div className="q-label">Long Answer (10–15 marks)</div>
+          <div className="q-label">Numerical (5–10 marks)</div>
           <ul>
-            <li>In a lifting machine, an effort of 25 N lifts a load of 1000 N. VR = 50. Find MA, η, ideal effort, and friction effort.</li>
-            <li>The law of a machine is P = 0.04W + 8. VR = 30. Find (a) effort for 3000 N load, (b) MA, (c) η, (d) max efficiency.</li>
-            <li>A screw jack has pitch 8 mm and handle 400 mm. Find VR. If η = 40%, what effort lifts 10 kN?</li>
+            <li>P = 0.05W + 10, VR = 25. Find (a) P for 2000N, (b) MA, (c) η, (d) η_max, (e) is it reversible?</li>
+            <li>Screw jack: pitch 8mm, handle 400mm, η=40%. What effort lifts 10kN?</li>
+            <li>Differential wheel: R=300mm, r₁=120mm, r₂=100mm. Find VR. If η=60% and W=5kN, find P.</li>
           </ul>
         </div>
       </section>

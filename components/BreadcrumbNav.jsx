@@ -42,32 +42,15 @@ export default function BreadcrumbNav() {
   }));
 
   return (
-    <nav
-      aria-label="Breadcrumb"
-      style={{
-        fontSize: 13,
-        color: 'rgba(255,255,255,0.7)',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 6,
-        flexWrap: 'wrap',
-      }}
-    >
-      <Link href="/" style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}>
-        Home
-      </Link>
+    <nav aria-label="Breadcrumb" className="breadcrumb-nav">
+      <Link href="/">Home</Link>
       {crumbs.map((crumb) => (
-        <span key={crumb.href} style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-          <span style={{ opacity: 0.5 }}>›</span>
+        <span key={crumb.href} className="breadcrumb-segment">
+          <span className="breadcrumb-separator">/</span>
           {crumb.isLast ? (
-            <span style={{ color: 'white', fontWeight: 600 }}>{crumb.label}</span>
+            <span className="breadcrumb-current">{crumb.label}</span>
           ) : (
-            <Link
-              href={crumb.href}
-              style={{ color: 'rgba(255,255,255,0.7)', textDecoration: 'none' }}
-            >
-              {crumb.label}
-            </Link>
+            <Link href={crumb.href}>{crumb.label}</Link>
           )}
         </span>
       ))}

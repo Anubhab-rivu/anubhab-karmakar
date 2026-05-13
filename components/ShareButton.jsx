@@ -16,7 +16,7 @@ export default function ShareButton({ title, text }) {
       try {
         await navigator.share(shareData);
       } catch {
-        /* user cancelled */
+        /* User cancelled the native share sheet. */
       }
     } else {
       try {
@@ -24,7 +24,6 @@ export default function ShareButton({ title, text }) {
         setShowToast(true);
         setTimeout(() => setShowToast(false), 3000);
       } catch {
-        /* fallback */
         const input = document.createElement('input');
         input.value = window.location.href;
         document.body.appendChild(input);
@@ -40,27 +39,16 @@ export default function ShareButton({ title, text }) {
   return (
     <>
       <button
-        onClick={handleShare}
-        className="share-btn"
-        style={{
-          background: 'transparent',
-          border: '1px solid rgba(255,255,255,0.25)',
-          borderRadius: 8,
-          padding: '6px 12px',
-          cursor: 'pointer',
-          fontSize: 13,
-          color: 'white',
-          display: 'flex',
-          alignItems: 'center',
-          gap: 6,
-          transition: 'background 0.2s',
-        }}
         aria-label="Share this page"
+        className="nav-icon-btn share-btn"
+        onClick={handleShare}
+        type="button"
       >
-        📤 Share
+        <span aria-hidden="true" className="share-glyph" />
+        <span className="action-text">Share</span>
       </button>
       {showToast && (
-        <div className="toast">Link copied! Share it with your classmates 📎</div>
+        <div className="toast">Link copied. Share it with your classmates.</div>
       )}
     </>
   );

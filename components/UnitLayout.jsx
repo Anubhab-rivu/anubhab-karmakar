@@ -1,13 +1,13 @@
-import SidebarTOC from './SidebarTOC';
+import Link from 'next/link';
+
 import BreadcrumbNav from './BreadcrumbNav';
 import DarkModeToggle from './DarkModeToggle';
-import ShareButton from './ShareButton';
-import SyllabusBar from './SyllabusBar';
-import UnitNav from './UnitNav';
 import ProgressTracker from './ProgressTracker';
 import SearchButton from './SearchButton';
-
-import Link from 'next/link';
+import ShareButton from './ShareButton';
+import SidebarTOC from './SidebarTOC';
+import SyllabusBar from './SyllabusBar';
+import UnitNav from './UnitNav';
 
 export default function UnitLayout({
   unitNum,
@@ -29,58 +29,35 @@ export default function UnitLayout({
 
   return (
     <>
-      {/* STICKY NAVBAR */}
-      <nav
-        style={{
-          background: 'var(--navy)',
-          color: 'white',
-          padding: '10px 24px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          position: 'sticky',
-          top: 0,
-          zIndex: 100,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
-        }}
-      >
-        <div style={{ display: 'flex', alignItems: 'center', gap: 16, flex: 1, minWidth: 0 }}>
-          <Link
-            href="/library"
-            style={{
-              color: 'white',
-              textDecoration: 'none',
-              fontFamily: 'Merriweather, serif',
-              fontWeight: 700,
-              fontSize: 16,
-              whiteSpace: 'nowrap',
-            }}
-          >
-            📚 AK Notes
+      <nav className="top-nav">
+        <div className="top-nav-main">
+          <Link href="/library" className="brand-link">
+            <span className="brand-mark" aria-hidden="true">AK</span>
+            <span>AK Notes</span>
           </Link>
           <BreadcrumbNav />
         </div>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+
+        <div className="nav-actions">
           <SearchButton />
           <DarkModeToggle />
-          <ShareButton title={`${unitTitle} — ${subject} | AK Notes`} />
+          <ShareButton title={`${unitTitle} - ${subject} | AK Notes`} />
         </div>
       </nav>
 
-      {/* PAGE HEADER */}
       <header className="page-header crosshatch-bg">
         <div className="header-inner">
           <div className="course-badge">
-            {degreeBadge || 'WBSCTE • Diploma Engineering'}
+            {degreeBadge || 'WBSCTE - Diploma Engineering'}
           </div>
           <h1>Unit {unitNum}: {unitTitle}</h1>
           <p className="subtitle">
-            {subject} — {semester.replace('sem-', 'Semester ')} • Mechanical Engineering
+            {subject} - {semester.replace('sem-', 'Semester ')} - Mechanical Engineering
           </p>
           <div className="meta-row">
             <div className="meta-item">
               <span className="meta-dot" />
-              By Anubhab Karmakar • NHIT
+              By Anubhab Karmakar - NHIT
             </div>
             {unitDescription && (
               <div className="meta-item">
@@ -92,14 +69,10 @@ export default function UnitLayout({
         </div>
       </header>
 
-      {/* BODY */}
       <div className="page-body">
-        {/* SIDEBAR */}
         <SidebarTOC />
 
-        {/* MAIN CONTENT */}
         <main className="main-content">
-          {/* UNIT BANNER */}
           <div className="unit-banner">
             <div className="unit-num">U{unitNum}</div>
             <div className="unit-text">
@@ -108,7 +81,6 @@ export default function UnitLayout({
             </div>
           </div>
 
-          {/* SYLLABUS BAR */}
           {syllabusGroup && (
             <SyllabusBar
               group={syllabusGroup}
@@ -117,38 +89,24 @@ export default function UnitLayout({
             />
           )}
 
-
-
-          {/* CONTENT */}
           {children}
 
-
-
-          {/* UNIT NAVIGATION */}
           <UnitNav
             prevUnit={prevUnit}
             nextUnit={nextUnit}
             basePath={basePath}
           />
 
-          {/* PROGRESS TRACKER */}
-          <div
-            style={{
-              display: 'flex',
-              justifyContent: 'center',
-              padding: '20px 0',
-            }}
-          >
+          <div className="progress-wrap">
             <ProgressTracker unitKey={`${subjectSlug}/unit-${unitNum}`} />
           </div>
         </main>
       </div>
 
-      {/* FOOTER */}
       <footer className="page-footer">
-        © 2025 Anubhab Karmakar, Lecturer • NHIT
+        &copy; 2025 Anubhab Karmakar, Lecturer - NHIT
         <br />
-        Built with pride for students of NHIT
+        Built with care for students of NHIT
       </footer>
     </>
   );

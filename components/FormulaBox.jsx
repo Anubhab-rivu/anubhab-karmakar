@@ -1,11 +1,26 @@
 'use client';
 
-import { useRef, useState } from 'react';
+import { useState } from 'react';
 import katex from 'katex';
+
+function escapeHtml(value) {
+  return String(value)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function normalizeTex(value) {
+  return String(value || '')
+    .trim()
+    .replace(/\\\\(?=[A-Za-z%,;:{}])/g, '\\');
+}
 
 export default function FormulaBox({ title, formula, description, variables }) {
   const [copied, setCopied] = useState(false);
-  const formulaRef = useRef(null);
+  const normalizedFormula = normalizeTex(formula);
 
   const renderFormula = (tex) => {
     try {
@@ -14,19 +29,20 @@ export default function FormulaBox({ title, formula, description, variables }) {
         throwOnError: false,
         strict: false,
         trust: true,
+        output: 'htmlAndMathml',
       });
     } catch {
-      return tex;
+      return `<pre class="formula-fallback">${escapeHtml(tex)}</pre>`;
     }
   };
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText(formula);
+      await navigator.clipboard.writeText(normalizedFormula);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      /* fallback: select text */
+      /* Clipboard access can be blocked in older browsers. */
     }
   };
 
@@ -34,78 +50,37 @@ export default function FormulaBox({ title, formula, description, variables }) {
     <div className="formula-box">
       <div className="formula-label">{title || 'Formula'}</div>
       <div
-        ref={formulaRef}
         className="formula-content"
-        style={{ margin: '8px 0', overflow: 'auto' }}
-        dangerouslySetInnerHTML={{ __html: renderFormula(formula) }}
+        dangerouslySetInnerHTML={{ __html: renderFormula(normalizedFormula) }}
       />
-      {description && (
-        <p style={{ fontSize: '13.5px', color: '#5a3e00', margin: '8px 0 0' }}>
-          {description}
-        </p>
-      )}
+
+      {description && <p className="formula-description">{description}</p>}
+
       {variables && variables.length > 0 && (
-        <table
-          style={{
-            width: '100%',
-            borderCollapse: 'collapse',
-            marginTop: 10,
-            fontSize: 13,
-          }}
-        >
-          <thead>
-            <tr
-              style={{
-                borderBottom: '1px solid #e2c17a',
-                textAlign: 'left',
-              }}
-            >
-              <th style={{ padding: '4px 8px', color: '#7a6200' }}>Symbol</th>
-              <th style={{ padding: '4px 8px', color: '#7a6200' }}>Name</th>
-              <th style={{ padding: '4px 8px', color: '#7a6200' }}>Unit</th>
-            </tr>
-          </thead>
-          <tbody>
-            {variables.map((v, i) => (
-              <tr
-                key={i}
-                style={{ borderBottom: '1px solid rgba(226,193,122,0.4)' }}
-              >
-                <td
-                  style={{
-                    padding: '4px 8px',
-                    fontFamily: 'Source Code Pro, monospace',
-                    fontWeight: 600,
-                  }}
-                >
-                  {v.symbol}
-                </td>
-                <td style={{ padding: '4px 8px' }}>{v.name}</td>
-                <td style={{ padding: '4px 8px', color: '#7a6200' }}>
-                  {v.unit}
-                </td>
+        <div className="formula-table-wrap">
+          <table className="formula-table">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Name</th>
+                <th>Unit</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+              {variables.map((v, i) => (
+                <tr key={i}>
+                  <td className="formula-symbol">{v.symbol}</td>
+                  <td>{v.name}</td>
+                  <td className="formula-unit">{v.unit}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
-      <button
-        onClick={handleCopy}
-        style={{
-          marginTop: 8,
-          padding: '4px 12px',
-          fontSize: 11,
-          fontWeight: 600,
-          border: '1px solid #e2c17a',
-          borderRadius: 4,
-          background: 'transparent',
-          color: '#7a6200',
-          cursor: 'pointer',
-          textTransform: 'uppercase',
-          letterSpacing: '0.5px',
-        }}
-      >
-        {copied ? '✓ Copied!' : '📋 Copy LaTeX'}
+
+      <button className="formula-copy-btn" onClick={handleCopy} type="button">
+        {copied ? 'Copied' : 'Copy LaTeX'}
       </button>
     </div>
   );

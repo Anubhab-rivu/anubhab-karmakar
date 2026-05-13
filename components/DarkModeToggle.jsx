@@ -27,22 +27,13 @@ export default function DarkModeToggle() {
 
   return (
     <button
-      onClick={toggle}
       aria-label="Toggle dark mode"
-      className="dark-mode-toggle"
-      style={{
-        background: 'transparent',
-        border: '1px solid rgba(255,255,255,0.25)',
-        borderRadius: 8,
-        padding: '6px 10px',
-        cursor: 'pointer',
-        fontSize: 18,
-        lineHeight: 1,
-        color: 'white',
-        transition: 'background 0.2s',
-      }}
+      className="nav-icon-btn dark-mode-toggle"
+      onClick={toggle}
+      title={dark ? 'Use light mode' : 'Use dark mode'}
+      type="button"
     >
-      {dark ? '☀️' : '🌙'}
+      <span className={dark ? 'theme-glyph theme-glyph-sun' : 'theme-glyph'} />
     </button>
   );
 }

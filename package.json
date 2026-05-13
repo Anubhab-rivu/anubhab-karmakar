@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "postbuild": "npx -y pagefind --site out --output-path out/pagefind 2>/dev/null || true",
+    "postbuild": "node scripts/run-pagefind.mjs",
     "start": "next start",
     "serve": "npx serve out",
     "export": "next build"

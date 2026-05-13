@@ -14,7 +14,6 @@ export default function FormulaBox({ title, formula, description, variables }) {
         throwOnError: false,
         strict: false,
         trust: true,
-        output: 'html',
       });
     } catch {
       return tex;

@@ -1,5 +1,4 @@
 import './globals.css';
-import 'katex/dist/katex.min.css';
 import { Watermark } from '@/components/Watermark';
 
 export const metadata = {
@@ -85,6 +84,12 @@ export default function RootLayout({ children }) {
     <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
+        <link
+          rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+          integrity="sha384-nB0miv6/jRmo5YCBER1viOiFVHFNqSIx0KlarWEn+w3IJBZCuBGhBvI0s+miWPri"
+          crossOrigin="anonymous"
+        />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}

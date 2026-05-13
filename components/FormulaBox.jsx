@@ -12,7 +12,9 @@ export default function FormulaBox({ title, formula, description, variables }) {
       return katex.renderToString(tex, {
         displayMode: true,
         throwOnError: false,
+        strict: false,
         trust: true,
+        output: 'html',
       });
     } catch {
       return tex;

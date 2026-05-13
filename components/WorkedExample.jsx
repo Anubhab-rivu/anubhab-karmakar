@@ -10,11 +10,11 @@ export default function WorkedExample({ title, given, find, steps, answer }) {
     if (!text) return '';
     return text.replace(/\$\$(.*?)\$\$/g, (_, tex) => {
       try {
-        return katex.renderToString(tex, { displayMode: true, throwOnError: false });
+        return katex.renderToString(tex, { displayMode: true, throwOnError: false, strict: false });
       } catch { return tex; }
     }).replace(/\$(.*?)\$/g, (_, tex) => {
       try {
-        return katex.renderToString(tex, { displayMode: false, throwOnError: false });
+        return katex.renderToString(tex, { displayMode: false, throwOnError: false, strict: false });
       } catch { return tex; }
     });
   };

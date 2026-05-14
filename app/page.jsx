@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import Link from 'next/link';
+import SiteFooter from '@/components/SiteFooter';
 
 const fadeUp = {
   hidden: { opacity: 0, y: 30 },
@@ -623,27 +624,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* ═══ FOOTER ═══ */}
-      <footer
-        style={{
-          background: '#0f1520',
-          color: 'rgba(255,255,255,0.5)',
-          textAlign: 'center',
-          padding: '24px',
-          fontSize: 13,
-        }}
-      >
-        <p style={{ margin: 0, color: 'rgba(255,255,255,0.5)' }}>
-          © 2025 Anubhab Karmakar. All rights reserved.
-        </p>
-        <div style={{ marginTop: 8, display: 'flex', justifyContent: 'center', gap: 20 }}>
-          <Link href="/" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>Portfolio</Link>
-          <Link href="/library" style={{ color: 'rgba(255,255,255,0.5)', textDecoration: 'none' }}>Notes Library</Link>
-        </div>
-        <p style={{ marginTop: 8, fontSize: 11, color: 'rgba(255,255,255,0.3)' }}>
-          Built with pride for students of NHIT
-        </p>
-      </footer>
+      <SiteFooter />
     </>
   );
 }

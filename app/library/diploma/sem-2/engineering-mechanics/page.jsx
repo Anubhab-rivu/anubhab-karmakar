@@ -1,8 +1,11 @@
 import Link from 'next/link';
-import { syllabusData } from '@/lib/syllabus';
-import { ProgressBar } from '@/components/ProgressTracker';
 
-export const metadata = { title: 'Engineering Mechanics — Diploma Sem 2 | AK Notes Library' };
+import MechanicsLearningStudio from '@/components/MechanicsLearningStudio';
+import { ProgressBar } from '@/components/ProgressTracker';
+import SiteFooter from '@/components/SiteFooter';
+import { syllabusData } from '@/lib/syllabus';
+
+export const metadata = { title: 'Engineering Mechanics - Diploma Sem 2 | AK Notes Library' };
 
 const subject = syllabusData.diploma.semesters['sem-2'].subjects['engineering-mechanics'];
 
@@ -11,60 +14,91 @@ export default function EnggMechPage() {
     <>
       <header className="page-header crosshatch-bg">
         <div className="header-inner">
-          <div className="course-badge">WBSCTE • Diploma Sem 2</div>
+          <div className="course-badge">WBSCTVESD - Diploma Sem 2</div>
           <h1>{subject.label}</h1>
-          <p className="subtitle">Code: {subject.code} • Credits: {subject.credits} • {subject.hours}</p>
+          <p className="subtitle">Code: {subject.code} - Credits: {subject.credits} - {subject.hours}</p>
         </div>
       </header>
-      <div style={{ maxWidth: 800, margin: '0 auto', padding: '48px 24px' }}>
+
+      <main className="subject-learning-hub">
         <ProgressBar subjectSlug="engineering-mechanics" totalUnits={subject.units.length} />
 
-        <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <section className="mechanics-intro-grid">
+          <div className="mechanics-intro-copy">
+            <span className="micro-label">Extracted from WBSCTVESD Semester II syllabus</span>
+            <h2>Build the whole subject as one connected machine.</h2>
+            <p>
+              Engineering Mechanics begins with one question: what does a force try to do?
+              Every unit answers that question from a different angle: translate, rotate, balance,
+              resist, locate, lift or move. Study the units in order and keep drawing free body
+              diagrams until each problem feels like a physical object instead of a formula hunt.
+            </p>
+          </div>
+          <div className="mechanics-scorecard" aria-label="Engineering Mechanics course summary">
+            <div><strong>{subject.credits}</strong><span>Credits</span></div>
+            <div><strong>{subject.hours}</strong><span>Lecture + tutorial</span></div>
+            <div><strong>{subject.units.length}</strong><span>Deep units</span></div>
+          </div>
+        </section>
+
+        <section className="learning-arc" aria-label="Engineering Mechanics learning arc">
+          {[
+            ['See the force', 'Represent forces with magnitude, direction, point of application and line of action.'],
+            ['Find the effect', 'Use components, resultants, moments and couples to predict translation and rotation.'],
+            ['Impose balance', 'Apply equilibrium equations through clean free body diagrams and beam reactions.'],
+            ['Add reality', 'Bring friction, machine efficiency and motion into the ideal model.'],
+          ].map(([title, text], index) => (
+            <article key={title} style={{ '--delay': `${index * 70}ms` }}>
+              <span>{index + 1}</span>
+              <h3>{title}</h3>
+              <p>{text}</p>
+            </article>
+          ))}
+        </section>
+
+        <MechanicsLearningStudio />
+
+        <section className="lab-bridge">
+          <div>
+            <span className="micro-label">Theory to Lab Bridge</span>
+            <h2>Use the practical list as a second way to understand the theory.</h2>
+            <p>
+              The lab work from the syllabus mirrors the theory units: graphical resultants,
+              Lami theorem, friction on horizontal and inclined planes, simple lifting machines,
+              centroid location and jib-crane member forces. Treat every experiment as a physical
+              proof of a classroom equation.
+            </p>
+          </div>
+          <ul>
+            <li>Resultant of concurrent and parallel force systems by graphical methods.</li>
+            <li>Verification of Lami theorem and force polygon closure.</li>
+            <li>Coefficient of friction on horizontal and inclined planes.</li>
+            <li>MA, VR, efficiency and law of machine for crab winch, worm wheel and screw jack.</li>
+          </ul>
+        </section>
+
+        <section className="unit-list" aria-label="Engineering Mechanics unit modules">
           {subject.units.map((unit) => (
             <Link
-              key={unit.num}
+              className="unit-list-card"
               href={`/library/diploma/sem-2/engineering-mechanics/unit-${unit.num}`}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 16,
-                background: 'var(--paper-card)',
-                border: '1px solid var(--border)',
-                borderRadius: 10,
-                padding: '18px 22px',
-                textDecoration: 'none',
-                boxShadow: 'var(--shadow)',
-                transition: 'transform 0.2s',
-              }}
+              key={unit.num}
             >
-              <div style={{
-                background: 'var(--accent)',
-                color: 'white',
-                fontFamily: 'Merriweather, serif',
-                fontWeight: 700,
-                fontSize: 18,
-                width: 48, height: 48,
-                borderRadius: 8,
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                flexShrink: 0,
-              }}>
-                {unit.num}
+              <div className="unit-list-num">{unit.num}</div>
+              <div className="unit-list-copy">
+                <h3>{unit.title}</h3>
+                <p>{unit.topics}</p>
               </div>
-              <div style={{ flex: 1 }}>
-                <h3 style={{ fontFamily: 'Merriweather, serif', fontSize: 16, color: 'var(--navy)', margin: '0 0 4px' }}>
-                  {unit.title}
-                </h3>
-                <p style={{ fontSize: 13, color: 'var(--ink-muted)', margin: 0 }}>{unit.topics}</p>
-              </div>
-              <div style={{ flexShrink: 0, display: 'flex', alignItems: 'center', gap: 8 }}>
-                {unit.full && <span style={{ fontSize: 10, background: 'var(--green-light)', color: 'var(--green)', padding: '2px 8px', borderRadius: 4, fontWeight: 700, textTransform: 'uppercase', letterSpacing: 0.5 }}>Full Content</span>}
-                {unit.hours && <span style={{ fontSize: 12, color: 'var(--ink-muted)' }}>{unit.hours}</span>}
+              <div className="unit-list-meta">
+                {unit.full && <span>Full Content</span>}
+                {unit.hours && <em>{unit.hours}</em>}
               </div>
             </Link>
           ))}
-        </div>
-      </div>
-      <footer className="page-footer">© 2025 Anubhab Karmakar, Lecturer • NHIT</footer>
+        </section>
+      </main>
+
+      <SiteFooter />
     </>
   );
 }

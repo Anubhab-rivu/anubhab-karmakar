@@ -6,6 +6,7 @@ import ProgressTracker from './ProgressTracker';
 import SearchButton from './SearchButton';
 import ShareButton from './ShareButton';
 import SidebarTOC from './SidebarTOC';
+import SiteFooter from './SiteFooter';
 import SyllabusBar from './SyllabusBar';
 import UnitNav from './UnitNav';
 
@@ -103,11 +104,7 @@ export default function UnitLayout({
         </main>
       </div>
 
-      <footer className="page-footer">
-        &copy; 2025 Anubhab Karmakar, Lecturer - NHIT
-        <br />
-        Built with care for students of NHIT
-      </footer>
+      <SiteFooter />
     </>
   );
 }

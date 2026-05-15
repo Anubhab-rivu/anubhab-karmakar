@@ -42,13 +42,14 @@ export default function ShareButton({ title, text }) {
         aria-label="Share this page"
         className="nav-icon-btn share-btn"
         onClick={handleShare}
+        title="Share this page"
         type="button"
       >
         <span aria-hidden="true" className="share-glyph" />
         <span className="action-text">Share</span>
       </button>
       {showToast && (
-        <div className="toast">Link copied. Share it with your classmates.</div>
+        <div aria-live="polite" className="toast">Link copied. Share it with your classmates.</div>
       )}
     </>
   );

@@ -28,12 +28,15 @@ export default function DarkModeToggle() {
   return (
     <button
       aria-label="Toggle dark mode"
+      aria-pressed={dark}
       className="nav-icon-btn dark-mode-toggle"
       onClick={toggle}
       title={dark ? 'Use light mode' : 'Use dark mode'}
       type="button"
     >
-      <span className={dark ? 'theme-glyph theme-glyph-sun' : 'theme-glyph'} />
+      <span className="theme-glyph-orbit" aria-hidden="true">
+        <span className={dark ? 'theme-glyph theme-glyph-sun' : 'theme-glyph'} />
+      </span>
     </button>
   );
 }

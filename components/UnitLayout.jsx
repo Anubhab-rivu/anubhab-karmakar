@@ -22,7 +22,9 @@ export default function UnitLayout({
   prevUnit,
   nextUnit,
   syllabusGroup,
+  syllabusGroupLabel,
   syllabusMarks,
+  syllabusMarksLabel,
   examType,
   children,
 }) {
@@ -85,7 +87,9 @@ export default function UnitLayout({
           {syllabusGroup && (
             <SyllabusBar
               group={syllabusGroup}
+              groupLabel={syllabusGroupLabel}
               marks={syllabusMarks}
+              marksLabel={syllabusMarksLabel}
               examType={examType}
             />
           )}

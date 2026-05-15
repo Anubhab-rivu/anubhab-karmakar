@@ -1,137 +1,153 @@
 'use client';
 
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { searchNotes } from '@/lib/searchIndex';
+
+const degreeFilters = [
+  ['all', 'All'],
+  ['diploma', 'Diploma'],
+  ['btech', 'B.Tech'],
+];
+
+const typeFilters = [
+  ['all', 'Everything'],
+  ['subject', 'Subjects'],
+  ['unit', 'Units'],
+];
+
+function makeSnippet(item, query) {
+  const source = item.text || item.subtitle || '';
+  const token = query.trim().split(/\s+/)[0]?.toLowerCase();
+  const lower = source.toLowerCase();
+  const index = token ? lower.indexOf(token) : -1;
+  const start = Math.max(index - 70, 0);
+  const picked = index >= 0 ? source.slice(start, start + 180) : source.slice(0, 180);
+  return `${start > 0 ? '...' : ''}${picked}${picked.length >= 180 ? '...' : ''}`;
+}
 
 export default function SearchModal({ isOpen, onClose }) {
   const inputRef = useRef(null);
   const [query, setQuery] = useState('');
-  const [results, setResults] = useState([]);
-  const [pagefind, setPagefind] = useState(null);
+  const [degree, setDegree] = useState('all');
+  const [type, setType] = useState('all');
+  const [selected, setSelected] = useState(0);
 
-  useEffect(() => {
-    async function load() {
-      try {
-        const pf = await import(/* webpackIgnore: true */ '/pagefind/pagefind.js');
-        await pf.init();
-        setPagefind(pf);
-      } catch {
-        // Pagefind not available in dev mode
-      }
-    }
-    load();
-  }, []);
+  const results = useMemo(
+    () => searchNotes(query, { degree, type }),
+    [degree, query, type]
+  );
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
       inputRef.current.focus();
+      setSelected(0);
     }
   }, [isOpen]);
 
   useEffect(() => {
-    if (!pagefind || !query.trim()) {
-      setResults([]);
-      return;
-    }
-    const timer = setTimeout(async () => {
-      const search = await pagefind.search(query);
-      const items = await Promise.all(search.results.slice(0, 8).map((r) => r.data()));
-      setResults(items);
-    }, 200);
-    return () => clearTimeout(timer);
-  }, [query, pagefind]);
+    setSelected(0);
+  }, [query, degree, type]);
 
   useEffect(() => {
     function handleKey(e) {
       if (e.key === 'Escape') onClose();
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        setSelected((current) => Math.min(current + 1, Math.max(results.length - 1, 0)));
+      }
+      if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        setSelected((current) => Math.max(current - 1, 0));
+      }
+      if (e.key === 'Enter' && results[selected]) {
+        window.location.href = results[selected].url;
+      }
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
         onClose();
       }
     }
+
     if (isOpen) window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [isOpen, onClose]);
+  }, [isOpen, onClose, results, selected]);
 
   if (!isOpen) return null;
 
   return (
-    <div
-      onClick={onClose}
-      style={{
-        position: 'fixed', inset: 0, zIndex: 9999,
-        background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(4px)',
-        display: 'flex', alignItems: 'flex-start', justifyContent: 'center',
-        paddingTop: '15vh',
-      }}
-    >
+    <div className="search-overlay" onClick={onClose}>
       <div
+        aria-modal="true"
+        className="search-panel"
         onClick={(e) => e.stopPropagation()}
-        style={{
-          width: '90%', maxWidth: 560,
-          background: 'var(--paper-card)', borderRadius: 16,
-          boxShadow: '0 20px 60px rgba(0,0,0,0.3)',
-          overflow: 'hidden', border: '1px solid var(--border)',
-        }}
+        role="dialog"
       >
-        {/* Search Input */}
-        <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', gap: 12 }}>
-          <span style={{ fontSize: 20, opacity: 0.5 }}>🔍</span>
+        <div className="search-input-row">
+          <span aria-hidden="true" className="search-modal-icon" />
           <input
+            aria-label="Search notes"
             ref={inputRef}
             type="text"
-            placeholder="Search notes, formulas, topics..."
+            placeholder="Search units, formulas, labs, projects..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            style={{
-              flex: 1, border: 'none', outline: 'none',
-              fontSize: 16, background: 'transparent',
-              color: 'var(--ink)', fontFamily: 'Source Sans 3, sans-serif',
-            }}
           />
-          <kbd style={{
-            fontSize: 11, color: 'var(--ink-muted)', background: 'var(--paper-warm)',
-            padding: '2px 8px', borderRadius: 4, border: '1px solid var(--border)',
-          }}>ESC</kbd>
+          <kbd>ESC</kbd>
         </div>
 
-        {/* Results */}
-        <div style={{ maxHeight: 400, overflowY: 'auto' }}>
-          {query && results.length === 0 && pagefind && (
-            <div style={{ padding: '32px 20px', textAlign: 'center', color: 'var(--ink-muted)', fontSize: 14 }}>
-              No results for &quot;{query}&quot;
-            </div>
-          )}
-          {query && !pagefind && (
-            <div style={{ padding: '32px 20px', textAlign: 'center', color: 'var(--ink-muted)', fontSize: 14 }}>
-              Search is available in production build only
-            </div>
-          )}
-          {results.map((r, i) => (
-            <a
-              key={i}
-              href={r.url}
-              style={{
-                display: 'block', padding: '14px 20px',
-                borderBottom: '1px solid var(--border-light)',
-                textDecoration: 'none', transition: 'background 0.15s',
-              }}
-              onMouseEnter={(e) => e.currentTarget.style.background = 'var(--paper-warm)'}
-              onMouseLeave={(e) => e.currentTarget.style.background = 'transparent'}
+        <div className="search-filter-row" aria-label="Search filters">
+          {degreeFilters.map(([value, label]) => (
+            <button
+              className={degree === value ? 'active' : ''}
+              key={value}
+              onClick={() => setDegree(value)}
+              type="button"
             >
-              <div style={{ fontSize: 15, fontWeight: 600, color: 'var(--navy)', marginBottom: 4 }}>
-                {r.meta?.title || 'Untitled'}
+              {label}
+            </button>
+          ))}
+          <span className="search-filter-divider" />
+          {typeFilters.map(([value, label]) => (
+            <button
+              className={type === value ? 'active' : ''}
+              key={value}
+              onClick={() => setType(value)}
+              type="button"
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        <div className="search-results">
+          {!query.trim() && (
+            <div className="search-empty">
+              Start typing to search the full notes library.
+            </div>
+          )}
+
+          {query.trim() && results.length === 0 && (
+            <div className="search-empty">
+              No results for &quot;{query}&quot;.
+            </div>
+          )}
+
+          {results.map((item, index) => (
+            <a
+              className={index === selected ? 'search-result active' : 'search-result'}
+              href={item.url}
+              key={item.id}
+              onMouseEnter={() => setSelected(index)}
+            >
+              <div className="search-result-top">
+                <span>{item.type}</span>
+                <strong>{item.tags.slice(0, 2).join(' / ')}</strong>
               </div>
-              <div
-                style={{ fontSize: 13, color: 'var(--ink-muted)', lineHeight: 1.5 }}
-                dangerouslySetInnerHTML={{ __html: r.excerpt }}
-              />
+              <h3>{item.title}</h3>
+              <p>{item.subtitle}</p>
+              <em>{makeSnippet(item, query)}</em>
             </a>
           ))}
-          {!query && (
-            <div style={{ padding: '32px 20px', textAlign: 'center', color: 'var(--ink-muted)', fontSize: 14 }}>
-              Start typing to search across all notes...
-            </div>
-          )}
         </div>
       </div>
     </div>

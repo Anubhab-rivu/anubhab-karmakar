@@ -54,6 +54,24 @@ export default function ProgramOverview({ degree }) {
           </p>
         </section>
 
+        {program.sources && (
+          <section className="subject-index-summary">
+            <span className="micro-label">Syllabus Sources</span>
+            <h2>Board-linked module map with expanded classroom notes.</h2>
+            <p>
+              The semester structure is aligned with WBSCTE/WBSCTVESD curriculum pages and Mechanical Engineering
+              syllabus PDFs. Unit pages expand those topics into teaching notes, diagrams, formulas and practice.
+            </p>
+            <div className="source-grid">
+              {program.sources.slice(0, 4).map((source) => (
+                <a href={source.url} key={source.url} target="_blank" rel="noreferrer">
+                  {source.label}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
         <section className="semester-grid" aria-label={`${program.label} semester list`}>
           {semesters.map(([semesterKey, semester], index) => {
             const subjects = Object.entries(semester.subjects);

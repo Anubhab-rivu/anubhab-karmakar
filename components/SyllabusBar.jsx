@@ -1,4 +1,10 @@
-export default function SyllabusBar({ group, marks, examType }) {
+export default function SyllabusBar({
+  group,
+  groupLabel = 'Group',
+  marks,
+  marksLabel = 'marks',
+  examType,
+}) {
   return (
     <div
       style={{
@@ -28,12 +34,12 @@ export default function SyllabusBar({ group, marks, examType }) {
             textTransform: 'uppercase',
           }}
         >
-          Group {group}
+          {groupLabel} {group}
         </span>
       )}
       {marks && (
         <span style={{ color: 'var(--ink-muted)' }}>
-          <strong style={{ color: 'var(--accent)' }}>{marks}</strong> marks
+          <strong style={{ color: 'var(--accent)' }}>{marks}</strong> {marksLabel}
         </span>
       )}
       {examType && (

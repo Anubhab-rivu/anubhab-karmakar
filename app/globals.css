@@ -33,19 +33,35 @@
 
 /* Dark mode overrides */
 [data-theme='dark'] {
-  --ink: #e8e4dc;
-  --ink-light: #c2bdb4;
-  --ink-muted: #8a8478;
+  --ink: #e8edf5;
+  --ink-light: #b8c2d4;
+  --ink-muted: #8b96ab;
   --paper: #0f1117;
   --paper-warm: #161920;
   --paper-card: #1c2028;
+  --navy: #d4dce8;
+  --navy-light: #9eb0c9;
+  --accent: #ff8b7e;
+  --accent-mid: #ff6f61;
   --accent-light: #2a1a18;
+  --gold: #f0c766;
   --gold-light: #1f1a0e;
+  --green: #63d68f;
   --green-light: #0e1f14;
+  --teal: #5ed7da;
   --teal-light: #0e1f1f;
   --border: #2a2e38;
   --border-light: #232730;
   --shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+}
+
+html.theme-transition,
+html.theme-transition * {
+  transition:
+    background-color 0.35s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    fill 0.25s ease !important;
 }
 
 /* ── BASE RESETS ── */
@@ -287,11 +303,48 @@ code {
   height: 17px;
   border-radius: 50%;
   box-shadow: inset -5px 0 0 currentColor;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+.theme-glyph-moon {
+  box-shadow: inset -5px 0 0 currentColor;
 }
 
 .theme-glyph-sun {
   border: 2px solid currentColor;
   box-shadow: none;
+  background: radial-gradient(circle at 35% 35%, currentColor 2px, transparent 3px);
+}
+
+.dark-mode-toggle.is-ready .theme-glyph {
+  animation: themeIdle 4s ease-in-out infinite;
+}
+
+.dark-mode-toggle.is-dark.is-ready .theme-glyph-sun {
+  animation: themeIdle 5s ease-in-out infinite;
+}
+
+@keyframes themeIdle {
+  0%, 100% { transform: rotate(0deg) scale(1); }
+  50% { transform: rotate(8deg) scale(1.06); }
+}
+
+.search-btn .search-glyph {
+  animation: searchPulse 3.2s ease-in-out infinite;
+}
+
+.share-btn .share-glyph {
+  animation: sharePulse 3.6s ease-in-out infinite;
+}
+
+@keyframes searchPulse {
+  0%, 100% { transform: scale(1); opacity: 0.9; }
+  50% { transform: scale(1.05); opacity: 1; }
+}
+
+@keyframes sharePulse {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-1px); }
 }
 
 .share-glyph {
@@ -1063,6 +1116,36 @@ code {
   border-radius: 8px;
   padding: 18px 22px;
   margin: 20px 0;
+}
+
+[data-theme='dark'] .highlight-band {
+  background: linear-gradient(135deg, #1e2a42 0%, #2a3548 100%);
+  border: 1px solid var(--border);
+}
+
+[data-theme='dark'] .info-card h4 {
+  color: var(--ink);
+}
+
+[data-theme='dark'] .program-dashboard,
+[data-theme='dark'] .semester-dashboard {
+  background: var(--paper);
+  color: var(--ink-light);
+}
+
+[data-theme='dark'] .library-nav-path {
+  color: rgba(255, 255, 255, 0.55);
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 280px;
+}
+
+.library-nav {
+  position: sticky;
+  top: 0;
+  z-index: 40;
 }
 
 .highlight-band h4 {
@@ -2690,6 +2773,69 @@ code {
   line-height: 1.45;
 }
 
+.search-result mark {
+  background: var(--accent-light);
+  color: var(--accent);
+  padding: 0 2px;
+  border-radius: 2px;
+}
+
+[data-theme='dark'] .search-result mark {
+  background: rgba(255, 139, 126, 0.2);
+  color: #ffb4ab;
+}
+
+.search-suggestions {
+  padding: 8px 4px 12px;
+}
+
+.search-suggestion-block {
+  margin-bottom: 14px;
+}
+
+.search-suggestion-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+}
+
+.search-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.search-chip-row button {
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--paper-warm);
+  color: var(--ink-light);
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.search-chip-row button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: var(--accent-light);
+}
+
+.search-filter-row-compact {
+  padding-top: 0;
+}
+
+.search-modal-icon.search-glyph {
+  flex-shrink: 0;
+  margin-right: 4px;
+}
+
 /* Animated action icons */
 .nav-icon-btn {
   position: relative;
@@ -2808,15 +2954,6 @@ code {
 }
 
 /* Dark mode comfort fixes */
-[data-theme='dark'] {
-  --ink-muted: #a8b0c2;
-  --accent: #ff8b7e;
-  --accent-mid: #ff6f61;
-  --gold: #f0c766;
-  --green: #63d68f;
-  --teal: #5ed7da;
-}
-
 [data-theme='dark'] .program-choice-card h2,
 [data-theme='dark'] .semester-card h2,
 [data-theme='dark'] .subject-card h2,
@@ -2909,6 +3046,38 @@ code {
 [data-theme='dark'] .module-svg-bg {
   fill: var(--paper);
   background: var(--paper);
+}
+
+[data-theme='dark'] .def-card {
+  background: var(--paper-card);
+  border-color: var(--border);
+}
+
+[data-theme='dark'] .def-body p {
+  color: var(--ink-light);
+}
+
+[data-theme='dark'] .subsection h3 {
+  color: var(--ink);
+  border-left-color: var(--accent);
+}
+
+[data-theme='dark'] .toc .toc-section {
+  color: var(--ink);
+}
+
+[data-theme='dark'] .page-body {
+  background: var(--paper);
+}
+
+[data-theme='dark'] .main-content {
+  color: var(--ink-light);
+}
+
+[data-theme='dark'] .semester-card p,
+[data-theme='dark'] .subject-card p,
+[data-theme='dark'] .program-dashboard p {
+  color: var(--ink-muted);
 }
 
 @media (max-width: 620px) {

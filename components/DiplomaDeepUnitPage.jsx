@@ -6,6 +6,7 @@ import NoteBox from './NoteBox';
 import UnitLayout from './UnitLayout';
 import WorkedExample from './WorkedExample';
 import { SvgWatermark } from './Watermark';
+import { getUnitEnrichment } from '@/lib/diplomaContentBank';
 import { getProgramData, getSubjectData, getUnitNav } from '@/lib/syllabus';
 
 const familyTests = [
@@ -305,7 +306,15 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
   const { prev, next } = getUnitNav(degree, semester, subjectSlug, Number(unitNum));
   const family = getFamily(subject, unit);
   const keywords = getKeywords(unit.topics);
-  const formulas = formulasFor(family);
+  const enrichment = getUnitEnrichment({
+    semester,
+    subjectSlug,
+    unitNum: Number(unitNum),
+    subject,
+    unit,
+    family,
+  });
+  const formulas = [...formulasFor(family), ...enrichment.extraFormulas];
   const example = exampleFor(family, unit.title);
   const copy = familyCopy[family] || familyCopy.mechanics;
   const syllabusMeasure = subject.credits !== undefined ? String(subject.credits) : subject.hours;
@@ -340,17 +349,25 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
           definition={`This module studies <strong>${unit.topics}</strong>. The goal is to move from definitions to diagrams, then to formulas, applications, lab awareness and exam-ready answers.`}
           example={`In ${subject.label}, this unit connects classroom theory with workshop, drawing, laboratory, project or industry decisions.`}
         />
+        <NoteBox label="Curiosity spark">
+          <p>{enrichment.curiosity}</p>
+        </NoteBox>
+        <div className="info-card" style={{ marginBottom: 16 }}>
+          <h4>Study path for this unit</h4>
+          <p>{enrichment.studentPath}</p>
+        </div>
         <div className="two-col">
           <div className="info-card">
             <h4>Why Students Should Care</h4>
             <p>
               This unit is one of the working tools of a mechanical diploma student. It helps you read machines,
               choose methods, solve numerical problems and explain practical observations with confidence.
+              {enrichment.industry && ` ${enrichment.industry}`}
             </p>
           </div>
           <div className="info-card">
             <h4>Teaching Hook</h4>
-            <p>{copy.board}</p>
+            <p>{enrichment.teacherOpener || copy.board}</p>
           </div>
         </div>
       </section>
@@ -396,11 +413,11 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
             </tr>
           </thead>
           <tbody>
-            {keywords.slice(0, 6).map((keyword) => (
-              <tr key={keyword}>
-                <td>{keyword}</td>
-                <td>{makeConcept(keyword, family)}</td>
-                <td>Memorising the term without drawing, calculating or connecting it to a real engineering part.</td>
+            {enrichment.concepts.slice(0, 6).map((row) => (
+              <tr key={row.concept}>
+                <td>{row.concept}</td>
+                <td>{row.deep}</td>
+                <td>{row.mistake}</td>
               </tr>
             ))}
           </tbody>
@@ -477,22 +494,36 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
           <div className="sec-num">Q</div>
           <h2 id="question-title">Practice Questions</h2>
         </div>
+        <table className="data-table" style={{ marginBottom: 16 }}>
+          <thead>
+            <tr>
+              <th>Exam style</th>
+              <th>What to prepare</th>
+            </tr>
+          </thead>
+          <tbody>
+            {enrichment.examMatrix.map((row) => (
+              <tr key={row.type}>
+                <td>{row.type}</td>
+                <td>{row.focus}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <div className="question-box">
           <div className="q-label">Short Answer</div>
           <ul>
-            <li>Define {unit.title} and mention two engineering applications.</li>
-            <li>Draw a neat labelled diagram related to {keywords[0] || unit.title}.</li>
-            <li>Write two differences between {keywords[0] || 'the first concept'} and {keywords[1] || 'the second concept'}.</li>
-            <li>State the precautions or assumptions used in this unit.</li>
+            {enrichment.practice.short.map((q) => (
+              <li key={q}>{q}</li>
+            ))}
           </ul>
         </div>
         <div className="question-box" style={{ marginTop: 14 }}>
           <div className="q-label">Long Answer / Numerical / Viva</div>
           <ul>
-            <li>Explain the complete working principle of {unit.title} with a diagram and practical example.</li>
-            <li>Solve one numerical problem using the main formula from this unit and comment on the result.</li>
-            <li>Prepare a lab or workshop note showing aim, apparatus, theory, procedure, observations, result and precautions.</li>
-            <li>Describe one common industrial failure or mistake connected with this module and suggest a remedy.</li>
+            {enrichment.practice.long.map((q) => (
+              <li key={q}>{q}</li>
+            ))}
           </ul>
         </div>
       </section>

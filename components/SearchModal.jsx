@@ -1,7 +1,15 @@
 'use client';
 
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { searchNotes } from '@/lib/searchIndex';
+import {
+  QUICK_PICKS,
+  SEMESTER_FILTERS,
+  SECTION_FILTERS,
+  getRecentSearches,
+  highlightMatch,
+  saveRecentSearch,
+  searchNotes,
+} from '@/lib/searchIndex';
 
 const degreeFilters = [
   ['all', 'All'],
@@ -30,23 +38,27 @@ export default function SearchModal({ isOpen, onClose }) {
   const [query, setQuery] = useState('');
   const [degree, setDegree] = useState('all');
   const [type, setType] = useState('all');
+  const [semester, setSemester] = useState('all');
+  const [section, setSection] = useState('all');
   const [selected, setSelected] = useState(0);
+  const [recent, setRecent] = useState([]);
 
   const results = useMemo(
-    () => searchNotes(query, { degree, type }),
-    [degree, query, type]
+    () => searchNotes(query, { degree, type, semester, section }),
+    [degree, query, section, semester, type]
   );
 
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      inputRef.current.focus();
+    if (isOpen) {
+      setRecent(getRecentSearches());
+      inputRef.current?.focus();
       setSelected(0);
     }
   }, [isOpen]);
 
   useEffect(() => {
     setSelected(0);
-  }, [query, degree, type]);
+  }, [query, degree, type, semester, section]);
 
   useEffect(() => {
     function handleKey(e) {
@@ -60,6 +72,7 @@ export default function SearchModal({ isOpen, onClose }) {
         setSelected((current) => Math.max(current - 1, 0));
       }
       if (e.key === 'Enter' && results[selected]) {
+        saveRecentSearch(query);
         window.location.href = results[selected].url;
       }
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
@@ -70,32 +83,38 @@ export default function SearchModal({ isOpen, onClose }) {
 
     if (isOpen) window.addEventListener('keydown', handleKey);
     return () => window.removeEventListener('keydown', handleKey);
-  }, [isOpen, onClose, results, selected]);
+  }, [isOpen, onClose, query, results, selected]);
+
+  const runSearch = (value, opts = {}) => {
+    setQuery(value);
+    if (opts.degree) setDegree(opts.degree);
+    if (opts.semester) setSemester(opts.semester);
+  };
 
   if (!isOpen) return null;
 
   return (
-    <div className="search-overlay" onClick={onClose}>
-      <div
+    <motion className="search-overlay" onClick={onClose}>
+      <motion
         aria-modal="true"
         className="search-panel"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
       >
-        <div className="search-input-row">
-          <span aria-hidden="true" className="search-modal-icon" />
+        <motion className="search-input-row">
+          <span aria-hidden="true" className="search-modal-icon search-glyph" />
           <input
             aria-label="Search notes"
             ref={inputRef}
-            type="text"
-            placeholder="Search units, formulas, labs, projects..."
+            type="search"
+            placeholder='Search units, formulas, labs… try "steam" or "unit 3"'
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <kbd>ESC</kbd>
-        </div>
+        </motion>
 
-        <div className="search-filter-row" aria-label="Search filters">
+        <motion className="search-filter-row" aria-label="Degree filter">
           {degreeFilters.map(([value, label]) => (
             <button
               className={degree === value ? 'active' : ''}
@@ -106,7 +125,9 @@ export default function SearchModal({ isOpen, onClose }) {
               {label}
             </button>
           ))}
-          <span className="search-filter-divider" />
+        </motion>
+
+        <motion className="search-filter-row" aria-label="Type and semester filters">
           {typeFilters.map(([value, label]) => (
             <button
               className={type === value ? 'active' : ''}
@@ -117,19 +138,69 @@ export default function SearchModal({ isOpen, onClose }) {
               {label}
             </button>
           ))}
-        </div>
+          <span className="search-filter-divider" />
+          {SEMESTER_FILTERS.map(([value, label]) => (
+            <button
+              className={semester === value ? 'active' : ''}
+              key={value}
+              onClick={() => setSemester(value)}
+              type="button"
+            >
+              {label}
+            </button>
+          ))}
+        </motion>
 
-        <div className="search-results">
+        <motion className="search-filter-row search-filter-row-compact" aria-label="Section filter">
+          {SECTION_FILTERS.map(([value, label]) => (
+            <button
+              className={section === value ? 'active' : ''}
+              key={value}
+              onClick={() => setSection(value)}
+              type="button"
+            >
+              {label}
+            </button>
+          ))}
+        </motion>
+
+        <motion className="search-results">
           {!query.trim() && (
-            <div className="search-empty">
-              Start typing to search the full notes library.
-            </div>
+            <motion className="search-suggestions">
+              {recent.length > 0 && (
+                <motion className="search-suggestion-block">
+                  <span className="search-suggestion-label">Recent</span>
+                  <motion className="search-chip-row">
+                    {recent.map((item) => (
+                      <button key={item} onClick={() => runSearch(item)} type="button">
+                        {item}
+                      </button>
+                    ))}
+                  </motion>
+                </motion>
+              )}
+              <motion className="search-suggestion-block">
+                <span className="search-suggestion-label">Popular topics</span>
+                <motion className="search-chip-row">
+                  {QUICK_PICKS.map((pick) => (
+                    <button
+                      key={pick.label}
+                      onClick={() => runSearch(pick.query, { degree: pick.degree })}
+                      type="button"
+                    >
+                      {pick.label}
+                    </button>
+                  ))}
+                </motion>
+              </motion>
+              <p className="search-empty">Tip: use quotes for exact phrases, e.g. &quot;factor of safety&quot;</p>
+            </motion>
           )}
 
           {query.trim() && results.length === 0 && (
-            <div className="search-empty">
-              No results for &quot;{query}&quot;.
-            </div>
+            <motion className="search-empty">
+              No results for &quot;{query}&quot;. Try fewer words or a semester filter.
+            </motion>
           )}
 
           {results.map((item, index) => (
@@ -137,19 +208,28 @@ export default function SearchModal({ isOpen, onClose }) {
               className={index === selected ? 'search-result active' : 'search-result'}
               href={item.url}
               key={item.id}
+              onClick={() => saveRecentSearch(query)}
               onMouseEnter={() => setSelected(index)}
             >
-              <div className="search-result-top">
+              <motion className="search-result-top">
                 <span>{item.type}</span>
                 <strong>{item.tags.slice(0, 2).join(' / ')}</strong>
-              </div>
-              <h3>{item.title}</h3>
+              </motion>
+              <h3 dangerouslySetInnerHTML={{ __html: highlightMatch(item.title, query) }} />
               <p>{item.subtitle}</p>
               <em>{makeSnippet(item, query)}</em>
             </a>
           ))}
-        </div>
-      </div>
+        </motion>
+      </motion>
+    </motion>
+  );
+}
+
+function motion({ className, children, ...props }) {
+  return (
+    <div className={className} {...props}>
+      {children}
     </div>
   );
 }

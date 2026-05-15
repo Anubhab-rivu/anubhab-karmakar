@@ -4,7 +4,7 @@ import { Watermark } from '@/components/Watermark';
 
 export const metadata = {
   title: {
-    default: 'Anubhab Karmakar — Mechanical Engineering Lecturer',
+    default: 'Anubhab Karmakar - Mechanical Engineering Lecturer',
     template: '%s | AK Notes Library',
   },
   description:
@@ -22,7 +22,7 @@ export const metadata = {
   creator: 'Anubhab Karmakar',
   metadataBase: new URL('https://anubhab.dev'),
   openGraph: {
-    title: 'Anubhab Karmakar — Mechanical Engineering Lecturer',
+    title: 'Anubhab Karmakar - Mechanical Engineering Lecturer',
     description:
       'Interactive engineering notes and portfolio by Anubhab Karmakar, Lecturer at NHIT.',
     url: 'https://anubhab.dev',
@@ -32,7 +32,7 @@ export const metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Anubhab Karmakar — Mechanical Engineering Lecturer',
+    title: 'Anubhab Karmakar - Mechanical Engineering Lecturer',
     description:
       'Interactive engineering notes and portfolio by Anubhab Karmakar, Lecturer at NHIT.',
   },

@@ -1,10 +1,4 @@
-import Link from 'next/link';
-
-import BreadcrumbNav from './BreadcrumbNav';
-import DarkModeToggle from './DarkModeToggle';
 import ProgressTracker from './ProgressTracker';
-import SearchButton from './SearchButton';
-import ShareButton from './ShareButton';
 import SidebarTOC from './SidebarTOC';
 import SiteFooter from './SiteFooter';
 import SyllabusBar from './SyllabusBar';
@@ -32,22 +26,6 @@ export default function UnitLayout({
 
   return (
     <>
-      <nav className="top-nav">
-        <div className="top-nav-main">
-          <Link href="/library" className="brand-link">
-            <span className="brand-mark" aria-hidden="true">AK</span>
-            <span>AK Notes</span>
-          </Link>
-          <BreadcrumbNav />
-        </div>
-
-        <div className="nav-actions">
-          <SearchButton />
-          <DarkModeToggle />
-          <ShareButton title={`${unitTitle} - ${subject} | AK Notes`} />
-        </div>
-      </nav>
-
       <header className="page-header crosshatch-bg">
         <div className="header-inner">
           <div className="course-badge">

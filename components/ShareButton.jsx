@@ -45,7 +45,11 @@ export default function ShareButton({ title, text }) {
         title="Share this page"
         type="button"
       >
-        <span aria-hidden="true" className="share-glyph" />
+        <svg aria-hidden="true" className="action-svg share-action-svg" viewBox="0 0 24 24">
+          <path d="M12 3v12" />
+          <path d="M7 8l5-5 5 5" />
+          <path d="M5 13v6h14v-6" />
+        </svg>
         <span className="action-text">Share</span>
       </button>
       {showToast && (

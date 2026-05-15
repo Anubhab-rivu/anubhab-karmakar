@@ -94,27 +94,27 @@ export default function SearchModal({ isOpen, onClose }) {
   if (!isOpen) return null;
 
   return (
-    <motion className="search-overlay" onClick={onClose}>
-      <motion
+    <div className="search-overlay" onClick={onClose}>
+      <div
         aria-modal="true"
         className="search-panel"
         onClick={(e) => e.stopPropagation()}
         role="dialog"
       >
-        <motion className="search-input-row">
+        <div className="search-input-row">
           <span aria-hidden="true" className="search-modal-icon search-glyph" />
           <input
             aria-label="Search notes"
             ref={inputRef}
             type="search"
-            placeholder='Search units, formulas, labs… try "steam" or "unit 3"'
+            placeholder='Search formulas, labs, viva... try "steam", sem:4, unit:5'
             value={query}
             onChange={(e) => setQuery(e.target.value)}
           />
           <kbd>ESC</kbd>
-        </motion>
+        </div>
 
-        <motion className="search-filter-row" aria-label="Degree filter">
+        <div className="search-filter-row" aria-label="Degree filter">
           {degreeFilters.map(([value, label]) => (
             <button
               className={degree === value ? 'active' : ''}
@@ -125,9 +125,9 @@ export default function SearchModal({ isOpen, onClose }) {
               {label}
             </button>
           ))}
-        </motion>
+        </div>
 
-        <motion className="search-filter-row" aria-label="Type and semester filters">
+        <div className="search-filter-row" aria-label="Type and semester filters">
           {typeFilters.map(([value, label]) => (
             <button
               className={type === value ? 'active' : ''}
@@ -149,9 +149,9 @@ export default function SearchModal({ isOpen, onClose }) {
               {label}
             </button>
           ))}
-        </motion>
+        </div>
 
-        <motion className="search-filter-row search-filter-row-compact" aria-label="Section filter">
+        <div className="search-filter-row search-filter-row-compact" aria-label="Section filter">
           {SECTION_FILTERS.map(([value, label]) => (
             <button
               className={section === value ? 'active' : ''}
@@ -162,26 +162,26 @@ export default function SearchModal({ isOpen, onClose }) {
               {label}
             </button>
           ))}
-        </motion>
+        </div>
 
-        <motion className="search-results">
+        <div className="search-results">
           {!query.trim() && (
-            <motion className="search-suggestions">
+            <div className="search-suggestions">
               {recent.length > 0 && (
-                <motion className="search-suggestion-block">
+                <div className="search-suggestion-block">
                   <span className="search-suggestion-label">Recent</span>
-                  <motion className="search-chip-row">
+                  <div className="search-chip-row">
                     {recent.map((item) => (
                       <button key={item} onClick={() => runSearch(item)} type="button">
                         {item}
                       </button>
                     ))}
-                  </motion>
-                </motion>
+                  </div>
+                </div>
               )}
-              <motion className="search-suggestion-block">
+              <div className="search-suggestion-block">
                 <span className="search-suggestion-label">Popular topics</span>
-                <motion className="search-chip-row">
+                <div className="search-chip-row">
                   {QUICK_PICKS.map((pick) => (
                     <button
                       key={pick.label}
@@ -191,16 +191,20 @@ export default function SearchModal({ isOpen, onClose }) {
                       {pick.label}
                     </button>
                   ))}
-                </motion>
-              </motion>
-              <p className="search-empty">Tip: use quotes for exact phrases, e.g. &quot;factor of safety&quot;</p>
-            </motion>
+                </div>
+              </div>
+              <p className="search-empty">Advanced: use quotes plus filters like <strong>sem:4</strong>, <strong>unit:5</strong>, <strong>type:unit</strong>, <strong>section:lab</strong>.</p>
+            </div>
           )}
 
           {query.trim() && results.length === 0 && (
-            <motion className="search-empty">
+            <div className="search-empty">
               No results for &quot;{query}&quot;. Try fewer words or a semester filter.
-            </motion>
+            </div>
+          )}
+
+          {query.trim() && results.length > 0 && (
+            <div className="search-count">{results.length} strong matches for &quot;{query}&quot;</div>
           )}
 
           {results.map((item, index) => (
@@ -211,25 +215,17 @@ export default function SearchModal({ isOpen, onClose }) {
               onClick={() => saveRecentSearch(query)}
               onMouseEnter={() => setSelected(index)}
             >
-              <motion className="search-result-top">
+              <div className="search-result-top">
                 <span>{item.type}</span>
                 <strong>{item.tags.slice(0, 2).join(' / ')}</strong>
-              </motion>
+              </div>
               <h3 dangerouslySetInnerHTML={{ __html: highlightMatch(item.title, query) }} />
               <p>{item.subtitle}</p>
               <em>{makeSnippet(item, query)}</em>
             </a>
           ))}
-        </motion>
-      </motion>
-    </motion>
-  );
-}
-
-function motion({ className, children, ...props }) {
-  return (
-    <div className={className} {...props}>
-      {children}
+        </div>
+      </div>
     </div>
   );
 }

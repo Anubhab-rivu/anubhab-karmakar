@@ -6,7 +6,7 @@ import NoteBox from './NoteBox';
 import UnitLayout from './UnitLayout';
 import WorkedExample from './WorkedExample';
 import { SvgWatermark } from './Watermark';
-import { getUnitEnrichment } from '@/lib/diplomaContentBank';
+import { getUnitEnrichment, inferDiplomaFamily } from '@/lib/diplomaContentBank';
 import { getProgramData, getSubjectData, getUnitNav } from '@/lib/syllabus';
 
 const familyTests = [
@@ -262,37 +262,260 @@ function exampleFor(family, unitTitle) {
   return examples[family] || examples.mechanics;
 }
 
-function ModuleDiagram({ family, title }) {
-  const label = familyCopy[family]?.diagram || 'Engineering concept map';
+function shortLabel(value, max = 24) {
+  const text = String(value || '').replace(/\s+/g, ' ').trim();
+  return text.length > max ? `${text.slice(0, max - 1)}...` : text;
+}
+
+function DiagramShell({ family, title, label, children }) {
+  const arrowId = `arrow-${family}`;
 
   return (
-    <InteractiveDiagram caption={`${label}: ${title}`} maxWidth={640}>
-      <svg className={`module-svg module-svg-${family}`} viewBox="0 0 640 300" role="img" aria-label={label}>
-        <rect className="module-svg-bg" x="0" y="0" width="640" height="300" rx="10" />
+    <InteractiveDiagram caption={`${label}: ${title}`} maxWidth={760}>
+      <svg className={`module-svg module-svg-${family}`} viewBox="0 0 760 360" role="img" aria-label={label}>
+        <rect className="module-svg-bg" x="0" y="0" width="760" height="360" rx="10" />
         <defs>
-          <marker id={`arrow-${family}`} markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+          <marker id={arrowId} markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
             <path d="M0,0 L0,6 L8,3 z" className="module-svg-accent-fill" />
           </marker>
+          <linearGradient id={`wash-${family}`} x1="0%" x2="100%" y1="0%" y2="100%">
+            <stop offset="0%" className="module-stop-a" />
+            <stop offset="100%" className="module-stop-b" />
+          </linearGradient>
         </defs>
-        <text x="320" y="34" textAnchor="middle" className="module-svg-title">{label}</text>
-        <g transform="translate(72 72)">
-          <rect className="module-node module-node-a" x="0" y="56" width="132" height="68" rx="8" data-tooltip="Input, given data or raw condition" />
-          <text x="66" y="87" textAnchor="middle" className="module-node-text">Input</text>
-          <text x="66" y="106" textAnchor="middle" className="module-node-sub">known data</text>
-          <line className="module-flow" x1="140" y1="90" x2="238" y2="90" markerEnd={`url(#arrow-${family})`} />
-          <rect className="module-node module-node-b" x="246" y="20" width="132" height="140" rx="8" data-tooltip="Concept, formula, diagram or method" />
-          <text x="312" y="77" textAnchor="middle" className="module-node-text">Method</text>
-          <text x="312" y="98" textAnchor="middle" className="module-node-sub">formula + diagram</text>
-          <line className="module-flow" x1="386" y1="90" x2="484" y2="90" markerEnd={`url(#arrow-${family})`} />
-          <rect className="module-node module-node-c" x="492" y="56" width="132" height="68" rx="8" data-tooltip="Answer, inspected part or final engineering decision" />
-          <text x="558" y="87" textAnchor="middle" className="module-node-text">Decision</text>
-          <text x="558" y="106" textAnchor="middle" className="module-node-sub">answer/check</text>
-          <path className="module-feedback" d="M558 138 C520 214, 108 214, 66 138" markerEnd={`url(#arrow-${family})`} />
-          <text x="312" y="224" textAnchor="middle" className="module-node-sub">verify assumptions, units, safety and practical meaning</text>
-        </g>
+        <text x="380" y="34" textAnchor="middle" className="module-svg-title">{label}</text>
+        {children({ arrowId })}
         <SvgWatermark />
       </svg>
     </InteractiveDiagram>
+  );
+}
+
+function ModuleDiagram({ family, title, keywords }) {
+  const label = familyCopy[family]?.diagram || 'Engineering concept map';
+  const k1 = shortLabel(keywords[0] || title, 22);
+  const k2 = shortLabel(keywords[1] || 'method', 22);
+  const k3 = shortLabel(keywords[2] || 'checking', 22);
+
+  const diagrams = {
+    math: ({ arrowId }) => (
+      <g transform="translate(74 68)">
+        <rect className="module-panel" x="0" y="0" width="612" height="242" rx="12" />
+        <line className="module-axis" x1="72" y1="182" x2="250" y2="182" markerEnd={`url(#${arrowId})`} />
+        <line className="module-axis" x1="72" y1="182" x2="72" y2="42" markerEnd={`url(#${arrowId})`} />
+        <path className="module-curve" d="M78 170 C112 118, 146 98, 190 66 C216 48, 232 46, 250 58" data-tooltip="Graph or relation: convert words into a visual pattern" />
+        <circle className="module-pulse-dot" cx="190" cy="66" r="5" />
+        <rect className="module-node module-node-a" x="306" y="34" width="220" height="54" rx="8" data-tooltip="Given data and symbols" />
+        <text x="416" y="56" textAnchor="middle" className="module-node-text">{k1}</text>
+        <text x="416" y="74" textAnchor="middle" className="module-node-sub">given + unknown</text>
+        <line className="module-flow" x1="416" y1="94" x2="416" y2="126" markerEnd={`url(#${arrowId})`} />
+        <rect className="module-node module-node-b" x="306" y="132" width="220" height="54" rx="8" data-tooltip="Formula, theorem or standard method" />
+        <text x="416" y="154" textAnchor="middle" className="module-node-text">{k2}</text>
+        <text x="416" y="172" textAnchor="middle" className="module-node-sub">formula + steps</text>
+        <line className="module-flow" x1="416" y1="192" x2="416" y2="220" markerEnd={`url(#${arrowId})`} />
+        <text x="416" y="238" textAnchor="middle" className="module-node-sub">unit check to engineering meaning</text>
+      </g>
+    ),
+    electrical: ({ arrowId }) => (
+      <g transform="translate(78 72)">
+        <rect className="module-panel" x="0" y="0" width="604" height="236" rx="12" />
+        <path className="module-wire" d="M118 78 H270 V162 H118 Z" />
+        <line className="module-wire" x1="104" y1="104" x2="132" y2="104" />
+        <line className="module-wire" x1="112" y1="116" x2="124" y2="116" />
+        <rect className="module-node module-node-a" x="214" y="58" width="112" height="44" rx="7" data-tooltip="Control, switch or logic decision" />
+        <text x="270" y="84" textAnchor="middle" className="module-node-text">{k1}</text>
+        <circle className="module-node module-node-c module-pulse-node" cx="270" cy="162" r="32" data-tooltip="Load: motor, lamp, sensor or electronic device" />
+        <text x="270" y="167" textAnchor="middle" className="module-node-text">Load</text>
+        <line className="module-flow" x1="344" y1="120" x2="454" y2="120" markerEnd={`url(#${arrowId})`} />
+        <rect className="module-node module-node-b" x="468" y="70" width="104" height="100" rx="8" data-tooltip="Measure voltage, current, power, logic level or waveform" />
+        <text x="520" y="108" textAnchor="middle" className="module-node-text">{k2}</text>
+        <text x="520" y="130" textAnchor="middle" className="module-node-sub">measure/check</text>
+        <text x="302" y="214" textAnchor="middle" className="module-node-sub">source to protection to control to load to safe return</text>
+      </g>
+    ),
+    thermal: ({ arrowId }) => (
+      <g transform="translate(72 68)">
+        <rect className="module-panel" x="0" y="0" width="616" height="244" rx="12" />
+        {[
+          [92, 92, 'Boiler', 'module-node-a'],
+          [314, 72, 'Turbine', 'module-node-b'],
+          [314, 176, 'Condenser', 'module-node-c'],
+          [92, 176, 'Pump', 'module-node-a'],
+        ].map(([x, y, text, cls]) => (
+          <g key={text}>
+            <rect className={`module-node ${cls}`} x={x - 58} y={y - 28} width="116" height="56" rx="8" data-tooltip={`${text}: state change and energy transfer`} />
+            <text x={x} y={y + 5} textAnchor="middle" className="module-node-text">{text}</text>
+          </g>
+        ))}
+        <path className="module-flow" d="M150 92 H248" markerEnd={`url(#${arrowId})`} />
+        <path className="module-flow" d="M314 100 V142" markerEnd={`url(#${arrowId})`} />
+        <path className="module-flow" d="M256 176 H150" markerEnd={`url(#${arrowId})`} />
+        <path className="module-flow" d="M92 148 V120" markerEnd={`url(#${arrowId})`} />
+        <text x="500" y="80" textAnchor="middle" className="module-node-text">{k1}</text>
+        <text x="500" y="108" textAnchor="middle" className="module-node-sub">heat, work, loss</text>
+        <text x="500" y="142" textAnchor="middle" className="module-node-text">{k2}</text>
+        <text x="500" y="170" textAnchor="middle" className="module-node-sub">performance check</text>
+      </g>
+    ),
+    fluid: ({ arrowId }) => (
+      <g transform="translate(70 70)">
+        <rect className="module-panel" x="0" y="0" width="620" height="240" rx="12" />
+        <path className="module-water" d="M42 78 H156 V172 H42 Z" data-tooltip="Reservoir or inlet condition" />
+        <path className="module-pipe" d="M156 126 H294" />
+        <circle className="module-node module-node-b module-rotor" cx="330" cy="126" r="38" data-tooltip="Pump, turbine, valve or flow machine" />
+        <text x="330" y="132" textAnchor="middle" className="module-node-text">{k1}</text>
+        <path className="module-pipe" d="M368 126 H548" markerEnd={`url(#${arrowId})`} />
+        <path className="module-flow module-flow-soft" d="M218 86 C308 38, 446 54, 520 96" markerEnd={`url(#${arrowId})`} />
+        <text x="252" y="70" className="module-node-sub">pressure head</text>
+        <text x="440" y="154" className="module-node-sub">Q, H, losses, efficiency</text>
+        <rect className="module-node module-node-c" x="488" y="168" width="104" height="40" rx="8" data-tooltip="Measured output or design decision" />
+        <text x="540" y="193" textAnchor="middle" className="module-node-text">{k2}</text>
+      </g>
+    ),
+    manufacturing: ({ arrowId }) => (
+      <g transform="translate(70 74)">
+        <rect className="module-panel" x="0" y="0" width="620" height="232" rx="12" />
+        {[
+          [76, 116, 'Material', 'module-node-a', 'Raw stock and material condition'],
+          [232, 116, k1, 'module-node-b', 'Machine, tool, fixture and setting'],
+          [388, 116, 'Inspect', 'module-node-c', 'Dimension, finish, defect and safety check'],
+          [544, 116, 'Part', 'module-node-a', 'Accepted part, rework or rejection'],
+        ].map(([x, y, text, cls, tip], index) => (
+          <g key={`${text}-${index}`}>
+            <rect className={`module-node ${cls}`} x={x - 58} y={y - 34} width="116" height="68" rx="8" data-tooltip={tip} />
+            <text x={x} y={y - 2} textAnchor="middle" className="module-node-text">{text}</text>
+            <text x={x} y={y + 18} textAnchor="middle" className="module-node-sub">{index === 1 ? k2 : index === 2 ? k3 : 'shop link'}</text>
+          </g>
+        ))}
+        <line className="module-flow" x1="138" y1="116" x2="166" y2="116" markerEnd={`url(#${arrowId})`} />
+        <line className="module-flow" x1="294" y1="116" x2="322" y2="116" markerEnd={`url(#${arrowId})`} />
+        <line className="module-flow" x1="450" y1="116" x2="478" y2="116" markerEnd={`url(#${arrowId})`} />
+        <path className="module-feedback" d="M388 162 C326 210, 218 210, 232 162" markerEnd={`url(#${arrowId})`} />
+        <text x="310" y="208" textAnchor="middle" className="module-node-sub">defect to correction to better parameter</text>
+      </g>
+    ),
+    drawing: ({ arrowId }) => (
+      <g transform="translate(72 66)">
+        <rect className="module-panel" x="0" y="0" width="616" height="248" rx="12" />
+        <path className="module-cube-face" d="M92 92 L154 62 L226 96 L164 130 Z" data-tooltip="3D object: visualise before projecting" />
+        <path className="module-cube-side" d="M164 130 L226 96 L226 170 L164 206 Z" />
+        <path className="module-cube-front" d="M92 92 L164 130 L164 206 L92 166 Z" />
+        <text x="160" y="232" textAnchor="middle" className="module-node-sub">object</text>
+        <line className="module-flow" x1="258" y1="132" x2="318" y2="132" markerEnd={`url(#${arrowId})`} />
+        <rect className="module-node module-node-a" x="338" y="44" width="94" height="72" rx="6" data-tooltip="Front view chosen for maximum information" />
+        <rect className="module-node module-node-b" x="338" y="144" width="94" height="72" rx="6" data-tooltip="Top view aligned with front view" />
+        <rect className="module-node module-node-c" x="462" y="44" width="94" height="72" rx="6" data-tooltip="Side or section view where required" />
+        <text x="385" y="84" textAnchor="middle" className="module-node-text">Front</text>
+        <text x="385" y="184" textAnchor="middle" className="module-node-text">Top</text>
+        <text x="509" y="84" textAnchor="middle" className="module-node-text">Side</text>
+        <text x="448" y="226" textAnchor="middle" className="module-node-sub">{k1} to scale to dimensions to tolerance</text>
+      </g>
+    ),
+    materials: ({ arrowId }) => (
+      <g transform="translate(70 70)">
+        <rect className="module-panel" x="0" y="0" width="620" height="240" rx="12" />
+        <rect className="module-node module-node-a" x="36" y="76" width="124" height="72" rx="8" data-tooltip="Processing route: casting, forming, heat treatment or fabrication" />
+        <text x="98" y="106" textAnchor="middle" className="module-node-text">{k1}</text>
+        <text x="98" y="126" textAnchor="middle" className="module-node-sub">processing</text>
+        <line className="module-flow" x1="170" y1="112" x2="226" y2="112" markerEnd={`url(#${arrowId})`} />
+        <g transform="translate(250 48)" data-tooltip="Microstructure controls properties">
+          <rect className="module-node module-node-b" x="0" y="0" width="134" height="128" rx="8" />
+          <circle className="module-grain" cx="36" cy="36" r="18" />
+          <circle className="module-grain" cx="88" cy="44" r="24" />
+          <circle className="module-grain" cx="62" cy="88" r="26" />
+          <text x="67" y="118" textAnchor="middle" className="module-node-sub">microstructure</text>
+        </g>
+        <line className="module-flow" x1="396" y1="112" x2="452" y2="112" markerEnd={`url(#${arrowId})`} />
+        <rect className="module-node module-node-c" x="470" y="76" width="118" height="72" rx="8" data-tooltip="Strength, hardness, toughness, wear, corrosion and selection" />
+        <text x="529" y="106" textAnchor="middle" className="module-node-text">{k2}</text>
+        <text x="529" y="126" textAnchor="middle" className="module-node-sub">property + part</text>
+      </g>
+    ),
+    design: ({ arrowId }) => (
+      <g transform="translate(72 68)">
+        <rect className="module-panel" x="0" y="0" width="616" height="244" rx="12" />
+        {[
+          [116, 74, 'Load', 'module-node-a', 'External force, torque, pressure or duty cycle'],
+          [320, 74, 'Stress', 'module-node-b', 'Calculate stress, deflection, life or capacity'],
+          [500, 74, 'Size', 'module-node-c', 'Choose standard size and material'],
+          [320, 178, 'Safety', 'module-node-a', 'Check factor of safety, fatigue, wear and maintenance'],
+        ].map(([x, y, text, cls, tip]) => (
+          <g key={text}>
+            <rect className={`module-node ${cls}`} x={x - 62} y={y - 30} width="124" height="60" rx="8" data-tooltip={tip} />
+            <text x={x} y={y + 5} textAnchor="middle" className="module-node-text">{text}</text>
+          </g>
+        ))}
+        <line className="module-flow" x1="184" y1="74" x2="248" y2="74" markerEnd={`url(#${arrowId})`} />
+        <line className="module-flow" x1="390" y1="74" x2="430" y2="74" markerEnd={`url(#${arrowId})`} />
+        <path className="module-flow" d="M500 108 C500 184, 410 208, 354 188" markerEnd={`url(#${arrowId})`} />
+        <path className="module-feedback" d="M286 178 C184 184, 116 148, 116 108" markerEnd={`url(#${arrowId})`} />
+        <text x="320" y="224" textAnchor="middle" className="module-node-sub">{k1}: assumptions to calculation to standard choice to check</text>
+      </g>
+    ),
+    mechanics: ({ arrowId }) => (
+      <g transform="translate(72 66)">
+        <rect className="module-panel" x="0" y="0" width="616" height="248" rx="12" />
+        <rect className="module-body" x="132" y="104" width="178" height="58" rx="6" data-tooltip="Isolated body or machine element" />
+        <text x="221" y="138" textAnchor="middle" className="module-node-text">{k1}</text>
+        <line className="module-load" x1="221" y1="54" x2="221" y2="98" markerEnd={`url(#${arrowId})`} />
+        <text x="236" y="72" className="module-node-sub">load</text>
+        <line className="module-reaction" x1="160" y1="204" x2="160" y2="166" markerEnd={`url(#${arrowId})`} />
+        <line className="module-reaction" x1="282" y1="204" x2="282" y2="166" markerEnd={`url(#${arrowId})`} />
+        <path className="module-moment" d="M310 84 C358 68, 388 100, 372 142" markerEnd={`url(#${arrowId})`} />
+        <rect className="module-node module-node-b" x="420" y="54" width="132" height="64" rx="8" data-tooltip="Equilibrium, motion, stress or energy relation" />
+        <text x="486" y="80" textAnchor="middle" className="module-node-text">{k2}</text>
+        <text x="486" y="99" textAnchor="middle" className="module-node-sub">equations</text>
+        <rect className="module-node module-node-c" x="420" y="154" width="132" height="64" rx="8" data-tooltip="Reaction, stress, efficiency, motion or safe decision" />
+        <text x="486" y="180" textAnchor="middle" className="module-node-text">{k3}</text>
+        <text x="486" y="199" textAnchor="middle" className="module-node-sub">safe result</text>
+      </g>
+    ),
+    metrology: ({ arrowId }) => (
+      <g transform="translate(70 68)">
+        <rect className="module-panel" x="0" y="0" width="620" height="244" rx="12" />
+        <rect className="module-part" x="58" y="100" width="162" height="50" rx="20" data-tooltip="Workpiece feature to be measured" />
+        <path className="module-caliper" d="M254 62 V184 M254 92 H378 M254 154 H378 M378 92 V122 M378 154 V124" data-tooltip="Instrument, least count and alignment" />
+        <text x="138" y="180" textAnchor="middle" className="module-node-sub">{k1}</text>
+        <line className="module-flow" x1="398" y1="122" x2="458" y2="122" markerEnd={`url(#${arrowId})`} />
+        <rect className="module-node module-node-b" x="468" y="68" width="112" height="48" rx="7" data-tooltip="Measured value, mean and error" />
+        <text x="524" y="98" textAnchor="middle" className="module-node-text">Reading</text>
+        <rect className="module-node module-node-c" x="468" y="144" width="112" height="48" rx="7" data-tooltip="Compare with tolerance and decide acceptance" />
+        <text x="524" y="174" textAnchor="middle" className="module-node-text">Decision</text>
+        <text x="326" y="222" textAnchor="middle" className="module-node-sub">standard to least count to repeat readings to tolerance</text>
+      </g>
+    ),
+    management: ({ arrowId }) => (
+      <g transform="translate(70 70)">
+        <rect className="module-panel" x="0" y="0" width="620" height="240" rx="12" />
+        {[
+          [90, 70, 'Objective', 'module-node-a', 'Define the need or problem'],
+          [260, 70, 'Plan', 'module-node-b', 'Resources, people, time and risk'],
+          [430, 70, 'Action', 'module-node-c', 'Execute, communicate and monitor'],
+          [260, 170, 'Feedback', 'module-node-a', 'Measure, learn and improve'],
+        ].map(([x, y, text, cls, tip]) => (
+          <g key={text}>
+            <rect className={`module-node ${cls}`} x={x - 58} y={y - 28} width="116" height="56" rx="8" data-tooltip={tip} />
+            <text x={x} y={y + 5} textAnchor="middle" className="module-node-text">{text}</text>
+          </g>
+        ))}
+        <line className="module-flow" x1="152" y1="70" x2="194" y2="70" markerEnd={`url(#${arrowId})`} />
+        <line className="module-flow" x1="322" y1="70" x2="364" y2="70" markerEnd={`url(#${arrowId})`} />
+        <path className="module-flow" d="M430 102 C430 172, 356 188, 322 174" markerEnd={`url(#${arrowId})`} />
+        <path className="module-feedback" d="M198 170 C116 162, 90 126, 90 102" markerEnd={`url(#${arrowId})`} />
+        <rect className="module-gantt" x="468" y="138" width="100" height="12" rx="3" />
+        <rect className="module-gantt module-gantt-b" x="468" y="160" width="70" height="12" rx="3" />
+        <rect className="module-gantt module-gantt-c" x="468" y="182" width="118" height="12" rx="3" />
+        <text x="310" y="222" textAnchor="middle" className="module-node-sub">{k1}: decision, people, time, cost, ethics</text>
+      </g>
+    ),
+  };
+
+  const renderDiagram = diagrams[family] || diagrams.mechanics;
+
+  return (
+    <DiagramShell family={family} title={title} label={label}>
+      {renderDiagram}
+    </DiagramShell>
   );
 }
 
@@ -304,7 +527,7 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
   if (!program || !subject || !unit) return null;
 
   const { prev, next } = getUnitNav(degree, semester, subjectSlug, Number(unitNum));
-  const family = getFamily(subject, unit);
+  const family = inferDiplomaFamily(subject, unit);
   const keywords = getKeywords(unit.topics);
   const enrichment = getUnitEnrichment({
     semester,
@@ -349,6 +572,20 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
           definition={`This module studies <strong>${unit.topics}</strong>. The goal is to move from definitions to diagrams, then to formulas, applications, lab awareness and exam-ready answers.`}
           example={`In ${subject.label}, this unit connects classroom theory with workshop, drawing, laboratory, project or industry decisions.`}
         />
+        <div className="big-picture-grid">
+          <div className="big-picture-card">
+            <span>Core Question</span>
+            <p>What is being controlled, measured, calculated, drawn, designed or decided in this unit?</p>
+          </div>
+          <div className="big-picture-card">
+            <span>Mental Model</span>
+            <p>{enrichment.mentalModel}</p>
+          </div>
+          <div className="big-picture-card">
+            <span>Syllabus Scope</span>
+            <p>{unit.topics}</p>
+          </div>
+        </div>
         <NoteBox label="Curiosity spark">
           <p>{enrichment.curiosity}</p>
         </NoteBox>
@@ -370,6 +607,14 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
             <p>{enrichment.teacherOpener || copy.board}</p>
           </div>
         </div>
+        <div className="visual-memory-board" aria-label="Visual memory board">
+          {enrichment.fieldApplications.map((item) => (
+            <div className="visual-memory-card" key={item}>
+              <span />
+              <p>{item}</p>
+            </div>
+          ))}
+        </div>
       </section>
 
       <section className="section" id="outcomes">
@@ -390,7 +635,7 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
           <div className="sec-num">3</div>
           <h2 id="diagram-title">Interactive Diagram</h2>
         </div>
-        <ModuleDiagram family={family} title={unit.title} />
+        <ModuleDiagram family={family} title={unit.title} keywords={keywords} />
         <NoteBox label="How to read the diagram">
           <p>
             Hover the blocks to trace the learning flow. Start from the given data or physical situation, pass it
@@ -422,6 +667,33 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
             ))}
           </tbody>
         </table>
+        <div className="deep-note-grid">
+          <div className="info-card">
+            <h4>Method Ladder</h4>
+            <ol className="mini-steps">
+              {enrichment.methodSteps.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </div>
+          <div className="info-card">
+            <h4>Answer Builder</h4>
+            <ol className="mini-steps">
+              {enrichment.answerTemplate.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </div>
+        </div>
+        <div className="concept-check-grid">
+          {enrichment.concepts.slice(0, 4).map((row) => (
+            <article key={`${row.concept}-checkpoint`} className="concept-check-card">
+              <strong>{row.concept}</strong>
+              <p>{row.connect}</p>
+              <em>{row.checkpoint}</em>
+            </article>
+          ))}
+        </div>
         <div className="highlight-band">
           <h4>Memory Frame</h4>
           <p>
@@ -487,6 +759,29 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
             </p>
           </div>
         </div>
+        <div className="deep-note-grid">
+          <div className="info-card">
+            <h4>Lab / Practical Checklist</h4>
+            <ul className="bullet-list compact-list">
+              {enrichment.labChecklist.map((item) => (
+                <li key={item}>{item}</li>
+              ))}
+            </ul>
+          </div>
+          <div className="info-card">
+            <h4>Teacher Board Plan</h4>
+            <ol className="mini-steps">
+              {enrichment.teacherBoardPlan.map((step) => (
+                <li key={step}>{step}</li>
+              ))}
+            </ol>
+          </div>
+        </div>
+        <div className="revision-strip">
+          {enrichment.revisionDrills.map((drill) => (
+            <span key={drill}>{drill}</span>
+          ))}
+        </div>
       </section>
 
       <section className="section" id="questions">
@@ -526,6 +821,14 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
             ))}
           </ul>
         </div>
+        <div className="question-box" style={{ marginTop: 14 }}>
+          <div className="q-label">Viva Sparks</div>
+          <ul>
+            {enrichment.practice.viva.map((q) => (
+              <li key={q}>{q}</li>
+            ))}
+          </ul>
+        </div>
       </section>
 
       <section className="section" id="sources">
@@ -538,7 +841,7 @@ export default function DiplomaDeepUnitPage({ degree = 'diploma', semester, subj
           structure. These notes are expanded classroom study material, not a replacement for the official syllabus PDF.
         </p>
         <div className="source-grid">
-          {(program.sources || []).slice(0, 8).map((source) => (
+          {(program.sources || []).map((source) => (
             <a href={source.url} key={source.url} target="_blank" rel="noreferrer">
               {source.label}
             </a>

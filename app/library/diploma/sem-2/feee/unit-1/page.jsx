@@ -1,8 +1,6 @@
 import DiplomaDeepUnitPage from '@/components/DiplomaDeepUnitPage';
 
-export const metadata = { title: 'Unit 1 | AK Notes Library' };
-
-export default function DiplomaSem2FeeeUnit1() {
+export default function Page() {
   return (
     <DiplomaDeepUnitPage
       degree="diploma"

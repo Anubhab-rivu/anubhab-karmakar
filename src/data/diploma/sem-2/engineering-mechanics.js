@@ -1,469 +1,663 @@
-import { makeSubject } from '../unitFactory';
+const board = 'WBSCTE/WBSCTVESD';
 
-export const subject = makeSubject({
-  "slug": "engineering-mechanics",
-  "title": "Engineering Mechanics",
-  "code": "ES-ME",
-  "semester": "sem-2",
-  "credits": 3,
-  "category": "Engineering Science",
-  "family": "mechanics",
-  "lectureHours": 4,
-  "tutorialHours": 2
-}, [
-  {
-    "title": "Basics and Force Systems",
-    "syllabusTopics": [
-      "Mechanics statics and dynamics",
-      "Scalar and vector quantities",
-      "SI base and derived units",
-      "Force magnitude direction point and line of action",
-      "Bow notation",
-      "Law of transmissibility",
-      "Collinear force system",
-      "Coplanar concurrent force system",
-      "Coplanar parallel force system",
-      "Non-coplanar force system",
-      "Parallelogram law",
-      "Triangle law",
-      "Polygon law",
-      "Resolution into components",
-      "Resultant by resolved parts"
-    ],
-    "interactiveType": "Friction"
-  },
-  {
-    "title": "Moments and Couples",
-    "syllabusTopics": [
-      "Moment of a force",
-      "Clockwise and counter-clockwise sign convention",
-      "Varignon theorem with proof",
-      "Resultant of like parallel forces",
-      "Resultant of unlike parallel forces",
-      "Couple and arm of couple",
-      "Moment of a couple",
-      "Properties of a couple",
-      "Force-couple equivalent system",
-      "Resolution of a force into force and couple"
-    ],
-    "interactiveType": "SFDBMD"
-  },
-  {
-    "title": "Equilibrium of Forces",
-    "syllabusTopics": [
-      "Equilibrium equations",
-      "Lami theorem statement and proof",
-      "Triangle law of equilibrium",
-      "Polygon law of equilibrium",
-      "Free body diagram procedure",
-      "Pin support reactions",
-      "Roller support reactions",
-      "Fixed support reactions",
-      "Concurrent force analysis",
-      "Beam reactions",
-      "Overhanging beams",
-      "Cantilever beams",
-      "Three-force members",
-      "Jib crane analysis"
-    ],
-    "interactiveType": "SFDBMD"
-  },
-  {
-    "title": "Friction",
-    "syllabusTopics": [
-      "Friction force",
-      "Normal reaction",
-      "Coefficient of friction",
-      "Coulomb laws of static friction",
-      "Limiting friction",
-      "Static and kinetic coefficients",
-      "Angle of friction",
-      "Angle of repose",
-      "Cone of friction",
-      "Horizontal plane equilibrium",
-      "Inclined plane with force parallel to plane",
-      "Inclined plane with horizontal force",
-      "Inclined plane with force at angle",
-      "Wedge friction",
-      "Ladder friction"
-    ],
-    "interactiveType": "Friction"
-  },
-  {
-    "title": "Centroid and Centre of Gravity",
-    "syllabusTopics": [
-      "Centroid definition",
-      "Centre of gravity definition",
-      "Centroid of rectangle",
-      "Centroid of triangle",
-      "Centroid of semicircle",
-      "Centroid of quarter circle",
-      "Centroid of circular sector",
-      "Composite area method of moments",
-      "Cutout sections",
-      "T section",
-      "I section",
-      "L section",
-      "Channel section",
-      "Z section",
-      "CG of hemisphere cone and cylinder"
-    ],
-    "interactiveType": "Centroid"
-  },
-  {
-    "title": "Simple Lifting Machines",
-    "syllabusTopics": [
-      "Mechanical Advantage MA",
-      "Velocity Ratio VR",
-      "Efficiency of machines",
-      "Law of machine P = mW + C",
-      "Reversibility and self-locking",
-      "Wheel and axle",
-      "Differential wheel and axle",
-      "Worm and worm wheel",
-      "Single purchase crab winch",
-      "Double purchase crab winch",
-      "Triple purchase crab winch",
-      "Simple pulley block",
-      "Compound pulley block",
-      "Simple screw jack",
-      "Differential screw jack"
-    ],
-    "interactiveType": "PulleyBlock",
-    "formulas": [
-      {
-        "name": "Mechanical Advantage",
-        "latex": "MA=\\frac{W}{P}",
-        "description": "Actual load lifted per unit effort.",
-        "symbols": [
-          {
-            "symbol": "W",
-            "name": "load",
-            "unit": "N"
-          },
-          {
-            "symbol": "P",
-            "name": "effort",
-            "unit": "N"
-          }
-        ]
-      },
-      {
-        "name": "Velocity Ratio",
-        "latex": "VR=\\frac{y}{x}",
-        "description": "Distance moved by effort divided by distance moved by load.",
-        "symbols": [
-          {
-            "symbol": "y",
-            "name": "effort movement",
-            "unit": "m"
-          },
-          {
-            "symbol": "x",
-            "name": "load movement",
-            "unit": "m"
-          }
-        ]
-      },
-      {
-        "name": "Efficiency",
-        "latex": "\\eta=\\frac{MA}{VR}\\times100\\%",
-        "description": "Useful work output as a percentage of input work.",
-        "symbols": [
-          {
-            "symbol": "MA",
-            "name": "mechanical advantage",
-            "unit": "none"
-          },
-          {
-            "symbol": "VR",
-            "name": "velocity ratio",
-            "unit": "none"
-          }
-        ]
-      },
-      {
-        "name": "Law of Machine",
-        "latex": "P=mW+C",
-        "description": "Experimental straight-line relation between effort and load.",
-        "symbols": [
-          {
-            "symbol": "m",
-            "name": "machine constant",
-            "unit": "none"
-          },
-          {
-            "symbol": "C",
-            "name": "friction effort at zero load",
-            "unit": "N"
-          }
-        ]
-      },
-      {
-        "name": "Screw Jack VR",
-        "latex": "VR=\\frac{2\\pi L}{p}",
-        "description": "Handle circumference divided by screw advance per turn.",
-        "symbols": [
-          {
-            "symbol": "L",
-            "name": "handle radius",
-            "unit": "mm"
-          },
-          {
-            "symbol": "p",
-            "name": "thread pitch",
-            "unit": "mm"
-          }
-        ]
-      },
-      {
-        "name": "Pulley Block VR",
-        "latex": "VR=2n",
-        "description": "n movable pulleys give 2n supporting rope segments.",
-        "symbols": [
-          {
-            "symbol": "n",
-            "name": "number of movable pulleys",
-            "unit": "none"
-          }
-        ]
-      },
-      {
-        "name": "Wheel and Axle VR",
-        "latex": "VR=\\frac{D}{d}",
-        "description": "Wheel diameter divided by axle diameter.",
-        "symbols": [
-          {
-            "symbol": "D",
-            "name": "wheel diameter",
-            "unit": "mm"
-          },
-          {
-            "symbol": "d",
-            "name": "axle diameter",
-            "unit": "mm"
-          }
-        ]
-      },
-      {
-        "name": "Self-locking condition",
-        "latex": "\\eta\\le50\\%",
-        "description": "Machine does not run backward when effort is removed.",
-        "symbols": [
-          {
-            "symbol": "\\eta",
-            "name": "efficiency",
-            "unit": "percent"
-          }
-        ]
-      }
-    ],
-    "workedExamples": [
-      {
-        "title": "Pulley Block: effort and efficiency",
-        "given": [
-          "Load W = 2400 N",
-          "Number of movable pulleys n = 3",
-          "Effort P = 500 N"
-        ],
-        "find": "VR, MA, efficiency and locking condition",
-        "solution": [
-          {
-            "step": 1,
-            "text": "VR = 2n = 2 x 3 = 6"
-          },
-          {
-            "step": 2,
-            "text": "MA = W/P = 2400/500 = 4.8"
-          },
-          {
-            "step": 3,
-            "text": "eta = MA/VR x 100 = 4.8/6 x 100 = 80%"
-          },
-          {
-            "step": 4,
-            "text": "Since eta is greater than 50%, the machine is reversible."
-          }
-        ],
-        "answer": "VR = 6, MA = 4.8, efficiency = 80%, reversible.",
-        "examTip": "Show formula, substitution and unit check for full method marks."
-      },
-      {
-        "title": "Screw Jack: effort to lift a car",
-        "given": [
-          "Load W = 15 kN = 15000 N",
-          "Pitch p = 6 mm",
-          "Handle radius L = 300 mm",
-          "Efficiency eta = 35%"
-        ],
-        "find": "Velocity ratio and effort",
-        "solution": [
-          {
-            "step": 1,
-            "text": "VR = 2 pi L/p = 2 pi x 300/6 = 314.16"
-          },
-          {
-            "step": 2,
-            "text": "MA = eta x VR = 0.35 x 314.16 = 109.96"
-          },
-          {
-            "step": 3,
-            "text": "P = W/MA = 15000/109.96 = 136.4 N"
-          },
-          {
-            "step": 4,
-            "text": "eta is less than 50%, so the jack is self-locking."
-          }
-        ],
-        "answer": "P = 136.4 N and VR = 314.16.",
-        "examTip": "Show formula, substitution and unit check for full method marks."
-      },
-      {
-        "title": "Law of Machine: find m, C and efficiency",
-        "given": [
-          "At W = 500 N, P = 60 N",
-          "At W = 1500 N, P = 150 N",
-          "VR = 20"
-        ],
-        "find": "Law constants and efficiency at W = 1000 N",
-        "solution": [
-          {
-            "step": 1,
-            "text": "60 = 500m + C and 150 = 1500m + C"
-          },
-          {
-            "step": 2,
-            "text": "Subtract: 90 = 1000m, so m = 0.09"
-          },
-          {
-            "step": 3,
-            "text": "C = 60 - 0.09 x 500 = 15 N"
-          },
-          {
-            "step": 4,
-            "text": "At W = 1000 N, P = 0.09 x 1000 + 15 = 105 N"
-          },
-          {
-            "step": 5,
-            "text": "MA = 1000/105 = 9.52 and eta = 9.52/20 x 100 = 47.6%"
-          }
-        ],
-        "answer": "Law: P = 0.09W + 15. Efficiency at 1000 N = 47.6%, self-locking.",
-        "examTip": "Show formula, substitution and unit check for full method marks."
-      }
-    ],
-    "machines": [
-      {
-        "name": "Wheel and Axle",
-        "description": "A large wheel is keyed to a small axle; effort at the wheel rim lifts a load on the axle rope.",
-        "vrFormula": "VR = D/d",
-        "applications": [
-          "winch",
-          "steering gear",
-          "carpenter brace"
-        ],
-        "diagramRef": "axle-wheel.svg"
-      },
-      {
-        "name": "Compound Pulley Block",
-        "description": "Movable pulleys multiply supporting rope segments, reducing effort at the cost of longer effort movement.",
-        "vrFormula": "VR = 2n",
-        "applications": [
-          "chain hoist",
-          "engine lifting",
-          "sailing rigging"
-        ],
-        "diagramRef": "pulley-block-triple.svg"
-      },
-      {
-        "name": "Worm and Worm Wheel",
-        "description": "A screw-like worm drives a toothed wheel at right angles and usually becomes self-locking.",
-        "vrFormula": "VR = T for a single-start worm before drum ratio",
-        "applications": [
-          "hoists",
-          "steering box",
-          "lifting tables"
-        ],
-        "diagramRef": "worm-wheel.svg"
-      },
-      {
-        "name": "Simple Screw Jack",
-        "description": "A screw raises the load by one pitch for each handle revolution.",
-        "vrFormula": "VR = 2 pi L/p",
-        "applications": [
-          "vehicle jack",
-          "screw press",
-          "machine levelling"
-        ],
-        "diagramRef": "screw-jack.svg"
-      }
-    ],
-    "staticDiagrams": [
-      {
-        "file": "pulley-block-triple.svg",
-        "caption": "Triple movable pulley block with six supporting rope segments.",
-        "labels": [
-          "Fixed block",
-          "Movable block",
-          "Load W",
-          "Effort P"
-        ]
-      },
-      {
-        "file": "screw-jack.svg",
-        "caption": "Screw jack cross-section showing handle radius and pitch.",
-        "labels": [
-          "Handle L",
-          "Pitch p",
-          "Load table",
-          "Base"
-        ]
-      },
-      {
-        "file": "worm-wheel.svg",
-        "caption": "Worm and worm wheel hoist arrangement.",
-        "labels": [
-          "Worm",
-          "Wheel teeth",
-          "Load drum",
-          "Self-locking"
-        ]
-      },
-      {
-        "file": "crab-winch.svg",
-        "caption": "Crab winch gear reduction and load drum.",
-        "labels": [
-          "Handle",
-          "Pinion",
-          "Gear",
-          "Drum"
-        ]
-      }
-    ]
-  },
-  {
-    "title": "Motion in a Plane",
-    "syllabusTopics": [
-      "Displacement velocity and acceleration",
-      "Rectilinear equations of motion",
-      "Velocity-time diagram",
-      "Area under v-t curve",
-      "Newton second law",
-      "Atwood machine",
-      "Bodies on inclined planes",
-      "Momentum",
-      "Impulse-momentum theorem",
-      "Projectile motion",
-      "Range time of flight and maximum height",
-      "Trajectory equation",
-      "Angular displacement velocity and acceleration",
-      "Centripetal and centrifugal force",
-      "Work power and energy",
-      "Work-energy theorem",
-      "Conservation of energy"
-    ],
-    "interactiveType": "SliderCrank"
-  }
-]);
+export const subject = {
+  slug: 'engineering-mechanics',
+  title: 'Engineering Mechanics',
+  code: 'ES-ME',
+  semester: 'sem-2',
+  semesterNumber: 2,
+  credits: 3,
+  category: 'Engineering Science',
+  family: 'mechanics',
+  lectureHours: 4,
+  tutorialHours: 2,
+  units: [
+    {
+      id: 'sem-2-em-unit-1',
+      slug: 'unit-1',
+      num: 1,
+      title: 'Basics and Force Systems',
+      subject: 'Engineering Mechanics',
+      subjectCode: 'ES-ME',
+      semester: 2,
+      credits: 3,
+      board,
+      lectureHours: 5,
+      tutorialHours: 2,
+      family: 'mechanics',
+      syllabusTopics: [
+        'Mechanics, statics and dynamics',
+        'Scalar and vector quantities',
+        'SI base and derived units',
+        'Force magnitude, direction, point and line of action',
+        'Bow notation',
+        'Law of transmissibility',
+        'Collinear force system',
+        'Coplanar concurrent force system',
+        'Coplanar parallel force system',
+        'Non-coplanar force system',
+        'Parallelogram law',
+        'Triangle law',
+        'Polygon law',
+        'Resolution into components',
+        'Resultant by resolved parts',
+      ],
+      introduction: `
+Engineering Mechanics is the first subject where you stop treating force as only a number and start treating it as an action with magnitude, direction, point of application and line of action. In Unit 1 the main skill is to convert a physical situation into a clean force system. A crane hook, a truss joint, a bracket bolt and a trolley being pulled by a rope are all solved only after their forces are represented correctly.
+
+Statics studies bodies at rest or in uniform motion; dynamics studies bodies whose motion changes. Before equilibrium can be written, forces must be composed or resolved. The resolved-parts method is the most reliable board-exam method because every force is split into x and y components, then added algebraically. In WBSCTE exams this unit appears as 2-mark definitions, 5-mark force-system classification and 10-mark resultant numericals. The expected answer structure is force diagram, component table, summation, resultant magnitude and direction.
+      `,
+      concepts: [
+        {
+          term: 'Mechanics',
+          definition: 'Mechanics is the branch of science that studies forces and their effects on bodies at rest or in motion.',
+          deepExplanation: `In diploma mechanics you use mechanics to decide whether a body will remain in equilibrium, start moving, accelerate, rotate or fail at a support. Statics is used for beams, frames and lifting machines when acceleration is zero. Dynamics is used for projectiles, connected bodies and circular motion when acceleration is present. Students often treat mechanics as formula substitution, but the subject begins with a free body and a sign convention. Its quantities use SI units such as N, kg, m, s and N m. In WBSCTE board exams, this topic appears as 2-mark definitions; the expected answer structure is definition, division into statics and dynamics, and one engineering example.`,
+          commonMistake: 'Starting a numerical without first deciding whether it is statics or dynamics.',
+          formula: 'Statics: acceleration = 0; Dynamics: resultant force = ma',
+          unit_: 'depends on quantity',
+          diagramRef: 'fbd-concurrent.svg',
+        },
+        {
+          term: 'Scalar and Vector Quantities',
+          definition: 'A scalar has magnitude only, while a vector has magnitude and direction and follows vector addition laws.',
+          deepExplanation: `Mass, time, temperature, work, speed, area, volume, density, energy and power are common scalars. Force, displacement, velocity, acceleration, momentum, impulse, weight, reaction, moment arm direction and angular velocity are treated as vectors in mechanics. The physical intuition is simple: if direction changes the answer, it is a vector. Students often call speed and velocity the same; speed has no direction, velocity has direction. Units vary, for example force is N and velocity is m/s. In WBSCTE exams this appears as 2-mark lists and 5-mark explanations; write at least five examples with units.`,
+          commonMistake: 'Adding vector magnitudes arithmetically when they are not in the same direction.',
+          formula: 'Vector resultant requires direction-sensitive addition.',
+          unit_: 'quantity-specific SI unit',
+          diagramRef: 'fbd-concurrent.svg',
+        },
+        {
+          term: 'Force',
+          definition: 'Force is an external action that can change or tend to change the state of rest, motion or shape of a body.',
+          deepExplanation: `A force is completely known only when magnitude, direction, point of application and line of action are specified. A 100 N force at a hinge and a 100 N force at a handle may have very different turning effects because their lines of action differ. In workshop language, pushing a spanner near the nut is not the same as pushing at the handle end. Students often write only the magnitude and lose the moment effect. Force is measured in newton. In WBSCTE exams this appears as 2-mark definition and as the first step of every numerical; draw the arrow, label its angle and point of application.`,
+          commonMistake: 'Ignoring point of application and line of action.',
+          formula: 'F = ma in dynamics',
+          unit_: 'N',
+          diagramRef: 'fbd-concurrent.svg',
+        },
+        {
+          term: 'Law of Transmissibility',
+          definition: 'For a rigid body, a force may be moved anywhere along its own line of action without changing the external effect on the body.',
+          deepExplanation: `If you pull a rigid rod along the same straight line, the external equilibrium is unchanged whether the arrow is drawn at one point or another on that line. This helps simplify force diagrams. The law does not say you may shift the force to a parallel line; that would change the moment. It also does not apply directly to internal stress distribution in deformable bodies. The quantity has no unit because it is a principle. In WBSCTE exams this appears as a 2-mark statement or 5-mark explanation with sketch; the expected answer must mention rigid body and same line of action.`,
+          commonMistake: 'Moving a force to a parallel line and claiming moment is unchanged.',
+          formula: 'Moment remains same only if perpendicular distance to point is unchanged.',
+          unit_: 'not applicable',
+          diagramRef: 'fbd-concurrent.svg',
+        },
+        {
+          term: 'Resolved Parts Method',
+          definition: 'The resolved parts method finds the resultant of several forces by summing their horizontal and vertical components.',
+          deepExplanation: `Each inclined force is replaced by Fx = F cos theta and Fy = F sin theta with signs based on direction. Then Sigma Fx and Sigma Fy form the two sides of a right triangle whose hypotenuse is the resultant. This method is the safest for three or more concurrent forces because it avoids drawing-scale errors. Students often use sin and cos with the wrong reference axis; theta must be measured from the axis used in the formula. Components are in newtons. In WBSCTE exams this appears as 10-mark numericals; use a table with Force, angle, Fx and Fy.`,
+          commonMistake: 'Using positive signs for all components even when a force points left or downward.',
+          formula: 'R = sqrt((Sigma Fx)^2 + (Sigma Fy)^2)',
+          unit_: 'N',
+          diagramRef: 'fbd-concurrent.svg',
+        },
+      ],
+      formulas: [
+        { name: 'Rectangular components', latex: 'F_x=F\\cos\\theta,\\quad F_y=F\\sin\\theta', description: 'Components when theta is measured from x-axis.', symbols: [{ symbol: 'F', name: 'force', unit: 'N' }, { symbol: '\\theta', name: 'angle from x-axis', unit: 'degree' }] },
+        { name: 'Resultant by components', latex: 'R=\\sqrt{(\\Sigma F_x)^2+(\\Sigma F_y)^2}', description: 'Magnitude of resultant concurrent force.', symbols: [{ symbol: 'R', name: 'resultant force', unit: 'N' }] },
+        { name: 'Direction of resultant', latex: '\\tan\\alpha=\\frac{\\Sigma F_y}{\\Sigma F_x}', description: 'Angle of resultant from positive x-axis.', symbols: [{ symbol: '\\alpha', name: 'resultant angle', unit: 'degree' }] },
+        { name: 'Parallelogram law', latex: 'R=\\sqrt{P^2+Q^2+2PQ\\cos\\theta}', description: 'Resultant of two forces with included angle theta.', symbols: [{ symbol: 'P,Q', name: 'two forces', unit: 'N' }] },
+        { name: 'Resultant direction for two forces', latex: '\\tan\\alpha=\\frac{Q\\sin\\theta}{P+Q\\cos\\theta}', description: 'Direction of resultant measured from P.', symbols: [{ symbol: '\\alpha', name: 'angle from P', unit: 'degree' }] },
+        { name: 'Dynamic force relation', latex: 'F=ma', description: 'Used when acceleration is present.', symbols: [{ symbol: 'm', name: 'mass', unit: 'kg' }, { symbol: 'a', name: 'acceleration', unit: 'm/s^2' }] },
+      ],
+      workedExamples: [
+        {
+          title: 'Resultant of two forces by parallelogram law',
+          given: ['P = 60 N', 'Q = 80 N', 'Included angle theta = 60 degree'],
+          find: 'Magnitude and direction of resultant',
+          solution: [
+            { step: 1, text: 'R = sqrt(P2 + Q2 + 2PQ cos theta).' },
+            { step: 2, text: 'R = sqrt(60^2 + 80^2 + 2 x 60 x 80 x cos 60) = sqrt(14800) = 121.7 N.' },
+            { step: 3, text: 'tan alpha = Q sin theta/(P + Q cos theta) = 80 sin60/(60 + 80 cos60) = 0.6928.' },
+            { step: 4, text: 'alpha = 34.7 degree from the 60 N force.' },
+          ],
+          answer: 'Resultant = 121.7 N at 34.7 degree from the 60 N force.',
+          examTip: 'Mention from which force the angle is measured.',
+        },
+        {
+          title: 'Resultant by resolved parts',
+          given: ['F1 = 100 N at 0 degree', 'F2 = 80 N at 120 degree', 'F3 = 60 N at 240 degree'],
+          find: 'Resultant force',
+          solution: [
+            { step: 1, text: 'Sigma Fx = 100 cos0 + 80 cos120 + 60 cos240 = 100 - 40 - 30 = 30 N.' },
+            { step: 2, text: 'Sigma Fy = 100 sin0 + 80 sin120 + 60 sin240 = 0 + 69.28 - 51.96 = 17.32 N.' },
+            { step: 3, text: 'R = sqrt(30^2 + 17.32^2) = 34.64 N.' },
+            { step: 4, text: 'alpha = tan^-1(17.32/30) = 30 degree above +x axis.' },
+          ],
+          answer: 'R = 34.64 N at 30 degree above positive x-axis.',
+          examTip: 'A component table prevents sign mistakes.',
+        },
+        {
+          title: 'Resolve an inclined pull',
+          given: ['Pull P = 500 N', 'Angle with horizontal = 30 degree'],
+          find: 'Horizontal and vertical components',
+          solution: [
+            { step: 1, text: 'Horizontal component Px = P cos30 = 500 x 0.866 = 433 N.' },
+            { step: 2, text: 'Vertical component Py = P sin30 = 500 x 0.5 = 250 N.' },
+            { step: 3, text: 'The horizontal component pulls the trolley; the vertical component changes normal reaction.' },
+          ],
+          answer: 'Px = 433 N and Py = 250 N upward.',
+          examTip: 'State whether the vertical component is upward or downward.',
+        },
+      ],
+      interactiveDiagram: { type: 'Friction', description: 'Use the force arrows to practise resolving inclined forces and observing normal reaction changes.', controls: [{ label: 'Force angle', type: 'slider', min: 0, max: 90, step: 5 }], outputs: ['Fx', 'Fy', 'Resultant'] },
+      staticDiagrams: [
+        { file: 'fbd-concurrent.svg', caption: 'Concurrent force system with labelled lines of action.', labels: ['Force', 'Line of action', 'Point of application', 'Resultant'] },
+        { file: 'lami-theorem.svg', caption: 'Triangle of forces used after force composition basics.', labels: ['P', 'Q', 'R', 'Angles'] },
+        { file: 'friction-inclined-plane.svg', caption: 'Inclined force components preview for friction unit.', labels: ['W sin theta', 'W cos theta', 'Normal', 'Friction'] },
+      ],
+      comparisonTable: { title: 'Force System Types', headers: ['System', 'Meaning', 'Example', 'Best method'], rows: [['Collinear', 'same straight line', 'two people pulling rope', 'algebraic sum'], ['Coplanar concurrent', 'meet at one point', 'forces at a ring', 'resolved parts'], ['Coplanar parallel', 'parallel lines in one plane', 'beam loads', 'moments'], ['Non-coplanar', 'different planes', 'space frame', '3D vector method']] },
+      vivaBank: [
+        { question: 'Give five scalar quantities in mechanics.', answer: 'Mass, time, speed, work and energy are scalars because direction is not required.' },
+        { question: 'Give five vector quantities in mechanics.', answer: 'Force, displacement, velocity, acceleration and momentum are vectors.' },
+        { question: 'What are the four characteristics of a force?', answer: 'Magnitude, direction, point of application and line of action.' },
+        { question: 'State law of transmissibility.', answer: 'For a rigid body, a force can be moved along its line of action without changing external effect.' },
+        { question: 'Resolve 100 N at 60 degree into horizontal component.', answer: 'Fx = 100 cos60 = 50 N.' },
+        { question: 'Resolve 100 N at 60 degree into vertical component.', answer: 'Fy = 100 sin60 = 86.6 N.' },
+        { question: 'What is a coplanar concurrent force system?', answer: 'Forces lie in one plane and their lines of action meet at one point.' },
+        { question: 'What unit is used for force?', answer: 'The SI unit of force is newton, N.' },
+      ],
+      previousYearQuestions: [
+        { year: 2025, marks: 2, question: 'Define scalar and vector quantities with examples.' },
+        { year: 2024, marks: 5, question: 'State and explain law of transmissibility.' },
+        { year: 2023, marks: 10, question: 'Find resultant of a system of concurrent forces by resolved parts.' },
+        { year: 2022, marks: 5, question: 'State parallelogram law of forces and derive resultant formula.' },
+      ],
+      labSheet: { experimentName: 'Verification of Parallelogram Law of Forces', aim: 'To verify that the resultant of two concurrent forces is represented by the diagonal of a parallelogram.', apparatus: ['force board', 'pulleys', 'strings', 'slotted weights', 'drawing sheet'], theory: 'For two forces P and Q at included angle theta, R = sqrt(P2 + Q2 + 2PQ cos theta).', procedure: ['Set two strings with known loads.', 'Adjust third string to balance the ring at centre.', 'Trace force directions.', 'Draw parallelogram to scale.', 'Compare graphical resultant with balancing load.', 'Repeat for another angle.'], observationTable: { headers: ['Trial', 'P', 'Q', 'Angle', 'Graphical R', 'Balancing load'], rows: 4 }, precautions: ['Keep pulleys frictionless.', 'Set ring exactly at centre.', 'Use a clear scale.', 'Avoid parallax while reading angles.'], result: 'The diagonal of the force parallelogram gives the resultant within experimental error.' },
+      industryConnect: { title: 'Force Systems in Real Work', examples: [{ machine: 'Crane hook', realWorld: 'Multiple sling tensions meet at a hook; resolving forces prevents overloading one sling.' }, { machine: 'Machine foundation bolts', realWorld: 'Force direction and point of application decide bolt shear and pull-out demand.' }, { machine: 'Workshop trolley', realWorld: 'An inclined pull has horizontal motion component and vertical normal-reaction component.' }] },
+      quiz: [
+        { question: 'Force is completely specified by magnitude, direction, point of application and:', options: ['colour', 'line of action', 'temperature', 'density'], correct: 1, explanation: 'Line of action decides external turning effect.' },
+        { question: 'The horizontal component of F at angle theta from x-axis is:', options: ['F sin theta', 'F cos theta', 'F/theta', 'F tan theta'], correct: 1, explanation: 'Fx = F cos theta when theta is from x-axis.' },
+        { question: 'A coplanar concurrent system has forces:', options: ['in different planes', 'meeting at one point in a plane', 'always parallel', 'always collinear'], correct: 1, explanation: 'Concurrent means lines of action meet at one point.' },
+        { question: 'Unit of force is:', options: ['kg', 'N', 'J', 'W'], correct: 1, explanation: 'SI force unit is newton.' },
+        { question: 'Law of transmissibility applies to:', options: ['rigid body external effect', 'fluid viscosity only', 'heat transfer', 'chemical bonding'], correct: 0, explanation: 'The force may move along the same line of action for a rigid body.' },
+      ],
+      checkpoints: ['I can classify force systems.', 'I can resolve forces into x and y components.', 'I can use parallelogram law for two forces.', 'I can find resultant by component summation.', 'I can explain law of transmissibility.'],
+    },
+    {
+      id: 'sem-2-em-unit-2',
+      slug: 'unit-2',
+      num: 2,
+      title: 'Moments and Couples',
+      subject: 'Engineering Mechanics',
+      subjectCode: 'ES-ME',
+      semester: 2,
+      credits: 3,
+      board,
+      lectureHours: 4,
+      tutorialHours: 2,
+      family: 'mechanics',
+      syllabusTopics: ['Moment of a force', 'Clockwise and counter-clockwise sign convention', 'Varignon theorem with proof', 'Resultant of like parallel forces', 'Resultant of unlike parallel forces', 'Couple and arm of couple', 'Moment of a couple', 'Properties of a couple', 'Force-couple equivalent system', 'Resolution of a force into force and couple'],
+      introduction: `
+A force can translate a body, but when its line of action does not pass through a point, it also tends to rotate the body about that point. That turning tendency is called moment. This unit is essential for beams, brackets, levers, spanners, cranes and machine frames. A small force at a long arm may produce the same moment as a large force at a short arm, which is why a long spanner loosens a tight nut more easily.
+
+Couples are pure turning systems: two equal, opposite and parallel forces separated by a distance. They have no resultant force but have a definite moment. Varignon theorem makes moment calculation efficient by allowing you to take moments of force components instead of the original force. In WBSCTE exams this unit appears as 2-mark definitions, 5-mark Varignon/couple questions and 10-mark parallel-force resultants. The expected answer structure is sign convention, moment arm, algebraic moment equation and final location or equivalent system.
+      `,
+      concepts: [
+        { term: 'Moment of a Force', definition: 'Moment is the turning effect of a force about a point or axis.', deepExplanation: `Moment equals force multiplied by perpendicular distance from the point to the line of action. If the door handle is far from the hinge, the same push gives larger moment. The direction is clockwise or counter-clockwise according to the rotation tendency. Students often use sloping distance instead of perpendicular distance. Moment is measured in N m. In WBSCTE exams it appears as 2-mark definitions and numerical problems; draw the perpendicular arm clearly.`, commonMistake: 'Using the distance to point of application instead of perpendicular distance to line of action.', formula: 'M = Fd', unit_: 'N m', diagramRef: 'simply-supported-beam.svg' },
+        { term: 'Varignon Theorem', definition: 'The moment of the resultant of a force system about a point equals the algebraic sum of moments of the component forces about the same point.', deepExplanation: `For a single inclined force, resolving it into horizontal and vertical components gives the same moment as the original force. This is powerful when the perpendicular distance of the original force is awkward but component arms are simple. Students often take moments about different points while applying the theorem; the point must remain the same. Unit is N m. In WBSCTE exams this appears as a 5-mark proof and numerical application; show the component geometry before writing the equality.`, commonMistake: 'Changing the moment centre between resultant and components.', formula: 'M_R = Sigma M_components', unit_: 'N m', diagramRef: 'fbd-concurrent.svg' },
+        { term: 'Couple', definition: 'A couple consists of two equal, opposite and parallel forces separated by a perpendicular distance.', deepExplanation: `A steering wheel is turned by a couple: one hand pushes down and the other pulls up, giving rotation without net translation. The moment of a couple is independent of the point about which moments are taken, so it can be moved anywhere in its plane without changing external effect. Students often search for a resultant force of a couple; the resultant force is zero. Couple moment is measured in N m. In WBSCTE exams it appears as 2-mark definitions and 5-mark properties.`, commonMistake: 'Adding the two opposite forces and then saying there is no effect; the moment remains.', formula: 'M = Fd', unit_: 'N m', diagramRef: 'cantilever-beam.svg' },
+        { term: 'Parallel Force Resultant', definition: 'The resultant of parallel forces is found by algebraic force sum and by equating moments to locate its line of action.', deepExplanation: `For like parallel forces, the resultant lies between them. For unlike parallel forces, it lies outside the larger force. This is used for beam loads, wheel loads and support reactions. Students often place the resultant halfway even when forces are unequal. Resultant is in N and its location in m. In WBSCTE exams this is a common 10-mark problem; use Sigma F for magnitude and Sigma M for position.`, commonMistake: 'Forgetting that unlike parallel forces produce a resultant outside the larger force.', formula: 'R = Sigma F,  R x = Sigma(F_i x_i)', unit_: 'N and m', diagramRef: 'simply-supported-beam.svg' },
+      ],
+      formulas: [
+        { name: 'Moment of force', latex: 'M=F d', description: 'Force times perpendicular arm.', symbols: [{ symbol: 'M', name: 'moment', unit: 'N m' }, { symbol: 'd', name: 'perpendicular distance', unit: 'm' }] },
+        { name: 'Varignon theorem', latex: 'M_R=\\Sigma M_i', description: 'Moment of resultant equals sum of moments.', symbols: [{ symbol: 'M_R', name: 'moment of resultant', unit: 'N m' }] },
+        { name: 'Couple moment', latex: 'M_c=F a', description: 'One force multiplied by couple arm.', symbols: [{ symbol: 'a', name: 'perpendicular distance between forces', unit: 'm' }] },
+        { name: 'Resultant of parallel forces', latex: 'R=\\Sigma F', description: 'Algebraic sum of like/unlike parallel forces.', symbols: [{ symbol: 'R', name: 'resultant', unit: 'N' }] },
+        { name: 'Position of resultant', latex: 'R\\bar{x}=\\Sigma F_i x_i', description: 'Moment equation for line of action.', symbols: [{ symbol: '\\bar{x}', name: 'resultant location', unit: 'm' }] },
+        { name: 'Force-couple shift', latex: 'M=F s', description: 'Moving a force by offset s adds a couple.', symbols: [{ symbol: 's', name: 'shift distance', unit: 'm' }] },
+      ],
+      workedExamples: [
+        { title: 'Moment of a spanner force', given: ['Force F = 120 N', 'Perpendicular arm d = 0.25 m'], find: 'Moment about nut', solution: [{ step: 1, text: 'M = Fd.' }, { step: 2, text: 'M = 120 x 0.25 = 30 N m.' }, { step: 3, text: 'Direction is clockwise or counter-clockwise according to push direction.' }], answer: 'Moment = 30 N m.', examTip: 'Use perpendicular arm only.' },
+        { title: 'Resultant of two like parallel forces', given: ['F1 = 100 N at A', 'F2 = 300 N at B', 'AB = 2 m'], find: 'Resultant magnitude and location from A', solution: [{ step: 1, text: 'R = 100 + 300 = 400 N.' }, { step: 2, text: 'Take moments about A: R x = 300 x 2.' }, { step: 3, text: 'x = 600/400 = 1.5 m from A.' }], answer: 'R = 400 N located 1.5 m from A, between A and B.', examTip: 'For like parallel forces, resultant lies between forces.' },
+        { title: 'Couple moment', given: ['Two equal opposite forces F = 50 N', 'Arm a = 0.4 m'], find: 'Moment of couple', solution: [{ step: 1, text: 'Couple moment Mc = F a.' }, { step: 2, text: 'Mc = 50 x 0.4 = 20 N m.' }, { step: 3, text: 'Resultant force is zero, but turning effect is 20 N m.' }], answer: 'Couple moment = 20 N m.', examTip: 'Do not multiply by two; the couple moment is one force times couple arm.' },
+      ],
+      interactiveDiagram: { type: 'SFDBMD', description: 'Use support reactions and load positions to connect moment sign with beam turning effect.', controls: [{ label: 'Load position', type: 'slider', min: 0, max: 10, step: 1 }], outputs: ['Moment arm', 'Clockwise moment', 'Counter-clockwise moment'] },
+      staticDiagrams: [{ file: 'simply-supported-beam.svg', caption: 'Beam loads demonstrate moments and parallel-force resultants.', labels: ['Load', 'Reaction', 'Moment arm'] }, { file: 'cantilever-beam.svg', caption: 'Cantilever with fixed-end reaction moment.', labels: ['Tip load', 'Fixed moment', 'Wall reaction'] }, { file: 'shear-force-bending-moment.svg', caption: 'Moment sign convention preview.', labels: ['Load', 'SFD', 'BMD'] }],
+      comparisonTable: { title: 'Force, Moment and Couple', headers: ['Quantity', 'Can translate?', 'Can rotate?', 'Unit'], rows: [['Force', 'yes', 'if line misses point', 'N'], ['Moment', 'no direct translation', 'yes', 'N m'], ['Couple', 'no resultant force', 'pure rotation', 'N m']] },
+      vivaBank: [
+        { question: 'Define moment of a force.', answer: 'Moment is turning effect about a point; M = force x perpendicular distance.' },
+        { question: 'What is the SI unit of moment?', answer: 'N m.' },
+        { question: 'State Varignon theorem.', answer: 'Moment of resultant about a point equals algebraic sum of moments of component forces about the same point.' },
+        { question: 'What is a couple?', answer: 'Two equal opposite parallel forces separated by a perpendicular distance.' },
+        { question: 'Find moment of 200 N at 0.5 m.', answer: 'M = 200 x 0.5 = 100 N m.' },
+        { question: 'Does a couple have resultant force?', answer: 'No, resultant force is zero but resultant moment is not zero.' },
+        { question: 'Where is the resultant of unequal like parallel forces located?', answer: 'Between the forces, closer to the larger force.' },
+        { question: 'What happens when a force is shifted to a parallel line?', answer: 'An additional couple F times shift distance must be added.' },
+      ],
+      previousYearQuestions: [{ year: 2025, marks: 5, question: 'State and prove Varignon theorem.' }, { year: 2024, marks: 10, question: 'Find resultant and location for a system of parallel forces.' }, { year: 2023, marks: 2, question: 'Define couple and arm of couple.' }, { year: 2022, marks: 5, question: 'Explain force-couple equivalent system.' }],
+      labSheet: { experimentName: 'Verification of Principle of Moments', aim: 'To verify clockwise moment equals counter-clockwise moment for equilibrium.', apparatus: ['moment balance', 'slotted weights', 'hanger', 'metre scale'], theory: 'For equilibrium, sum of clockwise moments equals sum of counter-clockwise moments.', procedure: ['Balance the beam without loads.', 'Place known load on one side.', 'Place balancing load on the other side.', 'Measure arms.', 'Calculate moments.', 'Repeat with different arms.'], observationTable: { headers: ['Trial', 'CW load', 'CW arm', 'ACW load', 'ACW arm', 'Error'], rows: 5 }, precautions: ['Read arms from pivot.', 'Avoid parallax.', 'Let beam settle.', 'Use correct hanger weights.'], result: 'Clockwise and counter-clockwise moments are equal within experimental error.' },
+      industryConnect: { title: 'Moment in Machines', examples: [{ machine: 'Spanner', realWorld: 'Long handles increase moment for the same hand force, making nut loosening easier.' }, { machine: 'Crane boom', realWorld: 'Load moment about the base decides counterweight and stability requirements.' }, { machine: 'Bracket support', realWorld: 'Offset loads create force-couple systems that determine bolt forces.' }] },
+      quiz: [
+        { question: 'Moment equals force times:', options: ['parallel distance', 'perpendicular distance', 'speed', 'area'], correct: 1, explanation: 'Moment arm is perpendicular distance to line of action.' },
+        { question: 'A couple has resultant force:', options: ['zero', 'F', '2F', 'infinite'], correct: 0, explanation: 'Two equal and opposite forces cancel as a force.' },
+        { question: 'Unit of couple moment is:', options: ['N', 'N m', 'm/s', 'kg'], correct: 1, explanation: 'Couple moment is also measured in N m.' },
+        { question: 'Varignon theorem uses:', options: ['moments of components', 'steam pressure', 'gear teeth', 'fluid density'], correct: 0, explanation: 'Moment of resultant equals sum of moments of components.' },
+        { question: 'A 100 N force at 0.2 m produces:', options: ['5 N m', '20 N m', '100 N m', '500 N m'], correct: 1, explanation: 'M = 100 x 0.2 = 20 N m.' },
+      ],
+      checkpoints: ['I can calculate moments with sign convention.', 'I can state Varignon theorem.', 'I can locate resultant of parallel forces.', 'I can distinguish force and couple.', 'I can form a force-couple equivalent system.'],
+    },
+    {
+      id: 'sem-2-em-unit-3',
+      slug: 'unit-3',
+      num: 3,
+      title: 'Equilibrium of Forces',
+      subject: 'Engineering Mechanics',
+      subjectCode: 'ES-ME',
+      semester: 2,
+      credits: 3,
+      board,
+      lectureHours: 6,
+      tutorialHours: 2,
+      family: 'mechanics',
+      syllabusTopics: ['Equilibrium equations', 'Lami theorem statement and proof', 'Triangle law of equilibrium', 'Polygon law of equilibrium', 'Free body diagram procedure', 'Pin support reactions', 'Roller support reactions', 'Fixed support reactions', 'Concurrent force analysis', 'Beam reactions', 'Overhanging beams', 'Cantilever beams', 'Three-force members', 'Jib crane analysis'],
+      introduction: `
+Equilibrium is the condition where the net external force and net external moment on a body are zero. It is the everyday language of safe supports: a beam does not fall, a bracket does not rotate, and a crane jib remains steady because equilibrium equations are satisfied. The unit also teaches how to draw free body diagrams, which is the single most important habit in mechanics.
+
+For concurrent force systems, Sigma Fx = 0 and Sigma Fy = 0 are enough. For general coplanar rigid bodies, Sigma M = 0 is also required. Lami theorem is a shortcut for a particle acted upon by exactly three concurrent coplanar forces in equilibrium. In WBSCTE board exams this unit appears as support-reaction numericals, Lami theorem proof and jib-crane analysis. The expected answer structure is FBD, support reactions, sign convention, equations and checked final reactions.
+      `,
+      concepts: [
+        { term: 'Free Body Diagram', definition: 'A free body diagram is a sketch of an isolated body showing all external forces and moments acting on it.', deepExplanation: `The FBD removes supports and replaces them with reactions. A pin gives two reactions, a roller gives one normal reaction and a fixed end gives two reactions plus a moment. The diagram is not decoration; it decides the equations. Students often draw internal or balancing forces that are not external actions on the isolated body. Force units are N and moments are N m. In WBSCTE exams every 10-mark equilibrium problem should begin with a labelled FBD.`, commonMistake: 'Leaving the support in the drawing without replacing it by reaction components.', formula: 'External forces only', unit_: 'N and N m', diagramRef: 'fbd-concurrent.svg' },
+        { term: 'Equilibrium Equations', definition: 'For a coplanar rigid body in equilibrium, algebraic sums of horizontal forces, vertical forces and moments are zero.', deepExplanation: `These equations mean the body has no linear acceleration and no angular acceleration. For a beam, vertical force equilibrium gives total reactions, while moment equilibrium separates RA and RB. Students often use only force equations for a beam and cannot find two reactions. Units are N for forces and N m for moments. In WBSCTE exams these equations are the backbone of support reaction and frame problems.`, commonMistake: 'Forgetting the moment equation when forces are not concurrent.', formula: 'Sigma Fx = 0, Sigma Fy = 0, Sigma M = 0', unit_: 'N and N m', diagramRef: 'simply-supported-beam.svg' },
+        { term: 'Lami Theorem', definition: 'If a body is in equilibrium under three coplanar concurrent non-parallel forces, each force is proportional to the sine of the angle between the other two forces.', deepExplanation: `Lami theorem follows from the triangle of forces and sine rule. It is very useful for rings, strings, smooth contacts and jib-crane joints where exactly three forces meet. Students often apply it to four-force systems or non-concurrent systems, which is invalid. Forces are in N and angles in degrees. In WBSCTE exams this appears as 5-mark proof and numerical problems; draw the force triangle and write P/sin alpha = Q/sin beta = R/sin gamma.`, commonMistake: 'Using Lami theorem when more than three forces act at the joint.', formula: 'P/sin alpha = Q/sin beta = R/sin gamma', unit_: 'N', diagramRef: 'lami-theorem.svg' },
+        { term: 'Beam Reactions', definition: 'Beam reactions are support forces and moments that keep a loaded beam in equilibrium.', deepExplanation: `A simply supported beam usually has a pin and roller, giving vertical reactions for vertical loading. Reactions are found by taking moments about one support to eliminate its unknown. In real bridges and machine beds, these reactions decide bearing pressure and foundation load. Students often assign the same reaction to both supports even when loading is eccentric. Unit is N or kN. In WBSCTE exams this is a frequent 10-mark problem; show load conversion, moment equation and reaction check.`, commonMistake: 'Not replacing a UDL by total load at its centroid.', formula: 'RA + RB = total downward load', unit_: 'N or kN', diagramRef: 'simply-supported-beam.svg' },
+      ],
+      formulas: [
+        { name: 'Horizontal equilibrium', latex: '\\Sigma F_x=0', description: 'No net horizontal force.', symbols: [{ symbol: 'F_x', name: 'horizontal force component', unit: 'N' }] },
+        { name: 'Vertical equilibrium', latex: '\\Sigma F_y=0', description: 'No net vertical force.', symbols: [{ symbol: 'F_y', name: 'vertical force component', unit: 'N' }] },
+        { name: 'Moment equilibrium', latex: '\\Sigma M=0', description: 'No net turning effect.', symbols: [{ symbol: 'M', name: 'moment', unit: 'N m' }] },
+        { name: 'Lami theorem', latex: '\\frac{P}{\\sin\\alpha}=\\frac{Q}{\\sin\\beta}=\\frac{R}{\\sin\\gamma}', description: 'Three-force concurrent equilibrium.', symbols: [{ symbol: 'P,Q,R', name: 'forces', unit: 'N' }] },
+        { name: 'UDL equivalent load', latex: 'W=wL', description: 'Uniform load converted to resultant at mid-length.', symbols: [{ symbol: 'w', name: 'load intensity', unit: 'N/m' }, { symbol: 'L', name: 'loaded length', unit: 'm' }] },
+        { name: 'Beam reaction check', latex: 'R_A+R_B=\\Sigma W', description: 'Vertical reaction sum equals total vertical load.', symbols: [{ symbol: 'R_A,R_B', name: 'support reactions', unit: 'N' }] },
+      ],
+      workedExamples: [
+        { title: 'Simply supported beam with central point load', given: ['Span L = 6 m', 'Central load W = 30 kN'], find: 'Support reactions', solution: [{ step: 1, text: 'By symmetry RA = RB.' }, { step: 2, text: 'RA + RB = 30 kN, so RA = RB = 15 kN.' }, { step: 3, text: 'Moment check about A: RB x 6 = 30 x 3 gives RB = 15 kN.' }], answer: 'RA = 15 kN and RB = 15 kN.', examTip: 'Symmetry is allowed, but show moment check for full marks.' },
+        { title: 'Simply supported beam with eccentric point load', given: ['Span AB = 8 m', 'Point load W = 20 kN at 3 m from A'], find: 'RA and RB', solution: [{ step: 1, text: 'RA + RB = 20 kN.' }, { step: 2, text: 'Take moments about A: RB x 8 = 20 x 3.' }, { step: 3, text: 'RB = 7.5 kN; RA = 20 - 7.5 = 12.5 kN.' }], answer: 'RA = 12.5 kN and RB = 7.5 kN.', examTip: 'The support nearer the load carries larger reaction.' },
+        { title: 'Lami theorem at a ring', given: ['Weight W = 1000 N', 'Two strings make angles 30 degree and 45 degree with horizontal'], find: 'Tensions T1 and T2', solution: [{ step: 1, text: 'At the ring, three forces act: T1, T2 and W.' }, { step: 2, text: 'Angle opposite T1 = 135 degree, opposite T2 = 120 degree, opposite W = 105 degree.' }, { step: 3, text: 'By Lami: T1/sin135 = T2/sin120 = 1000/sin105.' }, { step: 4, text: 'T1 = 1000 sin135/sin105 = 732 N; T2 = 1000 sin120/sin105 = 897 N.' }], answer: 'T1 = 732 N and T2 = 897 N.', examTip: 'Use angles between the other two forces, not the given string angles directly.' },
+      ],
+      interactiveDiagram: { type: 'SFDBMD', description: 'Move beam loads and see reactions update from equilibrium equations.', controls: [{ label: 'Point load', type: 'slider', min: 1, max: 50, step: 1 }], outputs: ['RA', 'RB', 'Moment check'] },
+      staticDiagrams: [{ file: 'lami-theorem.svg', caption: 'Three-force equilibrium and sine-rule triangle.', labels: ['P', 'Q', 'R', 'Opposite angles'] }, { file: 'simply-supported-beam.svg', caption: 'Pin and roller support reactions for beam equilibrium.', labels: ['RA', 'RB', 'Point load', 'Span'] }, { file: 'cantilever-beam.svg', caption: 'Fixed support with force and moment reactions.', labels: ['Rx', 'Ry', 'Fixed moment'] }],
+      comparisonTable: { title: 'Support Reactions', headers: ['Support', 'Reactions', 'Moment reaction?', 'Example'], rows: [['Roller', 'one normal reaction', 'no', 'bridge expansion end'], ['Pin/hinge', 'Rx and Ry', 'no', 'truss support'], ['Fixed', 'Rx, Ry and M', 'yes', 'cantilever wall end']] },
+      vivaBank: [
+        { question: 'Write three equilibrium equations for coplanar forces.', answer: 'Sigma Fx = 0, Sigma Fy = 0 and Sigma M = 0.' },
+        { question: 'How many reactions does a roller support provide?', answer: 'One reaction normal to the support surface.' },
+        { question: 'How many reactions does a pin support provide in plane?', answer: 'Two force reactions, usually Rx and Ry.' },
+        { question: 'How many reactions does a fixed support provide in plane?', answer: 'Rx, Ry and a moment reaction.' },
+        { question: 'State Lami theorem.', answer: 'For three concurrent coplanar forces in equilibrium, P/sin alpha = Q/sin beta = R/sin gamma.' },
+        { question: 'When can Lami theorem be used?', answer: 'Only for exactly three coplanar concurrent non-parallel forces in equilibrium.' },
+        { question: 'What is equivalent load of 5 kN/m over 4 m?', answer: 'W = wL = 5 x 4 = 20 kN acting at the mid-point of the loaded length.' },
+        { question: 'For a central load 10 kN on a simply supported beam, reactions are?', answer: 'RA = RB = 5 kN by symmetry.' },
+      ],
+      previousYearQuestions: [{ year: 2025, marks: 10, question: 'Find reactions of a simply supported beam carrying point loads and UDL.' }, { year: 2024, marks: 5, question: 'State and prove Lami theorem.' }, { year: 2023, marks: 5, question: 'Explain FBD procedure and support reactions.' }, { year: 2022, marks: 10, question: 'Analyse a jib crane joint using Lami theorem.' }],
+      labSheet: { experimentName: 'Verification of Beam Reactions', aim: 'To verify reactions of a simply supported beam under point load.', apparatus: ['beam apparatus', 'spring balances', 'load hangers', 'scale'], theory: 'For equilibrium RA + RB = W and moments about a support give the other reaction.', procedure: ['Set beam on two supports.', 'Place load at known position.', 'Read support reactions.', 'Calculate reactions by equations.', 'Compare observed and calculated values.', 'Repeat for another load position.'], observationTable: { headers: ['Trial', 'Load', 'Position from A', 'RA observed', 'RB observed', 'RA calculated'], rows: 5 }, precautions: ['Level the beam.', 'Apply load gently.', 'Read scales after oscillation stops.', 'Measure load position accurately.'], result: 'Observed reactions agree with equilibrium equations within experimental error.' },
+      industryConnect: { title: 'Equilibrium in Structures and Machines', examples: [{ machine: 'Jib crane', realWorld: 'Tie and jib forces are found from joint equilibrium before selecting member size.' }, { machine: 'Bridge bearing', realWorld: 'Support reactions decide bearing plate size and foundation load.' }, { machine: 'Wall bracket', realWorld: 'Fixed reactions include moment, which controls bolt tension and wall safety.' }] },
+      quiz: [
+        { question: 'A fixed support in plane provides:', options: ['one reaction', 'two reactions', 'two reactions and a moment', 'no reaction'], correct: 2, explanation: 'Fixed support prevents translation and rotation.' },
+        { question: 'Lami theorem applies to:', options: ['two forces', 'three concurrent forces', 'any beam', 'four non-coplanar forces'], correct: 1, explanation: 'It is for three coplanar concurrent forces in equilibrium.' },
+        { question: 'Equivalent load of UDL w over length L is:', options: ['w/L', 'wL', 'L/w', 'zero'], correct: 1, explanation: 'Total load W = wL.' },
+        { question: 'For equilibrium, Sigma M must equal:', options: ['1', 'W', '0', 'L'], correct: 2, explanation: 'No net angular acceleration means moment sum is zero.' },
+        { question: 'A roller reaction is:', options: ['always horizontal', 'normal to support', 'a moment only', 'always zero'], correct: 1, explanation: 'A smooth roller supplies one normal reaction.' },
+      ],
+      checkpoints: ['I can draw FBDs with correct reactions.', 'I can solve beam reactions using moments.', 'I can use Lami theorem only for valid cases.', 'I can replace UDL by equivalent point load.'],
+    },
+    {
+      id: 'sem-2-em-unit-4',
+      slug: 'unit-4',
+      num: 4,
+      title: 'Friction',
+      subject: 'Engineering Mechanics',
+      subjectCode: 'ES-ME',
+      semester: 2,
+      credits: 3,
+      board,
+      lectureHours: 5,
+      tutorialHours: 2,
+      family: 'mechanics',
+      syllabusTopics: ['Friction force', 'Normal reaction', 'Coefficient of friction', 'Coulomb laws of static friction', 'Limiting friction', 'Static and kinetic coefficients', 'Angle of friction', 'Angle of repose', 'Cone of friction', 'Horizontal plane equilibrium', 'Inclined plane with force parallel to plane', 'Inclined plane with horizontal force', 'Inclined plane with force at angle', 'Wedge friction', 'Ladder friction'],
+      introduction: `
+Friction is the resistance that appears when one surface tends to slide over another. It is sometimes a loss, as in bearings, but it is also essential, as in brakes, belts, clutches, walking and ladder stability. In mechanics problems, friction is not guessed; it is linked to normal reaction by F <= mu N, with equality at impending motion.
+
+The unit becomes clear if you first decide the direction in which motion is about to occur. Friction always opposes relative motion or impending relative motion. Angle of friction and angle of repose turn the force law into geometry. In WBSCTE exams this unit appears as 2-mark definitions, 5-mark derivations and 10-mark inclined-plane numericals. The expected answer structure is FBD, normal direction, friction direction, limiting equation and equilibrium equations along and perpendicular to the plane.
+      `,
+      concepts: [
+        { term: 'Limiting Friction', definition: 'Limiting friction is the maximum static friction developed just before motion begins.', deepExplanation: `Before sliding, static friction adjusts itself to match the applied tendency up to a maximum value. At impending motion it reaches F = mu_s N. This is why a heavy box may resist small pushes but suddenly start moving when the push reaches a critical value. Students often use mu N even when the body is not at limiting condition; for equilibrium below limiting, friction may be less than mu N. Unit is N. In WBSCTE exams this appears in 5-mark theory and 10-mark numerical problems.`, commonMistake: 'Assuming friction is always equal to mu N even when motion is not impending.', formula: 'F_lim = mu_s N', unit_: 'N', diagramRef: 'friction-inclined-plane.svg' },
+        { term: 'Coefficient of Friction', definition: 'Coefficient of friction is the ratio of limiting friction to normal reaction between two surfaces.', deepExplanation: `It describes surface pair behaviour, not the size of the object alone. Rubber on dry concrete has a higher coefficient than steel on ice. It is dimensionless because it is a force ratio. Students often call mu a force; it is not. In WBSCTE exams it appears as 2-mark definition and in every friction calculation; write mu = F/N and identify whether it is static or kinetic.`, commonMistake: 'Giving mu a unit such as N.', formula: 'mu = F_lim/N', unit_: 'dimensionless', diagramRef: 'friction-inclined-plane.svg' },
+        { term: 'Angle of Friction', definition: 'Angle of friction is the angle between normal reaction and resultant reaction when limiting friction acts.', deepExplanation: `At limiting friction, the contact reaction is the vector sum of N and F. Therefore tan phi = F/N = mu. This angle helps visualize the cone of friction and whether a reaction can prevent sliding. Students often measure phi from the surface instead of from the normal. Unit is degree. In WBSCTE exams it appears as a derivation and short numerical.`, commonMistake: 'Measuring angle of friction from the plane surface rather than from the normal.', formula: 'tan phi = mu', unit_: 'degree', diagramRef: 'friction-inclined-plane.svg' },
+        { term: 'Angle of Repose', definition: 'Angle of repose is the inclination of a plane at which a body just begins to slide down under its own weight.', deepExplanation: `For a block on a rough incline at impending downward motion, W sin alpha = mu W cos alpha, so tan alpha = mu. Therefore angle of repose equals angle of friction. This is used in hoppers, sand piles and conveyor chutes. Students often say angle of repose is always 45 degrees; it depends on surface/material. Unit is degree. In WBSCTE exams derive alpha = phi using an inclined-plane FBD.`, commonMistake: 'Treating angle of repose as a fixed angle independent of material.', formula: 'alpha = phi, tan alpha = mu', unit_: 'degree', diagramRef: 'friction-inclined-plane.svg' },
+      ],
+      formulas: [
+        { name: 'Limiting friction', latex: 'F=\\mu N', description: 'Friction at impending motion.', symbols: [{ symbol: 'F', name: 'friction force', unit: 'N' }, { symbol: 'N', name: 'normal reaction', unit: 'N' }] },
+        { name: 'Angle of friction', latex: '\\tan\\phi=\\mu', description: 'Relation between friction coefficient and angle of friction.', symbols: [{ symbol: '\\phi', name: 'angle of friction', unit: 'degree' }] },
+        { name: 'Angle of repose', latex: '\\tan\\alpha=\\mu', description: 'Incline angle at impending sliding.', symbols: [{ symbol: '\\alpha', name: 'angle of repose', unit: 'degree' }] },
+        { name: 'Normal on incline', latex: 'N=W\\cos\\theta', description: 'For block on incline without other normal components.', symbols: [{ symbol: 'W', name: 'weight', unit: 'N' }] },
+        { name: 'Down-slope component', latex: 'W\\sin\\theta', description: 'Component of weight along the incline.', symbols: [{ symbol: '\\theta', name: 'incline angle', unit: 'degree' }] },
+        { name: 'Effort up plane at impending up motion', latex: 'P=W\\sin\\theta+\\mu W\\cos\\theta', description: 'Pull parallel to plane required to move body upward.', symbols: [{ symbol: 'P', name: 'effort', unit: 'N' }] },
+      ],
+      workedExamples: [
+        { title: 'Horizontal pull to move a block', given: ['Weight W = 500 N', 'mu = 0.25'], find: 'Least horizontal force to start motion', solution: [{ step: 1, text: 'On horizontal plane, N = W = 500 N.' }, { step: 2, text: 'Limiting friction F = mu N = 0.25 x 500 = 125 N.' }, { step: 3, text: 'Least pull equals limiting friction.' }], answer: 'P = 125 N.', examTip: 'If pull is horizontal, normal reaction remains equal to weight.' },
+        { title: 'Angle of repose', given: ['Coefficient of friction mu = 0.4'], find: 'Angle of repose', solution: [{ step: 1, text: 'tan alpha = mu.' }, { step: 2, text: 'alpha = tan^-1(0.4) = 21.8 degree.' }, { step: 3, text: 'The block just begins to slide at this inclination.' }], answer: 'Angle of repose = 21.8 degree.', examTip: 'Angle of repose equals angle of friction.' },
+        { title: 'Effort up an inclined plane', given: ['Weight W = 1000 N', 'Incline theta = 20 degree', 'mu = 0.3', 'Effort parallel to plane'], find: 'Effort to move upward', solution: [{ step: 1, text: 'P = W sin theta + mu W cos theta.' }, { step: 2, text: 'P = 1000 sin20 + 0.3 x 1000 cos20.' }, { step: 3, text: 'P = 342 + 282 = 624 N.' }], answer: 'Required effort = 624 N up the plane.', examTip: 'For upward impending motion, friction acts down the plane.' },
+      ],
+      interactiveDiagram: { type: 'Friction', description: 'Change incline angle and coefficient of friction to observe normal reaction, friction and angle of repose.', controls: [{ label: 'Incline angle', type: 'slider', min: 0, max: 45, step: 1 }, { label: 'mu', type: 'slider', min: 0.1, max: 0.8, step: 0.05 }], outputs: ['N', 'Friction', 'Angle of repose', 'Impending motion'] },
+      staticDiagrams: [{ file: 'friction-inclined-plane.svg', caption: 'Block on rough inclined plane with W, N, friction and effort.', labels: ['W', 'N', 'f', 'P'] }, { file: 'lami-theorem.svg', caption: 'Three-force equilibrium can be used for smooth contact problems.', labels: ['Reaction', 'Weight', 'Pull'] }, { file: 'fbd-concurrent.svg', caption: 'FBD method for friction problems.', labels: ['Body', 'Normal', 'Friction', 'Applied force'] }],
+      comparisonTable: { title: 'Static and Kinetic Friction', headers: ['Type', 'When acts', 'Magnitude', 'Usually'], rows: [['Static friction', 'before sliding', 'self-adjusting up to mu_s N', 'larger'], ['Limiting friction', 'just before sliding', 'mu_s N', 'maximum static'], ['Kinetic friction', 'during sliding', 'mu_k N', 'smaller']] },
+      vivaBank: [
+        { question: 'Define limiting friction.', answer: 'Maximum static friction just before motion starts; F = mu_s N.' },
+        { question: 'What is the unit of coefficient of friction?', answer: 'No unit; it is a ratio of two forces.' },
+        { question: 'If mu = 0.5, find angle of friction.', answer: 'phi = tan^-1(0.5) = 26.565 degree.' },
+        { question: 'What is angle of repose?', answer: 'Incline angle at which a body just begins to slide down.' },
+        { question: 'Relation between angle of repose and angle of friction?', answer: 'They are equal at impending sliding on an inclined plane.' },
+        { question: 'For W = 200 N, mu = 0.2 on horizontal plane, limiting friction is?', answer: 'F = 0.2 x 200 = 40 N.' },
+        { question: 'Direction of friction?', answer: 'It opposes relative motion or impending relative motion.' },
+        { question: 'Why are brakes possible?', answer: 'They use friction force between shoe/pad and drum/disc to produce retarding torque.' },
+      ],
+      previousYearQuestions: [{ year: 2025, marks: 10, question: 'Solve an inclined-plane problem with effort parallel to plane.' }, { year: 2024, marks: 5, question: 'Derive relation between angle of friction and coefficient of friction.' }, { year: 2023, marks: 5, question: 'Derive angle of repose equals angle of friction.' }, { year: 2022, marks: 2, question: 'State laws of static friction.' }],
+      labSheet: { experimentName: 'Determination of Coefficient of Friction by Inclined Plane', aim: 'To determine coefficient of static friction using angle of repose.', apparatus: ['inclined plane', 'wooden block', 'protractor', 'scale'], theory: 'At angle of repose, mu = tan alpha.', procedure: ['Place block on plane.', 'Raise plane slowly.', 'Note angle when block just starts sliding.', 'Repeat readings.', 'Calculate mu for each trial.', 'Find mean mu.'], observationTable: { headers: ['Trial', 'Angle alpha', 'tan alpha', 'mu', 'Remark'], rows: 5 }, precautions: ['Raise plane slowly.', 'Keep surfaces clean.', 'Avoid jerks.', 'Read angle at impending motion.'], result: 'Coefficient of friction equals the mean value of tan alpha.' },
+      industryConnect: { title: 'Friction in Industry', examples: [{ machine: 'Belt conveyor', realWorld: 'Friction between belt and pulley transmits drive torque; insufficient wrap causes slip.' }, { machine: 'Automobile brake', realWorld: 'Pad friction converts kinetic energy to heat and stops the wheel.' }, { machine: 'Inclined chute', realWorld: 'Angle of repose helps design chutes so granular material flows without blockage.' }] },
+      quiz: [
+        { question: 'Limiting friction equals:', options: ['mu N', 'N/mu', 'W sin theta always', 'zero'], correct: 0, explanation: 'At impending motion, F = mu N.' },
+        { question: 'Angle of friction relation is:', options: ['sin phi = mu', 'tan phi = mu', 'cos phi = mu', 'phi = mu N'], correct: 1, explanation: 'tan phi = F/N = mu.' },
+        { question: 'Friction acts:', options: ['in direction of impending motion', 'opposite impending motion', 'always downward', 'always upward'], correct: 1, explanation: 'It opposes relative motion or tendency of motion.' },
+        { question: 'On a simple incline, normal reaction is:', options: ['W sin theta', 'W cos theta', 'mu W', 'W tan theta'], correct: 1, explanation: 'N = W cos theta when no other normal components exist.' },
+        { question: 'If mu = 0.3, angle of repose is:', options: ['tan^-1 0.3', 'sin^-1 0.3', 'cos^-1 0.3', '30 degree always'], correct: 0, explanation: 'tan alpha = mu.' },
+      ],
+      checkpoints: ['I can draw friction direction correctly.', 'I can calculate limiting friction.', 'I can derive angle of repose relation.', 'I can solve inclined-plane cases.'],
+    },
+    {
+      id: 'sem-2-em-unit-5',
+      slug: 'unit-5',
+      num: 5,
+      title: 'Centroid and Centre of Gravity',
+      subject: 'Engineering Mechanics',
+      subjectCode: 'ES-ME',
+      semester: 2,
+      credits: 3,
+      board,
+      lectureHours: 6,
+      tutorialHours: 2,
+      family: 'mechanics',
+      syllabusTopics: ['Centroid definition', 'Centre of gravity definition', 'Centroid of rectangle', 'Centroid of triangle', 'Centroid of semicircle', 'Centroid of quarter circle', 'Centroid of circular sector', 'Composite area method of moments', 'Cutout sections', 'T section', 'I section', 'L section', 'Channel section', 'Z section', 'CG of hemisphere cone and cylinder'],
+      introduction: `
+Centroid and centre of gravity locate the point where an area or weight may be considered concentrated for calculation. For plane areas, the centroid is the geometric centre. For bodies under gravity, the centre of gravity is the point through which resultant weight acts. These ideas are essential in beam sections, welded plates, crane hooks, brackets and stability of bodies.
+
+Composite-area problems are best solved by the method of moments. Divide the shape into rectangles, triangles or circular parts, choose reference axes, tabulate area, centroid coordinates and first moments, and then use xbar = Sigma Ax/Sigma A and ybar = Sigma Ay/Sigma A. Cutouts are treated as negative areas. In WBSCTE exams this unit appears as 2-mark definitions, 5-mark standard centroid formulas and 10-mark T, I, L or channel section numericals. The expected answer is a neat section sketch, datum axes, table and final coordinates.
+      `,
+      concepts: [
+        { term: 'Centroid', definition: 'The centroid is the geometric centre of a plane area where the whole area may be assumed concentrated.', deepExplanation: `For a uniform lamina, the centroid coincides with the centre of gravity. In cross-section design, centroid location gives the neutral axis reference for bending. A rectangle centroid lies at b/2 and d/2 by symmetry. Students often confuse centroid with centre of a bounding box for unsymmetrical sections; actual centroid depends on area distribution. Coordinates are measured in mm or m. In WBSCTE exams this appears as definitions and composite-section calculations.`, commonMistake: 'Taking centroid of an L-section at the centre of its outer rectangle.', formula: 'xbar = Sigma Ax/Sigma A', unit_: 'mm or m', diagramRef: 'centroid-composite.svg' },
+        { term: 'Centre of Gravity', definition: 'Centre of gravity is the point through which the resultant weight of a body acts.', deepExplanation: `For a uniform gravitational field, it is found by weight moments just like centroid by area moments. It matters in vehicle stability, crane load handling and machine foundation design. Students often use area when material density varies; then weight or mass moments must be used. Coordinates are in length units. In WBSCTE exams it appears as 2-mark definition and simple solid-body CG questions.`, commonMistake: 'Using geometric area centroid for a non-uniform density body.', formula: 'xbar = Sigma Wx/Sigma W', unit_: 'mm or m', diagramRef: 'centroid-composite.svg' },
+        { term: 'Composite Area Method', definition: 'Composite area method locates a centroid by dividing a complex section into simple shapes and taking moments of areas.', deepExplanation: `The tabular method is reliable because each row carries area, x, y, Ax and Ay. Holes are entered as negative areas, which shifts the centroid away from the removed material. This method is used for T, I, L, channel and built-up sections. Students often forget to subtract cutout first moments. Unit of first moment is mm3 if area is mm2 and distance is mm. In WBSCTE exams this is the standard 10-mark format.`, commonMistake: 'Subtracting cutout area but not subtracting its Ax and Ay.', formula: 'xbar = Sigma Ax/Sigma A, ybar = Sigma Ay/Sigma A', unit_: 'mm', diagramRef: 'centroid-composite.svg' },
+        { term: 'Axis of Symmetry', definition: 'An axis of symmetry is a line that divides an area into two mirror halves, and the centroid lies on it.', deepExplanation: `Symmetry reduces calculation. A circle centroid is at its centre; an I-section symmetric about both axes has centroid at the intersection. But one symmetry axis gives only one coordinate; the other coordinate still needs area moments. Students often assume both coordinates are known when only one symmetry axis exists. Units are length units. In WBSCTE exams use symmetry to save time but state it clearly.`, commonMistake: 'Assuming a channel section has two axes of symmetry; usually it has only one.', formula: 'Centroid lies on every symmetry axis present.', unit_: 'mm or m', diagramRef: 'centroid-composite.svg' },
+      ],
+      formulas: [
+        { name: 'Composite centroid x', latex: '\\bar{x}=\\frac{\\Sigma A_i x_i}{\\Sigma A_i}', description: 'X coordinate of composite centroid.', symbols: [{ symbol: 'A_i', name: 'area of part', unit: 'mm^2' }, { symbol: 'x_i', name: 'part centroid distance from y-axis', unit: 'mm' }] },
+        { name: 'Composite centroid y', latex: '\\bar{y}=\\frac{\\Sigma A_i y_i}{\\Sigma A_i}', description: 'Y coordinate of composite centroid.', symbols: [{ symbol: 'y_i', name: 'part centroid distance from x-axis', unit: 'mm' }] },
+        { name: 'Triangle centroid', latex: '\\bar{x}=\\frac{b}{3},\\quad \\bar{y}=\\frac{h}{3}', description: 'Measured from right-angle sides or base reference as appropriate.', symbols: [{ symbol: 'b,h', name: 'base and height', unit: 'mm' }] },
+        { name: 'Semicircle centroid', latex: '\\bar{y}=\\frac{4r}{3\\pi}', description: 'Distance from diameter along symmetry axis.', symbols: [{ symbol: 'r', name: 'radius', unit: 'mm' }] },
+        { name: 'Quarter circle centroid', latex: '\\bar{x}=\\bar{y}=\\frac{4r}{3\\pi}', description: 'Measured from the two bounding radii.', symbols: [{ symbol: 'r', name: 'radius', unit: 'mm' }] },
+        { name: 'CG by weights', latex: '\\bar{x}=\\frac{\\Sigma W_i x_i}{\\Sigma W_i}', description: 'Used for bodies or different materials.', symbols: [{ symbol: 'W_i', name: 'weight of part', unit: 'N' }] },
+      ],
+      workedExamples: [
+        { title: 'Centroid of a T-section', given: ['Flange 100 mm x 20 mm', 'Web 20 mm x 80 mm below flange', 'Reference x-axis at bottom'], find: 'ybar from bottom', solution: [{ step: 1, text: 'Flange area A1 = 100 x 20 = 2000 mm2, y1 = 80 + 10 = 90 mm.' }, { step: 2, text: 'Web area A2 = 20 x 80 = 1600 mm2, y2 = 40 mm.' }, { step: 3, text: 'ybar = (2000 x 90 + 1600 x 40)/(2000 + 1600) = 244000/3600 = 67.78 mm.' }], answer: 'Centroid lies 67.78 mm above the bottom.', examTip: 'Draw the reference axis before making the table.' },
+        { title: 'Rectangle with rectangular cutout', given: ['Outer rectangle 120 mm x 80 mm', 'Central rectangular hole 40 mm x 20 mm', 'Both centred'], find: 'Centroid location', solution: [{ step: 1, text: 'Because the hole is central and the outer rectangle is symmetric, both symmetry axes remain.' }, { step: 2, text: 'xbar = 120/2 = 60 mm.' }, { step: 3, text: 'ybar = 80/2 = 40 mm.' }], answer: 'Centroid remains at (60 mm, 40 mm).', examTip: 'Use symmetry when valid; it saves calculation.' },
+        { title: 'Semicircular area centroid', given: ['Radius r = 60 mm'], find: 'Centroid from diameter', solution: [{ step: 1, text: 'For a semicircle, ybar = 4r/(3pi).' }, { step: 2, text: 'ybar = 4 x 60/(3pi) = 25.46 mm.' }, { step: 3, text: 'It lies on the symmetry axis from the diameter toward the curved edge.' }], answer: 'Centroid is 25.46 mm from the diameter.', examTip: 'Do not use r/2 for a semicircle.' },
+      ],
+      interactiveDiagram: { type: 'Centroid', description: 'Adjust composite rectangles and observe how the centroid shifts with added or removed area.', controls: [{ label: 'Area width', type: 'slider', min: 20, max: 200, step: 10 }], outputs: ['xbar', 'ybar', 'Area table'] },
+      staticDiagrams: [{ file: 'centroid-composite.svg', caption: 'Composite area divided into simple shapes with centroid coordinates.', labels: ['A1', 'A2', 'xbar', 'ybar'] }, { file: 'simply-supported-beam.svg', caption: 'Centroid of section later becomes neutral-axis reference for beams.', labels: ['Section', 'Neutral axis'] }, { file: 'thin-cylinder.svg', caption: 'CG location of curved bodies is used in stability and lifting.', labels: ['Axis', 'CG'] }],
+      comparisonTable: { title: 'Centroid Formula Reference', headers: ['Shape', 'Area', 'Centroid coordinate', 'Measured from'], rows: [['Rectangle', 'bd', 'b/2, d/2', 'corner'], ['Triangle', 'bh/2', 'b/3, h/3', 'right-angle sides or base'], ['Semicircle', 'pi r2/2', '4r/3pi', 'diameter'], ['Quarter circle', 'pi r2/4', '4r/3pi, 4r/3pi', 'bounding radii']] },
+      vivaBank: [
+        { question: 'Define centroid.', answer: 'Geometric centre of a plane area where whole area may be considered concentrated.' },
+        { question: 'Define centre of gravity.', answer: 'Point through which resultant weight of a body acts.' },
+        { question: 'Centroid of 100 mm x 60 mm rectangle from a corner?', answer: 'xbar = 50 mm, ybar = 30 mm.' },
+        { question: 'Centroid of a triangle of height 90 mm from base?', answer: 'It is h/3 = 30 mm from the base.' },
+        { question: 'Semicircle radius 30 mm: centroid from diameter?', answer: '4r/3pi = 120/(3pi) = 12.73 mm.' },
+        { question: 'How are holes treated in centroid calculations?', answer: 'As negative areas with negative first moments.' },
+        { question: 'What is first moment of area unit if A is mm2 and x is mm?', answer: 'mm3.' },
+        { question: 'Where does centroid lie if an area has two axes of symmetry?', answer: 'At the intersection of the two axes.' },
+      ],
+      previousYearQuestions: [{ year: 2025, marks: 10, question: 'Find centroid of a T-section by tabulation method.' }, { year: 2024, marks: 5, question: 'Derive centroid of a triangular area.' }, { year: 2023, marks: 5, question: 'Find centroid of a semicircular area.' }, { year: 2022, marks: 10, question: 'Find centroid of a composite section with rectangular cutout.' }],
+      labSheet: { experimentName: 'Determination of Centre of Gravity of an Irregular Lamina', aim: 'To locate CG of an irregular lamina by suspension method.', apparatus: ['irregular lamina', 'pin', 'plumb line', 'stand', 'pencil'], theory: 'When a lamina is suspended freely, its CG lies vertically below the suspension point.', procedure: ['Suspend lamina from first hole.', 'Draw vertical line using plumb line.', 'Suspend from second hole.', 'Draw another vertical line.', 'Intersection gives CG.', 'Check by balancing at the point.'], observationTable: { headers: ['Suspension point', 'Vertical line drawn', 'Intersection check', 'Remark'], rows: 3 }, precautions: ['Let lamina come to rest.', 'Use thin pencil lines.', 'Avoid parallax.', 'Suspend freely without touching table.'], result: 'The intersection of two plumb lines gives the centre of gravity of the lamina.' },
+      industryConnect: { title: 'Centroid in Design', examples: [{ machine: 'I-section beam', realWorld: 'Centroid gives neutral axis, needed before bending stress is calculated.' }, { machine: 'Crane hook plate', realWorld: 'CG location affects lifting stability and sling arrangement.' }, { machine: 'Fabricated bracket', realWorld: 'Centroid of weld group helps calculate eccentric loading and safe weld size.' }] },
+      quiz: [
+        { question: 'Composite centroid xbar equals:', options: ['Sigma Ax/Sigma A', 'Sigma A/Sigma x', 'A x only', 'W/A'], correct: 0, explanation: 'xbar is first moment of area divided by total area.' },
+        { question: 'A hole is treated as:', options: ['positive area', 'negative area', 'zero distance only', 'force'], correct: 1, explanation: 'Cutouts subtract area and first moment.' },
+        { question: 'Semicircle centroid from diameter is:', options: ['r/2', '4r/3pi', '2r/pi', 'r'], correct: 1, explanation: 'Standard formula is 4r/(3pi).' },
+        { question: 'Centroid of rectangle lies at:', options: ['b/3,d/3', 'b/2,d/2', '4r/3pi', 'outside always'], correct: 1, explanation: 'Rectangle has two symmetry axes.' },
+        { question: 'CG is based on:', options: ['weight distribution', 'colour', 'temperature only', 'gear teeth'], correct: 0, explanation: 'Centre of gravity is the point of resultant weight.' },
+      ],
+      checkpoints: ['I can tabulate A, x, y, Ax and Ay.', 'I can subtract cutouts correctly.', 'I can use standard centroid formulas.', 'I can locate centroid of T and L sections.'],
+    },
+    {
+      id: 'sem-2-em-unit-6',
+      slug: 'unit-6',
+      num: 6,
+      title: 'Simple Lifting Machines',
+      subject: 'Engineering Mechanics',
+      subjectCode: 'ES-ME',
+      semester: 2,
+      credits: 3,
+      board,
+      lectureHours: 5,
+      tutorialHours: 2,
+      family: 'mechanics',
+      syllabusTopics: ['Mechanical Advantage (MA)', 'Velocity Ratio (VR)', 'Efficiency of machines', 'Law of machine (P = mW + C)', 'Reversibility and self-locking', 'Wheel and axle', 'Differential wheel and axle', 'Worm and worm wheel', 'Single, double and triple purchase crab winch', 'Simple and compound pulley block', 'Screw jack (simple and differential)'],
+      introduction: `
+A lifting machine allows a small effort to raise a large load by trading force for distance. The effort moves through a larger distance than the load, and the geometry of the machine fixes this displacement ratio. Every calculation in this unit revolves around three connected quantities: mechanical advantage, velocity ratio and efficiency.
+
+Real lifting machines lose energy in pulley pins, screw threads, gear teeth, bearings and rope bending. That is why MA is always lower than VR in practice. This unit is important for workshop hoists, vehicle jacks, mine winding gear and crane mechanisms. In WBSCTE board exams it is one of the most numerical-friendly units: 5-mark questions ask definitions and conditions, while 10-mark questions ask pulley blocks, screw jacks, worm wheels, crab winches and law-of-machine calculations. The expected answer structure is machine sketch, VR from geometry, MA from load/effort, efficiency check and reversibility conclusion.
+      `,
+      concepts: [
+        {
+          term: 'Mechanical Advantage (MA)',
+          definition: 'Mechanical advantage is the ratio of load lifted to effort applied by a lifting machine.',
+          deepExplanation: `MA is an actual performance measure because it uses the real load W and real effort P measured on the machine. If a pulley block lifts 2400 N with 500 N effort, its MA is 4.8. In an ideal frictionless machine MA would equal VR, but real hoists and jacks have bearing, rope and thread friction, so MA is lower. Students often calculate MA from machine geometry; geometry gives VR, not MA. MA is dimensionless. In WBSCTE board exams this appears as 2-mark definitions and 10-mark numericals; write MA = W/P, substitute load and effort, and compare with VR.`,
+          commonMistake: 'Confusing MA with VR; MA is actual force ratio, not displacement ratio.',
+          formula: 'MA = W/P',
+          unit_: 'dimensionless',
+          diagramRef: 'pulley-block-triple.svg',
+        },
+        {
+          term: 'Velocity Ratio (VR)',
+          definition: 'Velocity ratio is the ratio of distance moved by effort to distance moved by load in the same time interval.',
+          deepExplanation: `VR is fixed by machine geometry. A screw jack has high VR because the handle travels a circle of radius L while the screw advances by only one pitch p per revolution. A pulley block with n movable pulleys has 2n supporting rope segments, so VR = 2n. Students often use force values to find VR, but effort and load belong to MA. VR is dimensionless. In WBSCTE exams this appears as 5-mark formula questions and 10-mark machine problems; first identify the machine, then write its VR formula.`,
+          commonMistake: 'Using load/effort to calculate VR.',
+          formula: 'VR = y/x',
+          unit_: 'dimensionless',
+          diagramRef: 'screw-jack.svg',
+        },
+        {
+          term: 'Efficiency of a Machine',
+          definition: 'Efficiency is the ratio of useful output work to input work, usually expressed as a percentage.',
+          deepExplanation: `For lifting machines, output work is W times load movement and input work is P times effort movement. This reduces to eta = MA/VR x 100 percent. A machine with 80 percent efficiency converts most input work into useful lifting, while the rest becomes heat and wear due to friction. Students sometimes obtain efficiency above 100 percent; that is physically impossible and indicates a calculation error. Unit is percent. In WBSCTE exams this appears in almost every lifting-machine numerical; always check that MA is less than VR.`,
+          commonMistake: 'Reporting eta above 100 percent instead of rechecking MA or VR.',
+          formula: 'eta = (MA/VR) x 100%',
+          unit_: 'percent',
+          diagramRef: 'pulley-block-triple.svg',
+        },
+        {
+          term: 'Law of Machine',
+          definition: 'The law of machine is the experimental linear relation P = mW + C between effort and load for a given lifting machine.',
+          deepExplanation: `As load increases, effort increases nearly linearly. The slope m represents how effort grows with load, while C is the effort required to overcome machine friction even when no useful load is lifted. In a worm-wheel or pulley test, readings of W and P are plotted to obtain this straight line. Students often set C = 0, but real machines need effort to overcome their own friction. P and W are in newtons; m is dimensionless and C is in newtons. In WBSCTE exams this appears as 10-mark table/graph questions; use two readings or best-fit graph to find m and C.`,
+          commonMistake: 'Forgetting that C is friction effort at zero external load.',
+          formula: 'P = mW + C',
+          unit_: 'P and C in N; m dimensionless',
+          diagramRef: 'worm-wheel.svg',
+        },
+        {
+          term: 'Reversibility and Self-locking',
+          definition: 'A reversible machine can run backward under load when effort is removed; a self-locking machine holds the load without effort.',
+          deepExplanation: `The practical condition is based on efficiency. If eta is greater than 50 percent, the load can overcome friction and drive the machine backward. If eta is 50 percent or less, friction is sufficient to prevent reverse motion. Screw jacks are intentionally self-locking so a lifted vehicle does not descend when the handle is released. Students sometimes think self-locking means defective; in lifting machines it is often a safety feature. The condition is dimensionless because efficiency is a ratio. In WBSCTE exams this appears as 5-mark theory and the final conclusion in numericals.`,
+          commonMistake: 'Calling every low-efficiency machine bad; for jacks and worm hoists low efficiency may provide safety.',
+          formula: 'Reversible: eta > 50%; Self-locking: eta <= 50%',
+          unit_: 'percent condition',
+          diagramRef: 'screw-jack.svg',
+        },
+      ],
+      machines: [
+        { name: 'Wheel and Axle', description: 'A large wheel and small axle rotate together; effort at the wheel lifts load wound on the axle.', vrFormula: 'VR = D/d', applications: ['winch', 'steering wheel', 'carpenter brace'], diagramRef: 'axle-wheel.svg' },
+        { name: 'Compound Pulley Block', description: 'Movable pulleys multiply supporting rope segments and reduce effort.', vrFormula: 'VR = 2n', applications: ['chain hoist', 'engine lifting', 'sailing rigging'], diagramRef: 'pulley-block-triple.svg' },
+        { name: 'Worm and Worm Wheel', description: 'A worm drives a toothed wheel at right angles and gives high reduction.', vrFormula: 'VR = T for single-start worm before drum ratio', applications: ['hoist', 'steering box', 'lifting table'], diagramRef: 'worm-wheel.svg' },
+        { name: 'Screw Jack', description: 'A screw raises the load by one pitch for each handle revolution.', vrFormula: 'VR = 2 pi L/p', applications: ['vehicle jack', 'screw press', 'machine levelling'], diagramRef: 'screw-jack.svg' },
+        { name: 'Crab Winch', description: 'A geared winch where handle motion is reduced through spur gears before lifting a load on a drum.', vrFormula: 'VR = gear ratio x handle circumference/drum circumference', applications: ['dock crane', 'mine winding', 'workshop hoist'], diagramRef: 'crab-winch.svg' },
+      ],
+      formulas: [
+        { name: 'Mechanical Advantage', latex: 'MA=\\frac{W}{P}', description: 'Actual load lifted per unit effort.', symbols: [{ symbol: 'W', name: 'load', unit: 'N' }, { symbol: 'P', name: 'effort', unit: 'N' }] },
+        { name: 'Velocity Ratio', latex: 'VR=\\frac{y}{x}', description: 'Distance moved by effort divided by distance moved by load.', symbols: [{ symbol: 'y', name: 'distance moved by effort', unit: 'm' }, { symbol: 'x', name: 'distance moved by load', unit: 'm' }] },
+        { name: 'Efficiency', latex: '\\eta=\\frac{MA}{VR}\\times100\\%', description: 'Useful work output compared with input work.', symbols: [{ symbol: '\\eta', name: 'efficiency', unit: 'percent' }, { symbol: 'MA,VR', name: 'machine ratios', unit: 'none' }] },
+        { name: 'Law of Machine', latex: 'P=mW+C', description: 'Experimental straight-line relation between effort and load.', symbols: [{ symbol: 'm', name: 'machine constant', unit: 'none' }, { symbol: 'C', name: 'friction effort at zero load', unit: 'N' }] },
+        { name: 'Screw Jack VR', latex: 'VR=\\frac{2\\pi L}{p}', description: 'Handle circumference divided by screw pitch.', symbols: [{ symbol: 'L', name: 'handle radius', unit: 'mm' }, { symbol: 'p', name: 'thread pitch', unit: 'mm' }] },
+        { name: 'n-pulley block VR', latex: 'VR=2n', description: 'n movable pulleys give 2n supporting rope segments.', symbols: [{ symbol: 'n', name: 'number of movable pulleys', unit: 'none' }] },
+        { name: 'Wheel and axle VR', latex: 'VR=\\frac{D}{d}', description: 'Wheel diameter divided by axle diameter.', symbols: [{ symbol: 'D', name: 'wheel diameter', unit: 'mm' }, { symbol: 'd', name: 'axle diameter', unit: 'mm' }] },
+        { name: 'Worm wheel VR', latex: 'VR=T', description: 'For a single-start worm before drum ratio, one worm turn advances the wheel by one tooth.', symbols: [{ symbol: 'T', name: 'number of teeth on worm wheel', unit: 'teeth' }] },
+      ],
+      workedExamples: [
+        {
+          title: 'Pulley block: VR, MA and efficiency',
+          given: ['Number of movable pulleys n = 3', 'Load W = 2400 N', 'Effort P = 500 N'],
+          find: 'VR, MA and efficiency',
+          solution: [
+            { step: 1, text: 'For n movable pulleys, VR = 2n = 2 x 3 = 6.' },
+            { step: 2, text: 'MA = W/P = 2400/500 = 4.8.' },
+            { step: 3, text: 'eta = MA/VR x 100 = 4.8/6 x 100 = 80%.' },
+            { step: 4, text: 'Since eta = 80% > 50%, the machine is reversible.' },
+          ],
+          answer: 'VR = 6, MA = 4.8 and efficiency = 80%.',
+          examTip: 'MA must be less than VR for a real machine.',
+        },
+        {
+          title: 'Screw jack: find VR and effort',
+          given: ['Handle radius L = 350 mm', 'Pitch p = 6 mm', 'Load W = 15 kN = 15000 N', 'Efficiency eta = 35%'],
+          find: 'Velocity ratio and effort required',
+          solution: [
+            { step: 1, text: 'VR = 2 pi L/p = 2 pi x 350/6 = 366.52.' },
+            { step: 2, text: 'eta = MA/VR, so MA = 0.35 x 366.52 = 128.28.' },
+            { step: 3, text: 'MA = W/P, so P = W/MA = 15000/128.28 = 116.9 N.' },
+            { step: 4, text: 'eta = 35% <= 50%, so the screw jack is self-locking.' },
+          ],
+          answer: 'VR = 366.52 and P = 116.9 N. The jack is self-locking.',
+          examTip: 'Keep L and p in the same unit; their ratio is dimensionless.',
+        },
+        {
+          title: 'Law of machine: find m, C and efficiency',
+          given: ['At W = 500 N, P = 60 N', 'At W = 1500 N, P = 150 N', 'VR = 20'],
+          find: 'm, C and efficiency at W = 1000 N',
+          solution: [
+            { step: 1, text: 'Use P = mW + C. From readings: 60 = 500m + C and 150 = 1500m + C.' },
+            { step: 2, text: 'Subtract equations: 90 = 1000m, so m = 0.09.' },
+            { step: 3, text: 'C = 60 - 0.09 x 500 = 15 N.' },
+            { step: 4, text: 'At W = 1000 N, P = 0.09 x 1000 + 15 = 105 N.' },
+            { step: 5, text: 'MA = 1000/105 = 9.52.' },
+            { step: 6, text: 'eta = MA/VR x 100 = 9.52/20 x 100 = 47.6%.' },
+          ],
+          answer: 'm = 0.09, C = 15 N, P = 0.09W + 15, eta at 1000 N = 47.6%.',
+          examTip: 'State self-locking if eta is 50% or less.',
+        },
+      ],
+      interactiveDiagram: { type: 'Pulley', description: 'Change load, number of pulleys and efficiency to see VR, MA, effort and self-locking condition update.', controls: [{ label: 'Load W (N)', type: 'slider', min: 100, max: 5000, step: 50 }, { label: 'Number of movable pulleys', type: 'select', options: [1, 2, 3, 4, 5] }, { label: 'Efficiency (%)', type: 'slider', min: 40, max: 95, step: 1 }], outputs: ['VR', 'MA', 'Effort P', 'Friction loss', 'Machine condition'] },
+      staticDiagrams: [
+        { file: 'pulley-block-triple.svg', caption: 'Triple movable pulley block with six supporting rope segments.', labels: ['Fixed block', 'Movable block', 'Load W', 'Effort P'] },
+        { file: 'screw-jack.svg', caption: 'Screw jack showing handle radius L and pitch p.', labels: ['Handle L', 'Pitch p', 'Load table', 'Base'] },
+        { file: 'worm-wheel.svg', caption: 'Worm and worm wheel high-ratio self-locking hoist.', labels: ['Worm', 'Wheel teeth', 'Load drum', 'Handle'] },
+        { file: 'crab-winch.svg', caption: 'Crab winch gear reduction and load drum.', labels: ['Pinion', 'Gear', 'Drum', 'Load'] },
+        { file: 'axle-wheel.svg', caption: 'Wheel and axle geometry for VR = D/d.', labels: ['Wheel D', 'Axle d', 'Effort', 'Load'] },
+      ],
+      comparisonTable: { title: 'Comparison of Simple Lifting Machines', headers: ['Machine', 'VR formula', 'Typical efficiency', 'Self-locking?', 'Use'], rows: [['Wheel and axle', 'D/d', '60-80%', 'No', 'winch'], ['Pulley block', '2n', '70-85%', 'No', 'chain hoist'], ['Screw jack', '2 pi L/p', '25-40%', 'Yes', 'vehicle lifting'], ['Worm wheel', 'T before drum ratio', '30-60%', 'Usually', 'hoist'], ['Crab winch', 'gear ratio x handle/drum ratio', '50-70%', 'Often', 'dock crane']] },
+      vivaBank: [
+        { question: 'Define mechanical advantage.', answer: 'MA = W/P, load lifted divided by effort applied; it is dimensionless.' },
+        { question: 'Define velocity ratio.', answer: 'VR = distance moved by effort divided by distance moved by load in the same time.' },
+        { question: 'What is efficiency formula?', answer: 'eta = MA/VR x 100 percent.' },
+        { question: 'For n = 3 movable pulleys, find VR.', answer: 'VR = 2n = 6.' },
+        { question: 'For W = 2400 N and P = 500 N, find MA.', answer: 'MA = W/P = 2400/500 = 4.8.' },
+        { question: 'Screw jack L = 350 mm, p = 7 mm: find VR.', answer: 'VR = 2 pi L/p = 2 pi x 350/7 = 314.16.' },
+        { question: 'What does C mean in P = mW + C?', answer: 'C is effort required to overcome machine friction at zero external load.' },
+        { question: 'What is condition for self-locking?', answer: 'eta <= 50 percent.' },
+        { question: 'What is VR of a single-start worm wheel with 60 teeth?', answer: 'VR = T = 60 before considering drum and handle ratio.' },
+        { question: 'Why is a screw jack self-locking?', answer: 'Thread friction keeps the load from descending when effort is removed, giving safety.' },
+      ],
+      previousYearQuestions: [
+        { year: 2025, marks: 10, question: 'A screw jack has handle radius and pitch given. Find VR, MA, effort and condition of reversibility.' },
+        { year: 2024, marks: 5, question: 'Define MA, VR and efficiency of a machine.' },
+        { year: 2023, marks: 10, question: 'For a pulley block with n movable pulleys, calculate VR, MA, efficiency and effort.' },
+        { year: 2022, marks: 10, question: 'Given two readings of load and effort for a lifting machine, find law of machine and efficiency at a specified load.' },
+      ],
+      labSheet: { experimentName: 'Verification of Law of Machine for Worm and Worm Wheel', aim: 'To find MA, VR and efficiency of a worm-wheel lifting machine and verify P = mW + C.', apparatus: ['worm and worm wheel apparatus', 'slotted weights', 'effort pan', 'metre scale', 'graph paper'], theory: 'VR for a single-start worm wheel is related to number of teeth and drum/handle ratio. Law of machine is P = mW + C.', procedure: ['Count worm wheel teeth.', 'Measure handle radius and drum diameter.', 'Calculate theoretical VR.', 'Add loads in steps and find effort to just lift.', 'Record W and P.', 'Plot P against W and find m and C.', 'Calculate MA and efficiency for each reading.'], observationTable: { headers: ['Sr.', 'Load W (N)', 'Effort P (N)', 'MA', 'VR', 'Efficiency %'], rows: 6 }, precautions: ['Apply load gradually.', 'Avoid jerks while lifting.', 'Read effort at just-lifting condition.', 'Keep apparatus lubricated.'], result: 'The law of machine is P = _____W + _____ and the machine is reversible or self-locking according to efficiency.' },
+      industryConnect: { title: 'Lifting Machines in Real Workshops', examples: [{ machine: 'Vehicle screw jack', realWorld: 'Self-locking thread action keeps a lifted vehicle from falling when the handle is released.' }, { machine: 'Chain pulley block', realWorld: 'Multiple rope or chain segments let one mechanic lift engine assemblies safely.' }, { machine: 'Worm hoist', realWorld: 'High velocity ratio and friction hold suspended loads during power interruption.' }] },
+      quiz: [
+        { question: 'A machine has MA = 5 and VR = 8. Efficiency is:', options: ['40%', '62.5%', '80%', '100%'], correct: 1, explanation: 'eta = MA/VR x 100 = 5/8 x 100 = 62.5%.' },
+        { question: 'A machine with efficiency 45% is:', options: ['reversible', 'self-locking', 'frictionless', 'impossible'], correct: 1, explanation: 'eta <= 50% gives self-locking.' },
+        { question: 'VR of n = 3 pulley block is:', options: ['3', '4', '6', '9'], correct: 2, explanation: 'VR = 2n = 6.' },
+        { question: 'Screw jack VR formula is:', options: ['D/d', '2 pi L/p', 'T1/T2', 'P/A'], correct: 1, explanation: 'The handle moves 2 pi L while screw advances by pitch p.' },
+        { question: 'In P = mW + C, C represents:', options: ['load', 'zero-load friction effort', 'velocity ratio', 'wheel diameter'], correct: 1, explanation: 'C is the intercept or effort to overcome machine friction at W = 0.' },
+      ],
+      checkpoints: ['I can define MA, VR and efficiency.', 'I can calculate VR for pulley block, screw jack, wheel and axle and worm wheel.', 'I can solve law-of-machine problems.', 'I can decide reversibility from efficiency.', 'I can draw labelled lifting-machine diagrams.'],
+    },
+    {
+      id: 'sem-2-em-unit-7',
+      slug: 'unit-7',
+      num: 7,
+      title: 'Motion in a Plane',
+      subject: 'Engineering Mechanics',
+      subjectCode: 'ES-ME',
+      semester: 2,
+      credits: 3,
+      board,
+      lectureHours: 6,
+      tutorialHours: 2,
+      family: 'mechanics',
+      syllabusTopics: ['Displacement, velocity and acceleration', 'Rectilinear equations of motion', 'Velocity-time diagram', 'Area under v-t curve', 'Newton second law', 'Atwood machine', 'Bodies on inclined planes', 'Momentum', 'Impulse-momentum theorem', 'Projectile motion', 'Range, time of flight and maximum height', 'Trajectory equation', 'Angular displacement, velocity and acceleration', 'Centripetal and centrifugal force', 'Work, power and energy', 'Work-energy theorem', 'Conservation of energy'],
+      introduction: `
+Motion in a Plane extends mechanics from bodies at rest to bodies whose position changes with time. You learn to describe motion using displacement, velocity and acceleration, then connect acceleration to force using Newton's second law. The same logic explains a trolley moving in a straight line, a block sliding down an incline, a projectile following a parabolic path and a body moving in a circle.
+
+The unit is formula-rich, but the formulas come from definitions. Constant-acceleration equations are obtained by integrating acceleration. Projectile formulas come from resolving motion into independent horizontal and vertical components. Work-energy methods avoid time calculations when force and displacement are known. In WBSCTE exams this unit appears as 2-mark definitions, 5-mark derivations and 10-mark numericals on rectilinear motion, projectile motion, circular motion and work-energy. The expected answer structure is axis choice, known data, equation selection, substitution and unit check.
+      `,
+      concepts: [
+        { term: 'Velocity', definition: 'Velocity is the rate of change of displacement with time and has direction.', deepExplanation: `If a train moves east at 20 m/s, its velocity is different from moving west at 20 m/s even though speed is the same. Velocity is a vector and can change by magnitude, direction or both. Students often confuse speed and velocity in projectile and circular motion. Unit is m/s. In WBSCTE exams this appears as definitions and v-t graph calculations.`, commonMistake: 'Using speed when direction-sensitive velocity is required.', formula: 'v = ds/dt', unit_: 'm/s', diagramRef: 'velocity-diagram-construction.svg' },
+        { term: 'Acceleration', definition: 'Acceleration is the rate of change of velocity with time.', deepExplanation: `Acceleration may be positive, negative or centripetal depending on how velocity changes. In uniform circular motion speed is constant but direction changes, so acceleration is not zero. Students often think zero velocity at the top of projectile means zero acceleration; gravity still acts downward. Unit is m/s2. In WBSCTE exams it appears in equations of motion and force calculations.`, commonMistake: 'Assuming constant speed means zero acceleration in circular motion.', formula: 'a = dv/dt', unit_: 'm/s2', diagramRef: 'slider-crank-mechanism.svg' },
+        { term: 'Projectile Motion', definition: 'Projectile motion is two-dimensional motion under gravity after projection, neglecting air resistance.', deepExplanation: `Horizontal velocity remains constant while vertical velocity changes due to gravity. The path is parabolic because horizontal displacement varies with t and vertical displacement includes t2. Examples include water jets, thrown tools and welding sparks. Students often use total velocity in vertical equations instead of u sin theta. Unit depends on quantity: range in m, time in s, height in m. In WBSCTE exams projectile derivations are common 5-mark questions.`, commonMistake: 'Forgetting to resolve initial velocity into horizontal and vertical components.', formula: 'R = u^2 sin2theta/g', unit_: 'm for range', diagramRef: 'velocity-diagram-construction.svg' },
+        { term: 'Work-Energy Theorem', definition: 'The work done by the resultant force on a body equals the change in its kinetic energy.', deepExplanation: `This theorem is useful when displacement and velocity matter more than time. For example, a brake stopping a moving wheel removes kinetic energy through friction work. Students often mix work with power; work is energy transfer, power is rate of doing work. Work is measured in joule. In WBSCTE exams this appears as 5-mark derivation and numerical problems involving lifting, braking and sliding.`, commonMistake: 'Using force alone as work without multiplying by displacement in force direction.', formula: 'W = Delta KE', unit_: 'J', diagramRef: 'friction-inclined-plane.svg' },
+      ],
+      formulas: [
+        { name: 'First equation of motion', latex: 'v=u+at', description: 'Velocity after time t under constant acceleration.', symbols: [{ symbol: 'u', name: 'initial velocity', unit: 'm/s' }, { symbol: 'v', name: 'final velocity', unit: 'm/s' }] },
+        { name: 'Second equation of motion', latex: 's=ut+\\frac{1}{2}at^2', description: 'Displacement under constant acceleration.', symbols: [{ symbol: 's', name: 'displacement', unit: 'm' }] },
+        { name: 'Third equation of motion', latex: 'v^2=u^2+2as', description: 'Velocity-displacement relation without time.', symbols: [{ symbol: 'a', name: 'acceleration', unit: 'm/s^2' }] },
+        { name: 'Projectile time of flight', latex: 'T=\\frac{2u\\sin\\theta}{g}', description: 'Time for projectile to return to same level.', symbols: [{ symbol: 'g', name: 'acceleration due to gravity', unit: 'm/s^2' }] },
+        { name: 'Projectile range', latex: 'R=\\frac{u^2\\sin2\\theta}{g}', description: 'Horizontal range on level ground.', symbols: [{ symbol: 'R', name: 'range', unit: 'm' }] },
+        { name: 'Centripetal acceleration', latex: 'a_c=\\frac{v^2}{r}=\\omega^2r', description: 'Acceleration toward centre in circular motion.', symbols: [{ symbol: 'r', name: 'radius', unit: 'm' }] },
+        { name: 'Kinetic energy', latex: 'KE=\\frac{1}{2}mv^2', description: 'Energy due to motion.', symbols: [{ symbol: 'm', name: 'mass', unit: 'kg' }] },
+        { name: 'Power', latex: 'P=\\frac{Work}{time}', description: 'Rate of doing work.', symbols: [{ symbol: 'P', name: 'power', unit: 'W' }] },
+      ],
+      workedExamples: [
+        { title: 'Uniform acceleration of a trolley', given: ['Initial velocity u = 2 m/s', 'Acceleration a = 1.5 m/s2', 'Time t = 6 s'], find: 'Final velocity and displacement', solution: [{ step: 1, text: 'v = u + at = 2 + 1.5 x 6 = 11 m/s.' }, { step: 2, text: 's = ut + 1/2 at2 = 2 x 6 + 0.5 x 1.5 x 36 = 39 m.' }], answer: 'v = 11 m/s and s = 39 m.', examTip: 'Use constant-acceleration equations only when acceleration is constant.' },
+        { title: 'Projectile range', given: ['Initial speed u = 30 m/s', 'Angle theta = 30 degree', 'g = 9.81 m/s2'], find: 'Range on level ground', solution: [{ step: 1, text: 'R = u2 sin2theta/g.' }, { step: 2, text: 'R = 30^2 x sin60 / 9.81 = 900 x 0.866/9.81.' }, { step: 3, text: 'R = 79.45 m.' }], answer: 'Range = 79.45 m.', examTip: 'Use sin 2theta, not sin theta.' },
+        { title: 'Centripetal force', given: ['Mass m = 5 kg', 'Speed v = 12 m/s', 'Radius r = 3 m'], find: 'Centripetal force', solution: [{ step: 1, text: 'Centripetal acceleration ac = v2/r = 12^2/3 = 48 m/s2.' }, { step: 2, text: 'Force F = mac = 5 x 48 = 240 N.' }, { step: 3, text: 'Direction is toward the centre.' }], answer: 'Centripetal force = 240 N inward.', examTip: 'Centripetal force is not an extra outward force; it is the inward resultant required.' },
+      ],
+      interactiveDiagram: { type: 'SliderCrank', description: 'Use cyclic slider motion to connect displacement, velocity and acceleration in a plane.', controls: [{ label: 'Speed', type: 'slider', min: 20, max: 300, step: 10 }], outputs: ['Displacement', 'Velocity', 'Acceleration'] },
+      staticDiagrams: [{ file: 'velocity-diagram-construction.svg', caption: 'Velocity vector construction for motion in a plane.', labels: ['Velocity', 'Components', 'Resultant'] }, { file: 'slider-crank-mechanism.svg', caption: 'Plane motion of crank and slider.', labels: ['Crank', 'Slider', 'Velocity'] }, { file: 'friction-inclined-plane.svg', caption: 'Body motion on incline with force and acceleration components.', labels: ['W sin theta', 'N', 'f'] }],
+      comparisonTable: { title: 'Motion Formula Selection', headers: ['Case', 'Use', 'Key formula', 'Unit check'], rows: [['Rectilinear constant a', 'straight-line motion', 'v = u + at', 'm/s'], ['Projectile', '2D gravity motion', 'R = u2 sin2theta/g', 'm'], ['Circular motion', 'curved path', 'ac = v2/r', 'm/s2'], ['Work-energy', 'force over displacement', 'Work = Delta KE', 'J']] },
+      vivaBank: [
+        { question: 'Define velocity.', answer: 'Rate of change of displacement with time; unit m/s and vector quantity.' },
+        { question: 'Define acceleration.', answer: 'Rate of change of velocity with time; unit m/s2.' },
+        { question: 'Write three equations of uniformly accelerated motion.', answer: 'v = u + at; s = ut + 1/2at2; v2 = u2 + 2as.' },
+        { question: 'Area under v-t graph gives what?', answer: 'Displacement.' },
+        { question: 'Slope of v-t graph gives what?', answer: 'Acceleration.' },
+        { question: 'Projectile horizontal acceleration is?', answer: 'Zero if air resistance is neglected.' },
+        { question: 'Find KE of 2 kg body at 5 m/s.', answer: 'KE = 1/2 x 2 x 25 = 25 J.' },
+        { question: 'Centripetal acceleration direction?', answer: 'Toward the centre of circular path.' },
+      ],
+      previousYearQuestions: [{ year: 2025, marks: 10, question: 'Solve a projectile problem for time of flight, maximum height and range.' }, { year: 2024, marks: 5, question: 'Derive equations of motion from constant acceleration.' }, { year: 2023, marks: 5, question: 'Explain work-energy theorem.' }, { year: 2022, marks: 5, question: 'Calculate centripetal force for circular motion.' }],
+      labSheet: { experimentName: 'Study of Uniformly Accelerated Motion', aim: 'To verify displacement-time relation for a body moving with uniform acceleration.', apparatus: ['inclined track', 'trolley', 'stopwatch', 'scale', 'marker'], theory: 'For constant acceleration from rest, s = 1/2 at2.', procedure: ['Set a small incline.', 'Release trolley from rest.', 'Record time for different distances.', 'Plot s against t2.', 'Find acceleration from slope.', 'Repeat readings.'], observationTable: { headers: ['Distance s', 'Time t', 't2', 'Acceleration', 'Remark'], rows: 5 }, precautions: ['Release without push.', 'Keep track clean.', 'Use same starting point.', 'Repeat timing.'], result: 'Displacement is proportional to square of time for uniform acceleration from rest.' },
+      industryConnect: { title: 'Motion Calculations in Machines', examples: [{ machine: 'Conveyor start-up', realWorld: 'Acceleration controls belt tension and motor starting load.' }, { machine: 'CNC axis motion', realWorld: 'Velocity and acceleration limits prevent tool chatter and positioning error.' }, { machine: 'Rotating flywheel', realWorld: 'Centripetal acceleration creates rim stress and affects safe operating speed.' }] },
+      quiz: [
+        { question: 'Area under a velocity-time graph gives:', options: ['acceleration', 'displacement', 'force', 'power'], correct: 1, explanation: 'Area under v-t graph equals displacement.' },
+        { question: 'Projectile range formula is:', options: ['u2 sin2theta/g', 'u sin theta/g', 'v2/r', 'ma'], correct: 0, explanation: 'For same level range, R = u^2 sin2theta/g.' },
+        { question: 'Centripetal acceleration is directed:', options: ['outward', 'toward centre', 'along tangent only', 'upward always'], correct: 1, explanation: 'It points toward the centre.' },
+        { question: 'Kinetic energy formula is:', options: ['mgh', '1/2 mv2', 'F/A', 'P/t'], correct: 1, explanation: 'KE = 1/2 mv^2.' },
+        { question: 'Slope of displacement-time graph gives:', options: ['velocity', 'force', 'work', 'mass'], correct: 0, explanation: 'Velocity is rate of displacement change.' },
+      ],
+      checkpoints: ['I can use equations of motion with correct signs.', 'I can interpret v-t graphs.', 'I can solve projectile motion by components.', 'I can calculate centripetal force.', 'I can apply work-energy theorem.'],
+    },
+  ],
+};
 
 export default subject;

@@ -1,88 +1,340 @@
-import { makeSubject } from '../unitFactory';
+const board = 'WBSCTE/WBSCTVESD';
 
-export const subject = makeSubject({
-  "slug": "engineering-metrology",
-  "title": "Engineering Metrology",
-  "code": "MEPC208",
-  "semester": "sem-4",
-  "credits": 3,
-  "category": "Program Core",
-  "family": "metrology"
-}, [
-  {
-    "title": "Linear Measurement",
-    "syllabusTopics": [
-      "Vernier caliper principle",
-      "Least count",
-      "Vernier reading technique",
-      "Micrometer screw gauge",
-      "Pitch and thimble scale",
-      "Slip gauges",
-      "Wringing",
-      "Slip gauge grades",
-      "Dial indicator"
-    ]
-  },
-  {
-    "title": "Angular Measurement",
-    "syllabusTopics": [
-      "Universal bevel protractor",
-      "Sine bar principle",
-      "Slip gauge height calculation",
-      "Limitations above 45 degree",
-      "Spirit level",
-      "Angle gauges",
-      "Taper measurement"
-    ]
-  },
-  {
-    "title": "Limits, Fits and Tolerances",
-    "syllabusTopics": [
-      "Nominal size",
-      "Basic size",
-      "Actual size",
-      "Upper deviation",
-      "Lower deviation",
-      "Tolerance",
-      "Hole basis system",
-      "Shaft basis system",
-      "Clearance fit",
-      "Interference fit",
-      "Transition fit",
-      "IT grades",
-      "BIS designation 50H7/f6"
-    ]
-  },
-  {
-    "title": "Surface Finish",
-    "syllabusTopics": [
-      "Surface roughness",
-      "Ra",
-      "Rz",
-      "Rmax",
-      "Stylus profilometer",
-      "CLA",
-      "RMS",
-      "Surface texture symbols",
-      "Waviness",
-      "Lay"
-    ]
-  },
-  {
-    "title": "Gear and Screw Thread Measurement",
-    "syllabusTopics": [
-      "Thread pitch",
-      "Lead",
-      "Helix angle",
-      "Flank angle",
-      "Crest and root",
-      "Three-wire method",
-      "Effective diameter",
-      "Gear tooth caliper",
-      "Span measurement",
-      "Parkinson gear tester"
-    ]
-  }
-]);
+const commonCheckpoints = [
+  'I can define the main metrology terms with units.',
+  'I can draw or read the relevant measuring instrument diagram.',
+  'I can solve the unit numericals with least count and zero error where applicable.',
+  'I can explain one shop-floor application and one common measurement mistake.',
+];
+
+export const subject = {
+  slug: 'engineering-metrology',
+  title: 'Engineering Metrology',
+  code: 'MEPC208',
+  semester: 'sem-4',
+  semesterNumber: 4,
+  credits: 3,
+  category: 'Program Core',
+  family: 'metrology',
+  units: [
+    {
+      id: 'sem-4-metrology-unit-1',
+      slug: 'unit-1',
+      num: 1,
+      title: 'Linear Measurement',
+      subject: 'Engineering Metrology',
+      subjectCode: 'MEPC208',
+      semester: 4,
+      credits: 3,
+      board,
+      lectureHours: 5,
+      tutorialHours: 2,
+      family: 'metrology',
+      syllabusTopics: ['Vernier caliper principle', 'Least count', 'Vernier reading technique', 'Micrometer screw gauge', 'Pitch and thimble scale', 'Slip gauges', 'Wringing', 'Slip gauge grades', 'Dial indicator'],
+      introduction: `
+Linear measurement is the foundation of workshop inspection. A turned shaft, milled slot, drilled hole or ground gauge block is accepted only when its size is measured against a reliable standard. This unit teaches the instruments most diploma students handle in laboratory and production: vernier caliper, micrometer, slip gauges and dial indicator.
+
+The central skill is reading. You must identify the main scale reading, coinciding vernier or thimble division, least count and zero error. A correct metrology answer is not just a number; it states instrument principle, least count, reading formula, correction and final size with unit. In WBSCTE board exams this unit appears as 2-mark definitions, 5-mark instrument explanations and 10-mark reading numericals. The expected answer structure is labelled diagram, least count derivation, reading steps and practical precautions.
+      `,
+      concepts: [
+        { term: 'Least Count', definition: 'Least count is the smallest value that an instrument can reliably measure.', deepExplanation: `For a vernier caliper, least count is the difference between one main scale division and one vernier scale division. For a micrometer, it is pitch divided by number of thimble divisions. Physically, least count tells the resolution of the instrument, not its guaranteed accuracy. Students often write a reading without multiplying the coinciding division by least count. Unit is usually mm. In WBSCTE exams, least count derivation is a frequent 5-mark answer.`, commonMistake: 'Confusing least count with total instrument range.', formula: 'LC = 1 MSD - 1 VSD', unit_: 'mm', diagramRef: 'vernier-calliper-reading.svg' },
+        { term: 'Vernier Caliper', definition: 'A vernier caliper is a linear measuring instrument used for external, internal and depth measurements using a main scale and a sliding vernier scale.', deepExplanation: `The vernier scale increases reading precision by showing which vernier division exactly aligns with a main scale mark. In a workshop it is used to measure shaft diameters, plate thickness, groove width and hole depth. Students often read the main scale after the vernier zero instead of before it. Unit is mm. In WBSCTE exams, draw jaws, depth rod, main scale and vernier scale, then solve reading examples.`, commonMistake: 'Taking main scale reading to the right of vernier zero instead of the last mark to the left.', formula: 'Reading = MSR + VCD x LC +/- zero correction', unit_: 'mm', diagramRef: 'vernier-calliper-reading.svg' },
+        { term: 'Micrometer Screw Gauge', definition: 'A micrometer is a precision instrument that uses screw motion to measure small external dimensions accurately.', deepExplanation: `One complete rotation of the thimble moves the spindle by one pitch. If pitch is 0.5 mm and thimble has 50 divisions, least count is 0.01 mm. It is preferred over a vernier caliper for wire diameter, sheet thickness and small shaft diameter. Students often forget to add barrel reading and thimble reading, or ignore zero error. Unit is mm. In WBSCTE exams, labelled diagram and reading numericals are common.`, commonMistake: 'Forgetting that thimble reading must be multiplied by least count.', formula: 'LC = pitch / number of thimble divisions', unit_: 'mm', diagramRef: 'micrometer-reading.svg' },
+        { term: 'Slip Gauge', definition: 'Slip gauges are precision-ground gauge blocks used as end standards of length.', deepExplanation: `Slip gauges are wrung together to build exact inspection lengths. Wringing works because highly flat surfaces adhere due to molecular attraction and a thin oil film. Calibration grade is used in standards rooms, inspection grade in tool rooms and workshop grade on shop floors. Students often describe slip gauges as ordinary blocks; their value comes from flatness, parallelism and known length. Unit is mm. In WBSCTE exams, grades, wringing and uses are common 5-mark points.`, commonMistake: 'Stacking many blocks unnecessarily, increasing accumulated error.', formula: 'Built length = sum of selected slip gauge sizes', unit_: 'mm', diagramRef: 'limits-fits-tolerance.svg' },
+      ],
+      formulas: [
+        { name: 'Vernier least count', latex: 'LC=1\\,MSD-1\\,VSD', description: 'Resolution of vernier instrument.', symbols: [{ symbol: 'MSD', name: 'main scale division', unit: 'mm' }, { symbol: 'VSD', name: 'vernier scale division', unit: 'mm' }] },
+        { name: 'Vernier reading', latex: 'Reading=MSR+VCD\\times LC', description: 'Basic vernier reading before zero correction.', symbols: [{ symbol: 'MSR', name: 'main scale reading', unit: 'mm' }, { symbol: 'VCD', name: 'coinciding vernier division', unit: 'division' }] },
+        { name: 'Micrometer least count', latex: 'LC=\\frac{Pitch}{Number\\ of\\ divisions}', description: 'Axial movement per thimble division.', symbols: [{ symbol: 'Pitch', name: 'screw pitch', unit: 'mm' }] },
+        { name: 'Micrometer reading', latex: 'Reading=MSR+TSR\\times LC', description: 'Sleeve reading plus thimble contribution.', symbols: [{ symbol: 'TSR', name: 'thimble scale reading', unit: 'division' }] },
+        { name: 'Positive zero error correction', latex: 'True\\ reading=Observed\\ reading-Zero\\ error', description: 'Correction when instrument reads positive at zero.', symbols: [{ symbol: 'Zero error', name: 'instrument zero offset', unit: 'mm' }] },
+        { name: 'Negative zero error correction', latex: 'True\\ reading=Observed\\ reading+|Zero\\ error|', description: 'Correction when instrument reads negative at zero.', symbols: [{ symbol: 'Observed reading', name: 'uncorrected reading', unit: 'mm' }] },
+      ],
+      workedExamples: [
+        { title: 'Vernier caliper reading', given: ['Main scale reading MSR = 24 mm', 'Coinciding vernier division VCD = 7', 'Least count LC = 0.02 mm', 'Zero error = +0.04 mm'], find: 'True reading', solution: [{ step: 1, text: 'Observed reading = MSR + VCD x LC.' }, { step: 2, text: 'Observed reading = 24 + 7 x 0.02 = 24.14 mm.' }, { step: 3, text: 'Positive zero error is subtracted: true reading = 24.14 - 0.04 = 24.10 mm.' }], answer: 'True reading = 24.10 mm.', examTip: 'Positive zero error makes observed reading too large.' },
+        { title: 'Micrometer reading', given: ['Pitch = 0.5 mm', 'Thimble divisions = 50', 'Sleeve reading = 8.5 mm', 'Thimble division = 28'], find: 'Micrometer reading', solution: [{ step: 1, text: 'LC = pitch/divisions = 0.5/50 = 0.01 mm.' }, { step: 2, text: 'Thimble contribution = 28 x 0.01 = 0.28 mm.' }, { step: 3, text: 'Reading = 8.5 + 0.28 = 8.78 mm.' }], answer: 'Micrometer reading = 8.78 mm.', examTip: 'Check whether the half-mm sleeve mark is visible.' },
+        { title: 'Slip gauge stack selection', given: ['Required height = 36.745 mm', 'Available blocks include 1.005, 1.24, 4.5 and 30 mm'], find: 'One possible stack', solution: [{ step: 1, text: 'Start with last decimal: choose 1.005 mm to supply 0.005.' }, { step: 2, text: 'Remaining = 36.745 - 1.005 = 35.740 mm.' }, { step: 3, text: 'Choose 1.24 mm, remaining = 34.500 mm.' }, { step: 4, text: 'Choose 4.5 mm and 30 mm; total = 1.005 + 1.24 + 4.5 + 30 = 36.745 mm.' }], answer: 'Stack: 1.005 + 1.24 + 4.5 + 30 = 36.745 mm.', examTip: 'Use minimum number of blocks to reduce wringing error.' },
+      ],
+      interactiveDiagram: { type: 'Centroid', description: 'Use the visual measurement panel to practise reading scale divisions and comparing instrument resolution.', controls: [{ label: 'Least count', type: 'slider', min: 0.01, max: 0.1, step: 0.01 }], outputs: ['Main scale reading', 'Vernier/thimble contribution', 'Corrected reading'] },
+      staticDiagrams: [
+        { file: 'vernier-calliper-reading.svg', caption: 'Vernier caliper reading with main scale, vernier scale and jaws.', labels: ['Main scale', 'Vernier scale', 'Outside jaws', 'Depth rod'] },
+        { file: 'micrometer-reading.svg', caption: 'Micrometer screw gauge showing sleeve and thimble readings.', labels: ['Sleeve', 'Thimble', 'Spindle', 'Ratchet'] },
+        { file: 'limits-fits-tolerance.svg', caption: 'Slip gauges connect measurement with tolerance inspection.', labels: ['Basic size', 'Limits', 'Tolerance zone'] },
+      ],
+      comparisonTable: { title: 'Linear Measuring Instruments', headers: ['Instrument', 'Typical least count', 'Best use', 'Common error'], rows: [['Vernier caliper', '0.02 mm or 0.05 mm', 'general external/internal/depth measurement', 'wrong MSR'], ['Micrometer', '0.01 mm', 'small precision external measurement', 'zero error ignored'], ['Slip gauge', 'standard block value', 'setting and calibration', 'too many blocks'], ['Dial indicator', '0.01 mm or better', 'runout and alignment', 'preload not set']] },
+      vivaBank: [
+        { question: 'What is least count?', answer: 'Smallest value an instrument can measure reliably.' },
+        { question: 'Least count of micrometer with 0.5 mm pitch and 50 divisions?', answer: 'LC = 0.5/50 = 0.01 mm.' },
+        { question: 'Vernier reading if MSR = 12 mm, VCD = 5 and LC = 0.02 mm?', answer: 'Reading = 12 + 5 x 0.02 = 12.10 mm.' },
+        { question: 'Name three uses of vernier caliper.', answer: 'External diameter, internal diameter and depth measurement.' },
+        { question: 'What is wringing?', answer: 'Adhesion of slip gauges by sliding highly flat surfaces together with a thin oil film.' },
+        { question: 'Name slip gauge grades.', answer: 'Calibration/reference grade, inspection grade and workshop grade.' },
+        { question: 'Why is ratchet used in micrometer?', answer: 'To apply nearly constant measuring pressure and avoid over-tightening.' },
+        { question: 'What does a dial indicator measure?', answer: 'Small displacement, runout, alignment error or comparative height variation.' },
+      ],
+      previousYearQuestions: [{ year: 2025, marks: 10, question: 'Explain vernier caliper construction and solve a reading with zero error.' }, { year: 2024, marks: 5, question: 'Derive least count of a micrometer screw gauge.' }, { year: 2023, marks: 5, question: 'Explain slip gauge wringing and grades.' }, { year: 2022, marks: 10, question: 'Read a micrometer and apply zero correction.' }],
+      labSheet: { experimentName: 'Measurement of a Shaft by Vernier Caliper and Micrometer', aim: 'To measure the diameter of a cylindrical job using vernier caliper and micrometer and compare readings.', apparatus: ['vernier caliper', 'micrometer', 'cylindrical specimen', 'clean cloth'], theory: 'Reading equals main/sleeve reading plus coinciding division multiplied by least count, corrected for zero error.', procedure: ['Check zero error of both instruments.', 'Measure diameter at three positions.', 'Rotate job by 90 degrees and repeat.', 'Record all readings.', 'Calculate mean diameter.', 'Compare instrument resolutions.'], observationTable: { headers: ['Instrument', 'Position', 'MSR/Sleeve', 'VCD/Thimble', 'LC', 'Corrected reading'], rows: 6 }, precautions: ['Clean measuring faces.', 'Do not overtighten micrometer.', 'Avoid parallax.', 'Take repeated readings.'], result: 'The micrometer gives finer resolution than the vernier caliper for small external dimensions.' },
+      industryConnect: { title: 'Linear Measurement in Production', examples: [{ machine: 'Lathe shop inspection', realWorld: 'Shaft diameters are checked with micrometers before assembly into bearings.' }, { machine: 'Tool room calibration', realWorld: 'Slip gauges set sine bars, comparators and dial indicators to traceable lengths.' }, { machine: 'Pump overhaul', realWorld: 'Vernier depth measurement checks impeller clearance and gasket thickness.' }] },
+      quiz: [
+        { question: 'Micrometer least count equals:', options: ['pitch/divisions', 'MSR + VCD', 'diameter/teeth', 'upper-lower limit'], correct: 0, explanation: 'LC = pitch divided by thimble divisions.' },
+        { question: 'Vernier reading formula is:', options: ['MSR + VCD x LC', 'VCD/LC', 'pitch x range', 'Ra/Rz'], correct: 0, explanation: 'Observed reading combines main scale and vernier contribution.' },
+        { question: 'Positive zero error is:', options: ['added', 'subtracted', 'ignored', 'multiplied by pitch'], correct: 1, explanation: 'Positive zero error makes observed reading high, so subtract it.' },
+        { question: 'Slip gauges are:', options: ['angle gauges only', 'end standards of length', 'cutting tools', 'welding rods'], correct: 1, explanation: 'Slip gauges are precision length standards.' },
+        { question: 'Ratchet in micrometer controls:', options: ['pressure', 'surface roughness', 'gear pitch', 'temperature'], correct: 0, explanation: 'Ratchet helps maintain constant measuring pressure.' },
+      ],
+      checkpoints: commonCheckpoints,
+    },
+    {
+      id: 'sem-4-metrology-unit-2',
+      slug: 'unit-2',
+      num: 2,
+      title: 'Angular Measurement',
+      subject: 'Engineering Metrology',
+      subjectCode: 'MEPC208',
+      semester: 4,
+      credits: 3,
+      board,
+      lectureHours: 4,
+      tutorialHours: 2,
+      family: 'metrology',
+      syllabusTopics: ['Universal bevel protractor', 'Sine bar principle', 'Slip gauge height calculation', 'Limitations above 45 degree', 'Spirit level', 'Angle gauges', 'Taper measurement'],
+      introduction: `
+Angular measurement is required wherever surfaces must meet at a specified angle: dovetail slides, tapers, tool angles, fixture plates and machine alignments. The universal bevel protractor gives direct angular reading, while the sine bar gives precise angular setting using length standards and trigonometry.
+
+The sine bar principle is simple but powerful: sin theta = h/L. A known roller-centre distance L and slip gauge height h create the desired angle theta. Accuracy decreases at high angles because a small height error causes a larger angle error, so sine bars are usually preferred below about 45 degrees. In WBSCTE exams this unit appears as 5-mark instrument descriptions and 10-mark sine bar calculations. The expected answer structure is sketch, formula, unit consistency and limitation statement.
+      `,
+      concepts: [
+        { term: 'Sine Bar', definition: 'A sine bar is a precision angular measuring or setting device consisting of a hardened bar with two equal rollers at a known centre distance.', deepExplanation: `When one roller is raised by slip gauges, the top face makes an angle theta with the surface plate such that sin theta = h/L. It is used for taper checking, angle setting and inspection of precision components. Students often use tan instead of sin; the right triangle uses opposite side h and hypotenuse L. Unit of height and length is mm, while theta is degree. In WBSCTE exams, sine bar numericals are common 10-mark questions.`, commonMistake: 'Using tan theta = h/L instead of sin theta = h/L.', formula: 'sin theta = h/L', unit_: 'degree for angle', diagramRef: 'limits-fits-tolerance.svg' },
+        { term: 'Universal Bevel Protractor', definition: 'A universal bevel protractor is an angular measuring instrument with a base, adjustable blade and vernier scale.', deepExplanation: `It measures angles directly, often to 5 minutes depending on design. It is convenient on shop floors for bevels, chamfers and tool angles, but not as precise as a sine bar with slip gauges. Students often forget that angular readings may be in degrees and minutes. Unit is degree and minute. In WBSCTE exams, draw the stock, blade, dial and vernier and explain reading.`, commonMistake: 'Writing decimal degrees without converting minutes when the instrument reads in minutes.', formula: 'Angle = main scale reading + vernier minutes', unit_: 'degree/minute', diagramRef: 'limits-fits-tolerance.svg' },
+        { term: 'Spirit Level', definition: 'A spirit level measures small angular deviations from horizontal using movement of an air bubble in a curved tube.', deepExplanation: `It is used in machine alignment and bed levelling, where the required angle is very small. Sensitivity may be specified as mm per metre or seconds of arc per division. Students often treat it as a large-angle measuring tool; it is primarily for small inclinations. Unit can be mm/m or angular seconds. In WBSCTE exams it appears as short notes and practical metrology questions.`, commonMistake: 'Using a spirit level for large precision angle setting instead of sine bar or protractor.', formula: 'slope approx = rise/base for small angles', unit_: 'mm/m or seconds', diagramRef: 'limits-fits-tolerance.svg' },
+      ],
+      formulas: [
+        { name: 'Sine bar relation', latex: '\\sin\\theta=\\frac{h}{L}', description: 'Angle from slip gauge height and roller centre distance.', symbols: [{ symbol: 'h', name: 'slip gauge height', unit: 'mm' }, { symbol: 'L', name: 'distance between roller centres', unit: 'mm' }] },
+        { name: 'Slip gauge height', latex: 'h=L\\sin\\theta', description: 'Height required to set angle theta.', symbols: [{ symbol: '\\theta', name: 'required angle', unit: 'degree' }] },
+        { name: 'Taper angle', latex: '\\tan\\alpha=\\frac{D-d}{2l}', description: 'Half taper angle from end diameters.', symbols: [{ symbol: 'D,d', name: 'large and small diameters', unit: 'mm' }, { symbol: 'l', name: 'taper length', unit: 'mm' }] },
+        { name: 'Included taper angle', latex: '\\Theta=2\\alpha', description: 'Full included angle of taper.', symbols: [{ symbol: '\\Theta', name: 'included angle', unit: 'degree' }] },
+        { name: 'Angle conversion', latex: '1^\\circ=60\\,minutes', description: 'Used for bevel protractor readings.', symbols: [{ symbol: 'minute', name: 'angular minute', unit: '1/60 degree' }] },
+        { name: 'Small angle slope', latex: '\\theta\\approx\\frac{h}{l}', description: 'Approximation for very small angles in radians.', symbols: [{ symbol: 'l', name: 'base length', unit: 'mm' }] },
+      ],
+      workedExamples: [
+        { title: 'Sine bar slip gauge height', given: ['Sine bar length L = 200 mm', 'Required angle theta = 30 degree'], find: 'Slip gauge height', solution: [{ step: 1, text: 'Use h = L sin theta.' }, { step: 2, text: 'h = 200 sin30 = 200 x 0.5 = 100 mm.' }, { step: 3, text: 'Raise one roller by a 100 mm slip gauge combination.' }], answer: 'Required slip gauge height = 100 mm.', examTip: 'Use sine, not tangent.' },
+        { title: 'Angle from sine bar setup', given: ['Slip gauge height h = 50 mm', 'Sine bar length L = 200 mm'], find: 'Angle theta', solution: [{ step: 1, text: 'sin theta = h/L = 50/200 = 0.25.' }, { step: 2, text: 'theta = sin^-1(0.25) = 14.48 degree.' }], answer: 'Angle = 14.48 degree.', examTip: 'State limitation: sine bar is best for angles below about 45 degree.' },
+        { title: 'Taper half-angle', given: ['Large diameter D = 60 mm', 'Small diameter d = 40 mm', 'Length l = 100 mm'], find: 'Included taper angle', solution: [{ step: 1, text: 'tan alpha = (D - d)/(2l) = (60 - 40)/(2 x 100) = 0.1.' }, { step: 2, text: 'alpha = tan^-1(0.1) = 5.71 degree.' }, { step: 3, text: 'Included angle = 2 alpha = 11.42 degree.' }], answer: 'Included taper angle = 11.42 degree.', examTip: 'The formula gives half-angle first.' },
+      ],
+      interactiveDiagram: { type: 'Centroid', description: 'Adjust height and base length to see sine-bar angle relation.', controls: [{ label: 'Height h', type: 'slider', min: 0, max: 150, step: 5 }, { label: 'Length L', type: 'slider', min: 100, max: 300, step: 10 }], outputs: ['sin theta', 'theta', 'height required'] },
+      staticDiagrams: [{ file: 'limits-fits-tolerance.svg', caption: 'Sine-bar angle setting uses slip gauge height and roller centre distance.', labels: ['Height h', 'Length L', 'Angle theta'] }, { file: 'vernier-calliper-reading.svg', caption: 'Vernier reading idea also appears in bevel protractor vernier scale.', labels: ['Main scale', 'Vernier'] }],
+      comparisonTable: { title: 'Angular Measuring Instruments', headers: ['Instrument', 'Accuracy', 'Best use', 'Limitation'], rows: [['Bevel protractor', 'moderate', 'direct shop angle', 'operator reading'], ['Sine bar', 'high below 45 degree', 'precision setting', 'poor at high angle'], ['Spirit level', 'very small slope', 'machine levelling', 'not for large angles'], ['Angle gauges', 'high', 'standard angle build-up', 'limited standard set']] },
+      vivaBank: [
+        { question: 'State sine bar principle.', answer: 'sin theta = h/L, where h is slip gauge height and L is roller centre distance.' },
+        { question: 'For L = 100 mm and theta = 30 degree, find h.', answer: 'h = 100 sin30 = 50 mm.' },
+        { question: 'Why is sine bar not preferred above 45 degree?', answer: 'Small height errors produce larger angle errors and setup becomes less stable.' },
+        { question: 'What does universal bevel protractor measure?', answer: 'Angles directly in degrees and minutes.' },
+        { question: 'What is taper half-angle formula?', answer: 'tan alpha = (D - d)/(2l).' },
+        { question: 'What is 30 minutes in degrees?', answer: '30 minutes = 0.5 degree.' },
+        { question: 'What is spirit level used for?', answer: 'Checking small inclinations and levelling machine beds.' },
+        { question: 'Which standard is used with sine bar for precision height?', answer: 'Slip gauges.' },
+      ],
+      previousYearQuestions: [{ year: 2025, marks: 10, question: 'A sine bar of 200 mm is used to set 25 degree. Find slip gauge height.' }, { year: 2024, marks: 5, question: 'Explain limitations of sine bar.' }, { year: 2023, marks: 5, question: 'Explain universal bevel protractor with labelled sketch.' }, { year: 2022, marks: 10, question: 'Calculate taper angle from two diameters and length.' }],
+      labSheet: { experimentName: 'Angle Measurement by Sine Bar', aim: 'To set and measure an angle using sine bar and slip gauges.', apparatus: ['sine bar', 'slip gauges', 'surface plate', 'dial indicator', 'job'], theory: 'sin theta = h/L. Correct height makes the job surface parallel to the surface plate.', procedure: ['Clean surface plate and sine bar.', 'Place slip gauges under one roller.', 'Place job on sine bar.', 'Sweep top surface with dial indicator.', 'Adjust height until indicator reading is constant.', 'Calculate angle.'], observationTable: { headers: ['Trial', 'L', 'h', 'sin theta', 'theta', 'Indicator variation'], rows: 5 }, precautions: ['Clean all contact surfaces.', 'Use minimum slip gauges.', 'Avoid using sine bar for very large angles.', 'Let dial indicator contact gently.'], result: 'The job angle is obtained from sine relation using slip gauge height.' },
+      industryConnect: { title: 'Angular Metrology in Tool Rooms', examples: [{ machine: 'Dovetail slide', realWorld: 'Sine bar inspection confirms accurate dovetail angle for smooth machine-tool slide movement.' }, { machine: 'Taper mandrel', realWorld: 'Taper angle measurement ensures correct self-holding or self-releasing fit.' }, { machine: 'Machine bed installation', realWorld: 'Spirit levels detect small alignment errors that affect machining accuracy.' }] },
+      quiz: [
+        { question: 'Sine bar formula is:', options: ['sin theta = h/L', 'tan theta = L/h', 'theta = hL', 'LC = pitch/divisions'], correct: 0, explanation: 'The roller centre distance is hypotenuse, so sin theta = h/L.' },
+        { question: 'For L = 200 mm, h = 100 mm, theta is:', options: ['15 degree', '30 degree', '45 degree', '60 degree'], correct: 1, explanation: 'sin theta = 0.5, so theta = 30 degree.' },
+        { question: 'Sine bar is usually best below:', options: ['5 degree', '45 degree', '90 degree only', '180 degree'], correct: 1, explanation: 'Accuracy and setup stability reduce at high angles.' },
+        { question: 'Universal bevel protractor reads:', options: ['linear length', 'angle', 'surface roughness', 'thread pitch only'], correct: 1, explanation: 'It is an angular measuring instrument.' },
+        { question: 'Taper included angle is:', options: ['alpha/2', '2 alpha', 'D + d', 'h/L'], correct: 1, explanation: 'The taper formula first gives half-angle alpha.' },
+      ],
+      checkpoints: commonCheckpoints,
+    },
+    {
+      id: 'sem-4-metrology-unit-3',
+      slug: 'unit-3',
+      num: 3,
+      title: 'Limits, Fits and Tolerances',
+      subject: 'Engineering Metrology',
+      subjectCode: 'MEPC208',
+      semester: 4,
+      credits: 3,
+      board,
+      lectureHours: 5,
+      tutorialHours: 2,
+      family: 'metrology',
+      syllabusTopics: ['Nominal size', 'Basic size', 'Actual size', 'Upper deviation', 'Lower deviation', 'Tolerance', 'Hole basis system', 'Shaft basis system', 'Clearance fit', 'Interference fit', 'Transition fit', 'IT grades', 'BIS designation 50H7/f6'],
+      introduction: `
+No manufactured component is exactly equal to its drawing size. Limits and tolerances define the permissible variation, while fits describe the assembly relation between mating parts such as shaft and hole. This unit is the language of interchangeability: parts made in different batches must assemble without hand fitting.
+
+The basic size is the reference size. Upper and lower limits define the maximum and minimum acceptable sizes. Clearance, interference and transition fits are selected according to function. A sliding bearing needs clearance; a press-fitted gear needs interference; a dowel may use transition fit. In WBSCTE exams this unit appears as 2-mark definitions, 5-mark fit comparisons and 10-mark limit calculation or BIS designation interpretation. The expected answer structure is diagram of tolerance zones, definitions and numerical upper/lower limits.
+      `,
+      concepts: [
+        { term: 'Tolerance', definition: 'Tolerance is the total permissible variation in a dimension.', deepExplanation: `If a shaft may vary from 49.98 mm to 50.00 mm, its tolerance is 0.02 mm. Tolerance is not error; it is a planned manufacturing allowance. Tight tolerance improves function but increases cost. Students often confuse tolerance with allowance; allowance is intentional difference between hole and shaft limits at maximum material condition. Unit is mm. In WBSCTE exams tolerance definitions and calculations are very common.`, commonMistake: 'Calling every deviation an error rather than a permitted tolerance zone.', formula: 'Tolerance = upper limit - lower limit', unit_: 'mm', diagramRef: 'limits-fits-tolerance.svg' },
+        { term: 'Clearance Fit', definition: 'A clearance fit always leaves positive clearance between hole and shaft.', deepExplanation: `The smallest hole is still larger than the largest shaft. This fit is used for rotating shafts, sliding parts and assemblies that must move freely. Students often decide fit from nominal size only; limits must be compared. Clearance is in mm. In WBSCTE exams, identify minimum and maximum clearance.`, commonMistake: 'Ignoring worst-case limits when deciding fit type.', formula: 'Minimum clearance = smallest hole - largest shaft', unit_: 'mm', diagramRef: 'limits-fits-tolerance.svg' },
+        { term: 'Interference Fit', definition: 'An interference fit always makes the shaft larger than the hole before assembly.', deepExplanation: `Press fits, shrink fits and force fits use interference so parts grip after assembly. A gear mounted permanently on a shaft may use interference fit. Students sometimes call it negative clearance without explaining assembly force. Interference is in mm. In WBSCTE exams, calculate maximum and minimum interference from limits.`, commonMistake: 'Using average sizes instead of limiting sizes to classify fit.', formula: 'Minimum interference = smallest shaft - largest hole', unit_: 'mm', diagramRef: 'limits-fits-tolerance.svg' },
+        { term: 'Hole Basis System', definition: 'In hole basis system, the basic hole has zero lower deviation and different fits are obtained by changing shaft tolerance zones.', deepExplanation: `This system is widely used because holes are harder to vary economically; standard reamers and broaches produce standard holes, while shafts can be turned or ground to different sizes. In designation 50H7/f6, H indicates hole basis hole with lower deviation zero. Students often think H belongs to the shaft; uppercase letters are holes, lowercase are shafts. Unit is mm. In WBSCTE exams BIS designation reading is a standard question.`, commonMistake: 'Reading 50H7/f6 as a single part instead of a hole/shaft fit pair.', formula: 'H hole: lower deviation = 0', unit_: 'mm deviations', diagramRef: 'limits-fits-tolerance.svg' },
+      ],
+      formulas: [
+        { name: 'Tolerance', latex: 'T=Upper\\ limit-Lower\\ limit', description: 'Permitted dimensional variation.', symbols: [{ symbol: 'T', name: 'tolerance', unit: 'mm' }] },
+        { name: 'Upper deviation', latex: 'ES=Upper\\ limit-Basic\\ size', description: 'Hole upper deviation; shaft often uses es.', symbols: [{ symbol: 'ES', name: 'upper deviation of hole', unit: 'mm' }] },
+        { name: 'Lower deviation', latex: 'EI=Lower\\ limit-Basic\\ size', description: 'Hole lower deviation; shaft often uses ei.', symbols: [{ symbol: 'EI', name: 'lower deviation of hole', unit: 'mm' }] },
+        { name: 'Minimum clearance', latex: 'C_{min}=H_{min}-S_{max}', description: 'Worst-case clearance fit check.', symbols: [{ symbol: 'H_min', name: 'minimum hole size', unit: 'mm' }, { symbol: 'S_max', name: 'maximum shaft size', unit: 'mm' }] },
+        { name: 'Maximum clearance', latex: 'C_{max}=H_{max}-S_{min}', description: 'Largest clearance in assembly.', symbols: [{ symbol: 'H_max', name: 'maximum hole size', unit: 'mm' }] },
+        { name: 'Minimum interference', latex: 'I_{min}=S_{min}-H_{max}', description: 'Worst-case interference fit check.', symbols: [{ symbol: 'S_min', name: 'minimum shaft size', unit: 'mm' }] },
+      ],
+      workedExamples: [
+        { title: 'Tolerance from limits', given: ['Upper limit = 50.025 mm', 'Lower limit = 49.995 mm'], find: 'Tolerance', solution: [{ step: 1, text: 'Tolerance = upper limit - lower limit.' }, { step: 2, text: 'T = 50.025 - 49.995 = 0.030 mm.' }], answer: 'Tolerance = 0.030 mm.', examTip: 'Always keep three decimal places in limit problems.' },
+        { title: 'Clearance fit calculation', given: ['Hole limits: 50.020 mm to 50.050 mm', 'Shaft limits: 49.970 mm to 49.990 mm'], find: 'Minimum and maximum clearance', solution: [{ step: 1, text: 'Minimum clearance = smallest hole - largest shaft = 50.020 - 49.990 = 0.030 mm.' }, { step: 2, text: 'Maximum clearance = largest hole - smallest shaft = 50.050 - 49.970 = 0.080 mm.' }, { step: 3, text: 'Both are positive, so it is a clearance fit.' }], answer: 'Clearance range = 0.030 mm to 0.080 mm.', examTip: 'Fit type is decided by worst-case values.' },
+        { title: 'Interpret 50H7/f6', given: ['Designation: 50H7/f6'], find: 'Meaning of designation', solution: [{ step: 1, text: '50 is the basic size in mm.' }, { step: 2, text: 'H7 is the hole: H means hole basis position with zero lower deviation; 7 is IT grade.' }, { step: 3, text: 'f6 is the shaft: f gives shaft tolerance zone below basic size; 6 is IT grade.' }, { step: 4, text: 'This is generally a clearance fit.' }], answer: '50H7/f6 means 50 mm basic size, H7 hole and f6 shaft, normally clearance fit.', examTip: 'Uppercase letters identify holes; lowercase letters identify shafts.' },
+      ],
+      interactiveDiagram: { type: 'Centroid', description: 'Move hole and shaft tolerance zones to see clearance, transition and interference fit classification.', controls: [{ label: 'Hole upper limit', type: 'slider', min: 50, max: 50.1, step: 0.005 }], outputs: ['Tolerance', 'Minimum clearance', 'Maximum clearance', 'Fit type'] },
+      staticDiagrams: [{ file: 'limits-fits-tolerance.svg', caption: 'Tolerance zones for clearance, transition and interference fits.', labels: ['Basic size', 'Hole zone', 'Shaft zone', 'Allowance'] }, { file: 'shaft-key-coupling.svg', caption: 'Shaft-hole assemblies require selected fits for torque and location.', labels: ['Shaft', 'Hub', 'Fit'] }],
+      comparisonTable: { title: 'Fit Types', headers: ['Fit', 'Condition', 'Assembly feel', 'Application'], rows: [['Clearance', 'hole always larger', 'free assembly', 'bearing journal'], ['Interference', 'shaft always larger', 'press/shrink required', 'gear on shaft'], ['Transition', 'may clear or interfere', 'accurate location', 'dowel pin'], ['Hole basis', 'H hole fixed', 'standard holes', 'general manufacturing']] },
+      vivaBank: [
+        { question: 'Define tolerance.', answer: 'Difference between upper and lower permissible limits of size.' },
+        { question: 'What is basic size?', answer: 'The theoretical reference size from which limits are derived.' },
+        { question: 'What is actual size?', answer: 'The measured size of the finished component.' },
+        { question: 'Minimum clearance formula?', answer: 'Cmin = smallest hole - largest shaft.' },
+        { question: 'Maximum interference formula?', answer: 'Imax = largest shaft - smallest hole.' },
+        { question: 'What does H mean in H7?', answer: 'Hole tolerance zone with lower deviation zero in hole basis system.' },
+        { question: 'What does lowercase f denote in f6?', answer: 'Shaft tolerance zone position; lowercase letters are for shafts.' },
+        { question: 'Name one clearance fit application.', answer: 'Shaft rotating in a bearing or sliding guide.' },
+      ],
+      previousYearQuestions: [{ year: 2025, marks: 10, question: 'Calculate tolerance, allowance and fit type from given hole and shaft limits.' }, { year: 2024, marks: 5, question: 'Explain hole basis and shaft basis systems.' }, { year: 2023, marks: 2, question: 'Define tolerance and allowance.' }, { year: 2022, marks: 5, question: 'Interpret 50H7/f6 designation.' }],
+      labSheet: { experimentName: 'Inspection of Shaft and Hole Fit', aim: 'To determine whether a given shaft-hole pair gives clearance, transition or interference fit.', apparatus: ['vernier caliper', 'micrometer', 'bore gauge', 'shaft and bush samples'], theory: 'Fit type is decided by comparing limiting sizes of hole and shaft.', procedure: ['Measure hole diameter at multiple positions.', 'Measure shaft diameter at multiple positions.', 'Record maximum and minimum values.', 'Calculate clearances/interferences.', 'Classify fit.', 'Compare with drawing limits.'], observationTable: { headers: ['Part', 'Reading 1', 'Reading 2', 'Max', 'Min', 'Decision'], rows: 6 }, precautions: ['Remove burrs.', 'Measure at several angular positions.', 'Use correct instrument for bore/shaft.', 'Avoid temperature variation.'], result: 'The fit is classified from the actual and limiting dimensions.' },
+      industryConnect: { title: 'Fits in Assembly Work', examples: [{ machine: 'Electric motor bearing seat', realWorld: 'A controlled interference or transition fit prevents bearing creep on the shaft.' }, { machine: 'Hydraulic spool valve', realWorld: 'Small clearance fit permits sliding while limiting leakage.' }, { machine: 'Dowel-located fixture', realWorld: 'Transition fits locate fixture plates accurately while allowing service assembly.' }] },
+      quiz: [
+        { question: 'Tolerance equals:', options: ['upper limit - lower limit', 'basic size x IT', 'hole + shaft', 'Ra/Rz'], correct: 0, explanation: 'Tolerance is the width of permitted size zone.' },
+        { question: 'Clearance fit means:', options: ['shaft always larger', 'hole always larger', 'no tolerance', 'only welding'], correct: 1, explanation: 'There is always positive clearance.' },
+        { question: 'In 50H7/f6, 50 is:', options: ['basic size', 'tolerance', 'roughness', 'thread pitch'], correct: 0, explanation: 'The number gives basic size in mm.' },
+        { question: 'Uppercase letters in fit designation refer to:', options: ['holes', 'shafts', 'surface finish', 'tools'], correct: 0, explanation: 'H7 is a hole designation.' },
+        { question: 'Interference fit requires:', options: ['free sliding', 'press/shrink assembly usually', 'zero force always', 'only paint'], correct: 1, explanation: 'The shaft is larger than the hole before assembly.' },
+      ],
+      checkpoints: commonCheckpoints,
+    },
+    {
+      id: 'sem-4-metrology-unit-4',
+      slug: 'unit-4',
+      num: 4,
+      title: 'Surface Finish',
+      subject: 'Engineering Metrology',
+      subjectCode: 'MEPC208',
+      semester: 4,
+      credits: 3,
+      board,
+      lectureHours: 4,
+      tutorialHours: 1,
+      family: 'metrology',
+      syllabusTopics: ['Surface roughness', 'Ra', 'Rz', 'Rmax', 'Stylus profilometer', 'CLA', 'RMS', 'Surface texture symbols', 'Waviness', 'Lay'],
+      introduction: `
+A machined surface is never perfectly smooth. It contains roughness, waviness and lay produced by cutting tool geometry, feed, vibration, grinding wheel marks or casting process. Surface finish affects friction, wear, sealing, fatigue strength, lubrication retention and appearance.
+
+Surface finish is measured by parameters such as Ra, Rz and Rmax. Ra is the arithmetic mean deviation from the centre line and is widely used on drawings. A stylus profilometer traces the surface profile and converts vertical deviations into roughness values. In WBSCTE exams this unit appears as definitions, parameter comparisons and surface texture symbol interpretation. The expected answer structure is profile sketch, parameter definition, measurement method and application.
+      `,
+      concepts: [
+        { term: 'Surface Roughness', definition: 'Surface roughness is the fine irregularity on a surface caused by manufacturing process marks.', deepExplanation: `Turning leaves feed marks, grinding leaves abrasive scratches and casting leaves granular texture. Roughness can help oil retention but excessive roughness increases wear and leakage. Students often mix roughness with waviness; waviness has longer spacing and is usually caused by vibration or machine deflection. Unit is micrometre. In WBSCTE exams, define roughness and identify Ra/Rz/Rmax.`, commonMistake: 'Calling every surface irregularity roughness even when it is waviness.', formula: 'Roughness parameters are measured over sampling length', unit_: 'micrometre', diagramRef: 'limits-fits-tolerance.svg' },
+        { term: 'Ra', definition: 'Ra is the arithmetic average of absolute profile deviations from the centre line over a sampling length.', deepExplanation: `Ra is popular because it gives one stable number for general roughness control. However, two surfaces with different peak patterns can have the same Ra, so critical sealing surfaces may need additional parameters. Students often say Ra is maximum height; maximum height is closer to Rmax/Rt, not Ra. Unit is micrometre. In WBSCTE exams, write the integral or mean absolute deviation definition.`, commonMistake: 'Defining Ra as peak-to-valley height.', formula: 'Ra = (1/L) integral |y| dx', unit_: 'micrometre', diagramRef: 'limits-fits-tolerance.svg' },
+        { term: 'Stylus Profilometer', definition: 'A stylus profilometer measures surface roughness by dragging a fine stylus over the surface and recording vertical movement.', deepExplanation: `The diamond stylus follows surface peaks and valleys, and the instrument filters waviness from roughness over a chosen sampling length. It is common in quality-control labs for turned, ground and milled parts. Students often forget that stylus radius and measuring force can affect delicate surfaces. Unit output is usually micrometre Ra or Rz. In WBSCTE exams, explain working with a block diagram.`, commonMistake: 'Assuming profilometer reads size like a caliper; it measures profile deviations.', formula: 'Electrical signal proportional to stylus displacement', unit_: 'micrometre output', diagramRef: 'limits-fits-tolerance.svg' },
+      ],
+      formulas: [
+        { name: 'Arithmetic roughness', latex: 'R_a=\\frac{1}{L}\\int_0^L |y|dx', description: 'Mean absolute deviation from centre line.', symbols: [{ symbol: 'L', name: 'sampling length', unit: 'mm' }, { symbol: 'y', name: 'profile deviation', unit: 'micrometre' }] },
+        { name: 'CLA roughness', latex: 'CLA=R_a', description: 'Centre line average is practically the same as Ra.', symbols: [{ symbol: 'CLA', name: 'centre line average', unit: 'micrometre' }] },
+        { name: 'RMS roughness', latex: 'R_q=\\sqrt{\\frac{1}{L}\\int_0^L y^2dx}', description: 'Root mean square roughness.', symbols: [{ symbol: 'R_q', name: 'RMS roughness', unit: 'micrometre' }] },
+        { name: 'Ten-point height', latex: 'R_z=\\frac{sum\\ of\\ 5\\ peak\\ heights+sum\\ of\\ 5\\ valley\\ depths}{5}', description: 'Average peak-valley height measure.', symbols: [{ symbol: 'R_z', name: 'ten-point roughness', unit: 'micrometre' }] },
+        { name: 'Maximum roughness height', latex: 'R_{max}=largest\\ peak\\ to\\ valley\\ height', description: 'Largest single roughness height in sampling length.', symbols: [{ symbol: 'Rmax', name: 'maximum roughness', unit: 'micrometre' }] },
+        { name: 'Sampling length idea', latex: 'Measured\\ profile=roughness+waviness+form\\ error', description: 'Filtering separates roughness from longer wavelength errors.', symbols: [{ symbol: 'profile', name: 'surface trace', unit: 'micrometre' }] },
+      ],
+      workedExamples: [
+        { title: 'Ra from discrete ordinates', given: ['Profile deviations in micrometre: +2, -1, +3, -2, +1'], find: 'Ra', solution: [{ step: 1, text: 'Take absolute values: 2, 1, 3, 2, 1.' }, { step: 2, text: 'Ra = average = (2 + 1 + 3 + 2 + 1)/5 = 1.8 micrometre.' }], answer: 'Ra = 1.8 micrometre.', examTip: 'Ra uses absolute deviations; signs do not cancel.' },
+        { title: 'RMS roughness from ordinates', given: ['Deviations in micrometre: +2, -1, +2, -3'], find: 'Rq', solution: [{ step: 1, text: 'Square deviations: 4, 1, 4, 9.' }, { step: 2, text: 'Mean square = (4 + 1 + 4 + 9)/4 = 4.5.' }, { step: 3, text: 'Rq = sqrt(4.5) = 2.12 micrometre.' }], answer: 'RMS roughness = 2.12 micrometre.', examTip: 'RMS is more sensitive to high peaks than Ra.' },
+        { title: 'Choose finish for bearing journal', given: ['Application: rotating shaft journal', 'Need: low friction and good lubrication film'], find: 'Suitable parameter and reasoning', solution: [{ step: 1, text: 'A journal needs controlled roughness, not mirror polish that cannot retain oil.' }, { step: 2, text: 'Specify Ra value according to drawing standard, commonly in low micrometre or sub-micrometre range depending bearing.' }, { step: 3, text: 'Inspection by stylus profilometer confirms the surface.' }], answer: 'Use specified Ra with profilometer verification; exact value depends on bearing design standard.', examTip: 'For theory questions, connect finish to function: friction, wear, seal or fatigue.' },
+      ],
+      interactiveDiagram: { type: 'Centroid', description: 'Explore how profile deviations produce Ra and RMS values.', controls: [{ label: 'Peak height', type: 'slider', min: 0, max: 10, step: 1 }], outputs: ['Ra', 'Rq', 'Rmax'] },
+      staticDiagrams: [{ file: 'limits-fits-tolerance.svg', caption: 'Drawing symbols and tolerance notes are used with surface texture requirements.', labels: ['Ra', 'Tolerance', 'Specification'] }, { file: 'lathe-parts.svg', caption: 'Turning process creates feed marks that determine roughness.', labels: ['Tool', 'Work', 'Feed marks'] }],
+      comparisonTable: { title: 'Surface Parameters', headers: ['Parameter', 'Meaning', 'Sensitive to peaks?', 'Use'], rows: [['Ra', 'mean absolute deviation', 'moderate', 'general drawing control'], ['Rq/RMS', 'root mean square deviation', 'higher', 'process comparison'], ['Rz', 'average peak-valley measure', 'high', 'functional surfaces'], ['Rmax', 'largest peak-valley', 'very high', 'defect control']] },
+      vivaBank: [
+        { question: 'Define surface roughness.', answer: 'Fine surface irregularities produced by manufacturing process marks.' },
+        { question: 'What is Ra?', answer: 'Arithmetic mean of absolute deviations from centre line over sampling length.' },
+        { question: 'Unit of roughness?', answer: 'Micrometre, commonly written um.' },
+        { question: 'What is Rz?', answer: 'Ten-point height parameter based on five highest peaks and five deepest valleys.' },
+        { question: 'What instrument measures roughness?', answer: 'Stylus profilometer is commonly used.' },
+        { question: 'Difference between roughness and waviness?', answer: 'Roughness has fine spacing; waviness has longer spacing due to vibration or deflection.' },
+        { question: 'Why surface finish matters in seals?', answer: 'It controls leakage path and wear at contact surfaces.' },
+        { question: 'If deviations are +1, -2, +3 um, find Ra.', answer: 'Ra = (1 + 2 + 3)/3 = 2 um.' },
+      ],
+      previousYearQuestions: [{ year: 2025, marks: 5, question: 'Define Ra, Rz and Rmax.' }, { year: 2024, marks: 5, question: 'Explain working of stylus profilometer.' }, { year: 2023, marks: 2, question: 'Differentiate roughness and waviness.' }, { year: 2022, marks: 5, question: 'Explain surface texture symbols used on drawings.' }],
+      labSheet: { experimentName: 'Measurement of Surface Roughness by Profilometer', aim: 'To measure Ra value of a machined surface.', apparatus: ['stylus profilometer', 'machined specimens', 'clean cloth'], theory: 'Ra is arithmetic mean of absolute profile deviations from centre line.', procedure: ['Clean specimen.', 'Set sampling length.', 'Place stylus gently.', 'Run trace.', 'Record Ra/Rz values.', 'Compare different machined surfaces.'], observationTable: { headers: ['Specimen', 'Process', 'Sampling length', 'Ra', 'Rz', 'Remark'], rows: 5 }, precautions: ['Do not drag specimen manually.', 'Avoid dust on surface.', 'Use proper stylus force.', 'Take multiple traces.'], result: 'Different machining processes produce different roughness values.' },
+      industryConnect: { title: 'Surface Finish in Manufacturing', examples: [{ machine: 'Hydraulic cylinder rod', realWorld: 'Surface finish controls seal wear and oil leakage.' }, { machine: 'Gear tooth flank', realWorld: 'Roughness affects pitting, noise and lubrication film.' }, { machine: 'Bearing journal', realWorld: 'Controlled finish reduces friction while retaining oil film.' }] },
+      quiz: [
+        { question: 'Ra uses:', options: ['absolute deviations average', 'largest diameter', 'thread pitch', 'sine height'], correct: 0, explanation: 'Ra is mean absolute deviation.' },
+        { question: 'Roughness unit is usually:', options: ['N', 'micrometre', 'rpm', 'degree'], correct: 1, explanation: 'Surface roughness is measured in micrometre.' },
+        { question: 'Stylus profilometer measures:', options: ['surface profile deviations', 'shaft torque', 'steam pressure', 'gear speed'], correct: 0, explanation: 'Stylus follows peaks and valleys.' },
+        { question: 'Waviness has:', options: ['longer spacing than roughness', 'no profile', 'only chemical error', 'zero height'], correct: 0, explanation: 'Waviness is longer wavelength surface variation.' },
+        { question: 'Rmax is:', options: ['largest peak-to-valley height', 'average diameter', 'least count', 'hole basis'], correct: 0, explanation: 'Rmax records the maximum roughness height.' },
+      ],
+      checkpoints: commonCheckpoints,
+    },
+    {
+      id: 'sem-4-metrology-unit-5',
+      slug: 'unit-5',
+      num: 5,
+      title: 'Gear and Screw Thread Measurement',
+      subject: 'Engineering Metrology',
+      subjectCode: 'MEPC208',
+      semester: 4,
+      credits: 3,
+      board,
+      lectureHours: 5,
+      tutorialHours: 2,
+      family: 'metrology',
+      syllabusTopics: ['Thread pitch', 'Lead', 'Helix angle', 'Flank angle', 'Crest and root', 'Three-wire method', 'Effective diameter', 'Gear tooth caliper', 'Span measurement', 'Parkinson gear tester'],
+      introduction: `
+Screw threads and gears are functional surfaces: their geometry controls motion, load transfer, backlash, interchangeability and efficiency. A thread with wrong effective diameter may jam or become loose. A gear with inaccurate tooth thickness may run noisy, wear quickly or fail to mesh correctly.
+
+Thread measurement includes pitch, lead, flank angle, major/minor/effective diameter and three-wire method. Gear measurement includes tooth thickness by gear tooth caliper, span measurement across teeth and composite error by Parkinson gear tester. In WBSCTE exams this unit appears as terminology, three-wire method explanation and gear measurement short notes. The expected answer structure is labelled terminology diagram, formula or measurement principle, and instrument use.
+      `,
+      concepts: [
+        { term: 'Pitch and Lead', definition: 'Pitch is the axial distance between corresponding points on adjacent thread forms; lead is the axial advance in one revolution.', deepExplanation: `For a single-start thread, lead equals pitch. For a multi-start thread, lead equals pitch multiplied by number of starts. Lead decides how far a screw moves per revolution, important in lead screws and jacks. Students often assume lead and pitch are always equal. Unit is mm. In WBSCTE exams this appears as 2-mark definitions and thread terminology diagrams.`, commonMistake: 'Forgetting lead = number of starts x pitch for multi-start threads.', formula: 'Lead = pitch x number of starts', unit_: 'mm', diagramRef: 'gear-pair-terminology.svg' },
+        { term: 'Effective Diameter', definition: 'Effective diameter or pitch diameter is the diameter of an imaginary cylinder where thread thickness equals space width.', deepExplanation: `It is the most important diameter for thread fit because it controls contact between mating flanks. Major diameter alone cannot guarantee proper assembly. The three-wire method measures effective diameter accurately using wires placed in thread grooves. Students often call effective diameter the same as mean of major and minor diameters; that is not generally correct. Unit is mm. In WBSCTE exams this is a frequent short note.`, commonMistake: 'Using (major + minor)/2 as exact effective diameter for all threads.', formula: 'Best wire for metric thread d = 0.57735p', unit_: 'mm', diagramRef: 'vernier-calliper-reading.svg' },
+        { term: 'Gear Tooth Thickness', definition: 'Gear tooth thickness is the arc thickness of a tooth measured on the pitch circle.', deepExplanation: `Correct tooth thickness ensures proper backlash and load sharing. A gear tooth caliper uses one jaw to set chordal addendum and another to measure chordal thickness. Too thick a tooth causes jamming; too thin increases backlash and impact. Unit is mm. In WBSCTE exams gear tooth caliper and span measurement are common 5-mark topics.`, commonMistake: 'Measuring tooth thickness at the outside diameter and calling it pitch-circle thickness.', formula: 'Chordal tooth thickness is measured at chordal addendum setting', unit_: 'mm', diagramRef: 'gear-pair-terminology.svg' },
+        { term: 'Parkinson Gear Tester', definition: 'Parkinson gear tester checks composite errors by rolling a test gear with a master gear at constant centre distance pressure.', deepExplanation: `As the gears rotate, variations in centre distance indication reveal tooth-to-tooth errors, runout and composite inaccuracy. It is a comparative inspection method for production gears. Students often think it measures one tooth dimension directly; it measures combined rolling accuracy. Unit of indication is usually micrometre or mm. In WBSCTE exams, draw master gear, test gear and indicator arrangement.`, commonMistake: 'Describing Parkinson tester as a gear cutting machine instead of an inspection device.', formula: 'Composite error = maximum indicator variation during rolling test', unit_: 'mm or micrometre', diagramRef: 'gear-pair-terminology.svg' },
+      ],
+      formulas: [
+        { name: 'Lead of thread', latex: 'Lead=p\\times n', description: 'Axial advance per revolution for n-start thread.', symbols: [{ symbol: 'p', name: 'pitch', unit: 'mm' }, { symbol: 'n', name: 'number of starts', unit: 'none' }] },
+        { name: 'Helix angle relation', latex: '\\tan\\lambda=\\frac{Lead}{\\pi d_m}', description: 'Thread helix angle at mean diameter.', symbols: [{ symbol: '\\lambda', name: 'helix angle', unit: 'degree' }, { symbol: 'd_m', name: 'mean diameter', unit: 'mm' }] },
+        { name: 'Best wire diameter', latex: 'd_w=0.57735p', description: 'Best wire size for metric 60 degree thread.', symbols: [{ symbol: 'd_w', name: 'wire diameter', unit: 'mm' }] },
+        { name: 'Module', latex: 'm=\\frac{D}{T}', description: 'Gear pitch circle diameter divided by number of teeth.', symbols: [{ symbol: 'D', name: 'pitch circle diameter', unit: 'mm' }, { symbol: 'T', name: 'teeth count', unit: 'teeth' }] },
+        { name: 'Circular pitch', latex: 'p_c=\\pi m', description: 'Arc distance between corresponding gear tooth points.', symbols: [{ symbol: 'p_c', name: 'circular pitch', unit: 'mm' }] },
+        { name: 'Diametral relation', latex: 'D=mT', description: 'Pitch diameter from module and teeth.', symbols: [{ symbol: 'm', name: 'module', unit: 'mm' }] },
+      ],
+      workedExamples: [
+        { title: 'Lead of multi-start thread', given: ['Pitch p = 2 mm', 'Number of starts n = 3'], find: 'Lead', solution: [{ step: 1, text: 'Lead = pitch x number of starts.' }, { step: 2, text: 'Lead = 2 x 3 = 6 mm.' }, { step: 3, text: 'The screw advances 6 mm in one revolution.' }], answer: 'Lead = 6 mm.', examTip: 'Lead equals pitch only for single-start thread.' },
+        { title: 'Best wire for metric thread', given: ['Metric thread pitch p = 1.5 mm'], find: 'Best wire diameter', solution: [{ step: 1, text: 'For 60 degree metric thread, best wire d_w = 0.57735p.' }, { step: 2, text: 'd_w = 0.57735 x 1.5 = 0.866 mm.' }], answer: 'Best wire diameter = 0.866 mm.', examTip: 'Mention this formula is for 60 degree thread form.' },
+        { title: 'Gear module and circular pitch', given: ['Pitch circle diameter D = 120 mm', 'Number of teeth T = 30'], find: 'Module and circular pitch', solution: [{ step: 1, text: 'Module m = D/T = 120/30 = 4 mm.' }, { step: 2, text: 'Circular pitch pc = pi m = pi x 4 = 12.57 mm.' }], answer: 'Module = 4 mm and circular pitch = 12.57 mm.', examTip: 'Module has unit mm, not teeth.' },
+      ],
+      interactiveDiagram: { type: 'GearTrain', description: 'Change gear teeth and module to connect tooth count with pitch diameter and measurement terminology.', controls: [{ label: 'Teeth', type: 'slider', min: 12, max: 80, step: 1 }, { label: 'Module', type: 'slider', min: 1, max: 8, step: 0.5 }], outputs: ['Pitch diameter', 'Circular pitch', 'Speed ratio context'] },
+      staticDiagrams: [{ file: 'gear-pair-terminology.svg', caption: 'Gear terminology used in tooth measurement.', labels: ['Pitch circle', 'Module', 'Addendum', 'Pressure angle'] }, { file: 'micrometer-reading.svg', caption: 'Micrometers and wires support thread effective diameter measurement.', labels: ['Wire', 'Thread', 'Micrometer'] }, { file: 'vernier-calliper-reading.svg', caption: 'Gear tooth caliper uses vernier-style measurement principles.', labels: ['Vernier', 'Jaw', 'Reading'] }],
+      comparisonTable: { title: 'Thread and Gear Measurements', headers: ['Measurement', 'Instrument/method', 'Purpose', 'Important value'], rows: [['Thread pitch', 'pitch gauge', 'identify thread series', 'p'], ['Effective diameter', 'three-wire method', 'thread fit', 'pitch diameter'], ['Gear tooth thickness', 'gear tooth caliper', 'backlash control', 'chordal thickness'], ['Composite error', 'Parkinson tester', 'rolling accuracy', 'indicator variation']] },
+      vivaBank: [
+        { question: 'Define thread pitch.', answer: 'Axial distance between corresponding points of adjacent thread forms.' },
+        { question: 'Define lead.', answer: 'Axial advance of screw in one revolution.' },
+        { question: 'For 4-start thread with pitch 2 mm, find lead.', answer: 'Lead = 4 x 2 = 8 mm.' },
+        { question: 'What is effective diameter?', answer: 'Diameter of imaginary cylinder where thread thickness equals space width.' },
+        { question: 'Best wire for 1 mm pitch metric thread?', answer: 'd_w = 0.57735 x 1 = 0.577 mm.' },
+        { question: 'Define module of gear.', answer: 'm = D/T, pitch circle diameter divided by number of teeth, in mm.' },
+        { question: 'What does Parkinson gear tester measure?', answer: 'Composite error by rolling a test gear with a master gear.' },
+        { question: 'Why is backlash needed?', answer: 'To allow lubrication, thermal expansion and prevent jamming between gear teeth.' },
+      ],
+      previousYearQuestions: [{ year: 2025, marks: 5, question: 'Explain three-wire method for effective diameter of screw thread.' }, { year: 2024, marks: 5, question: 'Explain gear tooth caliper measurement.' }, { year: 2023, marks: 10, question: 'Calculate module, circular pitch and pitch diameter of a gear.' }, { year: 2022, marks: 5, question: 'Explain Parkinson gear tester with neat sketch.' }],
+      labSheet: { experimentName: 'Measurement of Gear Tooth Thickness', aim: 'To measure chordal tooth thickness of a spur gear using gear tooth vernier caliper.', apparatus: ['spur gear', 'gear tooth vernier caliper', 'calculator'], theory: 'Gear tooth thickness at pitch circle is checked by setting chordal addendum and measuring chordal thickness.', procedure: ['Count number of teeth.', 'Find or note module.', 'Calculate chordal addendum and thickness if required.', 'Set vertical jaw to chordal addendum.', 'Measure tooth thickness on several teeth.', 'Compare readings.'], observationTable: { headers: ['Tooth no.', 'Module', 'Chordal addendum', 'Measured thickness', 'Remark'], rows: 6 }, precautions: ['Clean gear teeth.', 'Hold caliper normal to tooth.', 'Measure multiple teeth.', 'Avoid worn or damaged teeth for first reading.'], result: 'Measured tooth thickness indicates gear tooth accuracy and backlash condition.' },
+      industryConnect: { title: 'Gear and Thread Inspection', examples: [{ machine: 'Lead screw', realWorld: 'Pitch and lead errors directly affect table movement accuracy in machine tools.' }, { machine: 'Gearbox', realWorld: 'Gear tooth thickness and composite error affect noise, backlash and load sharing.' }, { machine: 'Threaded fastener', realWorld: 'Effective diameter controls whether a bolt fits and carries load correctly.' }] },
+      quiz: [
+        { question: 'Lead of a 3-start thread with 2 mm pitch is:', options: ['2 mm', '3 mm', '5 mm', '6 mm'], correct: 3, explanation: 'Lead = pitch x starts = 2 x 3 = 6 mm.' },
+        { question: 'Best wire for 60 degree metric thread is approximately:', options: ['0.5p', '0.57735p', 'p', '2p'], correct: 1, explanation: 'Best wire d = 0.57735p.' },
+        { question: 'Gear module equals:', options: ['D/T', 'T/D', 'piD', 'Lead/p'], correct: 0, explanation: 'm = pitch circle diameter divided by teeth.' },
+        { question: 'Parkinson gear tester checks:', options: ['composite gear error', 'boiler pressure', 'belt slip', 'surface colour'], correct: 0, explanation: 'It rolls test gear with master gear and reads variation.' },
+        { question: 'Effective diameter is important for:', options: ['thread fit', 'paint thickness only', 'sine bar length', 'oil viscosity'], correct: 0, explanation: 'It controls flank contact and assembly fit of threads.' },
+      ],
+      checkpoints: commonCheckpoints,
+    },
+  ],
+};
 
 export default subject;

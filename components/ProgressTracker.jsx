@@ -45,7 +45,7 @@ export default function ProgressTracker({ unitKey }) {
         gap: 8,
       }}
     >
-      {completed ? '✅ Completed' : '☐ Mark as Read'}
+      {completed ? 'Completed' : 'Mark as Read'}
     </button>
   );
 }
@@ -58,7 +58,7 @@ export function ProgressBar({ subjectSlug, totalUnits }) {
       const progress = JSON.parse(localStorage.getItem('ak-progress') || '{}');
       let c = 0;
       for (let i = 1; i <= totalUnits; i++) {
-        if (progress[`${subjectSlug}/unit-${i}`]) c++;
+        if (progress[`${subjectSlug}/unit-${i}`] || Object.keys(progress).some((key) => key.endsWith(`${subjectSlug}-unit-${i}`))) c++;
       }
       setCount(c);
     } catch {}

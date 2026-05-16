@@ -8,13 +8,11 @@ export default function SidebarTOC() {
   const observerRef = useRef(null);
 
   useEffect(() => {
-    const els = document.querySelectorAll(
-      '.main-content h2[id], .main-content h3[id]'
-    );
+    const els = document.querySelectorAll('.main-content section[id]');
     const items = Array.from(els).map((el) => ({
       id: el.id,
-      text: el.textContent,
-      level: el.tagName === 'H2' ? 2 : 3,
+      text: el.querySelector('h2, h3')?.textContent || el.id,
+      level: 2,
     }));
     setHeadings(items);
 
@@ -34,8 +32,6 @@ export default function SidebarTOC() {
       if (observerRef.current) observerRef.current.disconnect();
     };
   }, []);
-
-  if (headings.length === 0) return null;
 
   return (
     <aside className="toc">

@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation';
 
 import SubjectUnitsPage from '@/components/SubjectUnitsPage';
-import { getAllSubjectRoutes, getSubjectData } from '@/lib/syllabus';
+import { getSubjectData } from '@/lib/syllabus';
+import { getAllDiplomaSubjectRoutes, getDiplomaSubject } from '@/src/data/diploma';
 
 const staticSubjectPages = new Set([
   'sem-2/engineering-mechanics',
@@ -12,20 +13,20 @@ const staticSubjectPages = new Set([
 ]);
 
 export function generateStaticParams() {
-  return getAllSubjectRoutes('diploma')
+  return getAllDiplomaSubjectRoutes()
     .filter(({ semester, subjectSlug }) => !staticSubjectPages.has(`${semester}/${subjectSlug}`))
     .map(({ semester, subjectSlug }) => ({ semester, subjectSlug }));
 }
 
 export function generateMetadata({ params }) {
-  const subject = getSubjectData('diploma', params.semester, params.subjectSlug);
+  const subject = getDiplomaSubject(params.semester, params.subjectSlug) || getSubjectData('diploma', params.semester, params.subjectSlug);
   return {
-    title: subject ? `${subject.label} | AK Notes Library` : 'Diploma Subject | AK Notes Library',
+    title: subject ? `${subject.title || subject.label} | AK Notes Library` : 'Diploma Subject | AK Notes Library',
   };
 }
 
 export default function DiplomaSubjectPage({ params }) {
-  const subject = getSubjectData('diploma', params.semester, params.subjectSlug);
+  const subject = getDiplomaSubject(params.semester, params.subjectSlug) || getSubjectData('diploma', params.semester, params.subjectSlug);
   if (!subject) notFound();
 
   return (

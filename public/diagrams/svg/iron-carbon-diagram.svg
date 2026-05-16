@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 400" preserveAspectRatio="xMidYMid meet" role="img" aria-labelledby="title desc">
+  <title id="title">Iron Carbon Diagram</title>
+  <desc id="desc">Labeled diploma mechanical engineering diagram for Iron Carbon Diagram.</desc>
+  <style>
+    .bg{fill:#f8fafc}.panel{fill:#0f172a;opacity:.04}.part{fill:#f59e0b;stroke:#334155;stroke-width:2}.metal{fill:#94a3b8;stroke:#334155;stroke-width:2}.line{stroke:#e11d48;stroke-width:3;fill:none}.dim{stroke:#2563eb;stroke-width:2;fill:none;stroke-dasharray:5 4}.react{stroke:#16a34a;stroke-width:3;fill:none}.axis{stroke:#334155;stroke-width:2;fill:none}.txt{font-family:Arial,sans-serif;font-size:14px;font-weight:700;fill:#111827}.small{font-family:Arial,sans-serif;font-size:11px;fill:#334155}.phase{fill:#f97316;opacity:.18;stroke:#f59e0b;stroke-width:2}.curve{stroke:#f97316;stroke-width:4;fill:none}.area{fill:#38bdf8;opacity:.18;stroke:#0ea5e9;stroke-width:2}
+    @media (prefers-color-scheme:dark){.bg{fill:#0f172a}.panel{fill:#ffffff;opacity:.05}.part{fill:#f59e0b;stroke:#f8fafc}.metal{fill:#475569;stroke:#e2e8f0}.axis{stroke:#e2e8f0}.txt{fill:#f8fafc}.small{fill:#cbd5e1}.area{fill:#0ea5e9;opacity:.28}}
+  </style>
+  <defs>
+    <marker id="arrow-red" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#e11d48"/></marker>
+    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#2563eb"/></marker>
+    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#16a34a"/></marker>
+  </defs>
+  <rect class="bg" width="600" height="400"/>
+  <rect class="panel" x="20" y="20" width="560" height="360" rx="18"/>
+  <text class="txt" x="300" y="42" text-anchor="middle">Iron Carbon Diagram</text>
+  <path class="axis" d="M90 330H535M90 330V70"/><path class="phase" d="M92 300L180 210L260 140L380 180L535 245V330H92Z"/><path class="curve" d="M92 300L180 210L260 140L380 180L535 245"/><path class="dim" d="M142 260H535"/><text class="small" x="122" y="285">Ferrite + Pearlite</text><text class="small" x="245" y="126">Austenite</text><text class="small" x="405" y="205">Cementite</text><text class="small" x="145" y="252">Eutectoid 0.8%C</text><text class="small" x="365" y="166">Eutectic 4.3%C</text><text class="txt" x="452" y="354">Carbon %</text><text class="txt" x="48" y="82">Temp</text>
+</svg>

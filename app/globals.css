@@ -2267,6 +2267,866 @@ code {
   }
 }
 
+/* AK diploma overhaul components */
+.reading-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1200;
+  height: 4px;
+  background: transparent;
+}
+
+.reading-progress span {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), var(--gold), var(--teal));
+}
+
+.unit-action-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 0 0 24px;
+}
+
+.ak-tool-btn,
+.unit-complete-btn {
+  display: inline-flex;
+  min-height: 38px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--paper-card);
+  color: var(--navy);
+  cursor: pointer;
+  font: 800 13px/1 'Source Sans 3', sans-serif;
+}
+
+.unit-complete-btn.done,
+.ak-tool-btn:hover {
+  border-color: rgba(26, 107, 58, 0.42);
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.syllabus-chip-grid,
+.static-diagram-card div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.syllabus-chip-grid span,
+.static-diagram-card span {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--paper-card);
+  color: var(--ink-muted);
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.ak-diagram-frame,
+.formula-card,
+.worked-example,
+.quiz-card,
+.lab-sheet,
+.industry-connect,
+.comparison-block,
+.flashcard-module {
+  margin: 18px 0;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--paper-card);
+  box-shadow: var(--shadow);
+}
+
+.ak-diagram-toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.ak-diagram-toolbar strong {
+  color: var(--navy);
+  font-size: 13px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.ak-diagram-toolbar div {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ak-diagram-toolbar button,
+.example-actions button,
+.quiz-card button,
+.flashcard-actions button,
+.formula-card-head button {
+  min-height: 30px;
+  padding: 0 10px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  background: var(--paper-warm);
+  color: var(--navy);
+  cursor: pointer;
+  font-weight: 800;
+}
+
+.ak-diagram-canvas {
+  overflow: auto;
+  padding: 12px;
+}
+
+.ak-diagram-zoom {
+  transform-origin: top center;
+  transition: transform 0.18s ease;
+}
+
+.ak-diagram-frame figcaption,
+.diagram-note {
+  margin: 0;
+  padding: 10px 14px 14px;
+  color: var(--ink-muted);
+  font-size: 13px;
+  font-style: italic;
+}
+
+.ak-interactive-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 260px;
+  gap: 16px;
+  align-items: start;
+}
+
+.ak-interactive-svg {
+  width: 100%;
+  min-width: 0;
+  height: auto;
+}
+
+.ak-controls {
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--paper-warm);
+}
+
+.ak-controls label {
+  color: var(--navy);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+.ak-controls input[type='range'],
+.ak-controls select {
+  width: 100%;
+}
+
+.ak-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ak-output-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 6px 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--border-light);
+  font-size: 13px;
+}
+
+.ak-output-grid span {
+  color: var(--ink-muted);
+}
+
+.ak-output-grid strong {
+  color: var(--navy);
+}
+
+.machine-bed {
+  fill: var(--diagram-panel);
+  stroke: var(--border);
+}
+
+.component-metal,
+.gear-body,
+.belt-pulley,
+.cam-base,
+.crank-disk,
+.cylinder-wall {
+  fill: #94a3b8;
+  stroke: var(--navy);
+  stroke-width: 2;
+}
+
+.pulley-wheel,
+.section-fill,
+.cam-lobe,
+.load-block,
+.support-fill,
+.piston-fill,
+.part-fill {
+  fill: #f4b23c;
+  stroke: var(--navy);
+  stroke-width: 2;
+}
+
+.section-fill.flange,
+.cam-lobe.alt {
+  fill: #64c7c9;
+}
+
+.shaft-dot,
+.plot-dot {
+  fill: var(--navy);
+}
+
+.plot-dot.active {
+  fill: var(--accent);
+}
+
+.plot-dot.alt {
+  fill: var(--teal);
+}
+
+.rope-line,
+.belt-path,
+.pipe-wall,
+.rod-line,
+.link-line,
+.crank-line,
+.beam-line,
+.axis-line,
+.dimension-line,
+.hook-line,
+.centroid-line,
+.gear-pitch,
+.gear-tooth,
+.mohr-circle,
+.pv-path,
+.cam-curve,
+.sfd-path,
+.bmd-path,
+.stress-path,
+.flow-arrow,
+.incline-plane,
+.governor-spin {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.rope-line,
+.belt-path {
+  stroke-width: 5;
+}
+
+.pipe-wall,
+.beam-line,
+.axis-line {
+  stroke: var(--navy);
+  stroke-width: 3;
+}
+
+.dimension-line,
+.centroid-line {
+  stroke: #2563eb;
+  stroke-width: 2;
+  stroke-dasharray: 6 5;
+}
+
+.force-arrow,
+.sfd-path,
+.stress-path {
+  stroke: var(--accent);
+  stroke-width: 4;
+}
+
+.force-arrow.thin {
+  stroke-width: 2;
+}
+
+.reaction-arrow {
+  stroke: var(--green);
+  stroke-width: 4;
+}
+
+.hook-line,
+.link-line,
+.rod-line,
+.crank-line {
+  stroke: var(--navy);
+  stroke-width: 4;
+}
+
+.belt-path {
+  stroke: var(--accent);
+  stroke-dasharray: 18 10;
+}
+
+.flow-arrow {
+  stroke: var(--teal);
+  stroke-width: 4;
+}
+
+.incline-plane {
+  stroke: var(--navy);
+  stroke-width: 18;
+}
+
+.gear-pitch,
+.mohr-circle {
+  stroke: var(--gold);
+  stroke-width: 2;
+  stroke-dasharray: 7 5;
+}
+
+.gear-tooth {
+  stroke: var(--navy);
+  stroke-width: 2;
+}
+
+.pv-area,
+.bmd-area {
+  fill: rgba(13, 110, 113, 0.18);
+  stroke: none;
+}
+
+.pv-path,
+.bmd-path,
+.cam-curve {
+  stroke: var(--teal);
+  stroke-width: 4;
+}
+
+.follower-tip {
+  fill: var(--accent-light);
+  stroke: var(--accent);
+  stroke-width: 2;
+}
+
+.governor-ball {
+  fill: var(--gold);
+  stroke: var(--navy);
+  stroke-width: 2;
+}
+
+.force-fill {
+  fill: var(--accent);
+}
+
+.fluid-fill {
+  fill: var(--teal);
+}
+
+.diagram-label,
+.diagram-title,
+.force-label,
+.small-label {
+  fill: var(--ink-light);
+  font-family: 'Source Sans 3', sans-serif;
+  font-weight: 800;
+}
+
+.diagram-title {
+  font-size: 14px;
+}
+
+.diagram-label,
+.force-label {
+  font-size: 13px;
+}
+
+.force-label.green {
+  fill: var(--green);
+}
+
+.small-label {
+  font-size: 11px;
+}
+
+.rope-pulse,
+.belt-motion {
+  animation: dashFlow 1.4s linear infinite;
+}
+
+.belt-spin,
+.gear-spin-cw,
+.governor-spin {
+  animation: spinCW 4s linear infinite;
+  transform-box: fill-box;
+}
+
+.belt-spin-reverse,
+.gear-spin-ccw {
+  animation: spinCCW 4s linear infinite;
+  transform-box: fill-box;
+}
+
+@keyframes dashFlow {
+  to { stroke-dashoffset: -60; }
+}
+
+@keyframes spinCW {
+  to { transform: rotate(360deg); }
+}
+
+@keyframes spinCCW {
+  to { transform: rotate(-360deg); }
+}
+
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.ak-table {
+  width: 100%;
+  min-width: 680px;
+  border-collapse: collapse;
+  background: var(--paper-card);
+  font-size: 14px;
+}
+
+.ak-table.compact {
+  min-width: 520px;
+  font-size: 13px;
+}
+
+.ak-table th {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--nav-surface);
+  color: #fff;
+  text-align: left;
+}
+
+.ak-table th,
+.ak-table td {
+  padding: 12px 14px;
+  border: 1px solid var(--border-light);
+  vertical-align: top;
+}
+
+.ak-table tr:nth-child(even) td {
+  background: var(--paper-warm);
+}
+
+.concept-table td:first-child strong {
+  display: block;
+  color: var(--navy);
+}
+
+.concept-table small {
+  display: block;
+  color: var(--ink-muted);
+}
+
+.concept-table p {
+  margin-bottom: 8px;
+}
+
+.static-diagram-grid,
+.machine-card-grid,
+.industry-grid,
+.pyq-grid,
+.lab-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.static-diagram-card,
+.machine-card-grid article,
+.industry-grid article,
+.pyq-card {
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--paper-card);
+  box-shadow: var(--shadow);
+}
+
+.static-diagram-card img {
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--border-light);
+  border-radius: 8px;
+  background: var(--paper);
+}
+
+.static-diagram-card figcaption,
+.pyq-card p {
+  margin: 10px 0;
+}
+
+.machine-card-grid article h3,
+.industry-connect h3,
+.comparison-block h3,
+.worked-example h3,
+.lab-sheet h3,
+.quiz-card h3,
+.formula-group h3 {
+  margin: 0 0 12px;
+  font-size: 18px;
+}
+
+.machine-card-grid strong {
+  display: block;
+  margin: 10px 0;
+  color: var(--accent);
+}
+
+.formula-sheet,
+.formula-group {
+  display: grid;
+  gap: 16px;
+}
+
+.formula-card {
+  padding: 16px;
+}
+
+.formula-card-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.formula-render {
+  margin: 12px 0;
+  padding: 10px;
+  overflow-x: auto;
+  border-radius: 8px;
+  background: var(--paper-warm);
+}
+
+.worked-example {
+  padding: 18px;
+  border-left: 4px solid var(--green);
+}
+
+.example-kicker {
+  margin-bottom: 6px;
+  color: var(--green);
+  font-size: 11px;
+  font-weight: 900;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.example-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.reveal-steps {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0;
+}
+
+.reveal-steps li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.reveal-steps span {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--green);
+  color: #fff;
+  font-weight: 900;
+}
+
+.example-actions,
+.flashcard-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.boxed-answer {
+  margin-top: 14px;
+  padding: 12px 14px;
+  border: 1px solid rgba(26, 107, 58, 0.3);
+  border-radius: 8px;
+  background: var(--green-light);
+  color: var(--green);
+  font-weight: 800;
+}
+
+.exam-tip-line {
+  margin-top: 10px;
+  color: var(--ink-muted);
+}
+
+.viva-bank {
+  display: grid;
+  gap: 10px;
+}
+
+.viva-item {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--paper-card);
+  overflow: hidden;
+}
+
+.viva-item button {
+  display: flex;
+  width: 100%;
+  gap: 10px;
+  padding: 12px 14px;
+  border: 0;
+  background: transparent;
+  color: var(--navy);
+  cursor: pointer;
+  font-weight: 800;
+  text-align: left;
+}
+
+.viva-item span {
+  color: var(--accent);
+}
+
+.viva-item p {
+  margin: 0;
+  padding: 0 14px 14px 42px;
+}
+
+.pyq-card div {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  color: var(--accent);
+  font-weight: 900;
+}
+
+.lab-sheet,
+.industry-connect,
+.quiz-card,
+.flashcard-module,
+.comparison-block {
+  padding: 18px;
+}
+
+.lab-sheet h4 {
+  margin: 14px 0 8px;
+}
+
+.lab-result {
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--green-light);
+}
+
+.quiz-progress {
+  position: relative;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  color: var(--ink-muted);
+  font-weight: 800;
+}
+
+.quiz-progress i {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 4px;
+  border-radius: 8px;
+  background: var(--accent);
+}
+
+.quiz-options {
+  display: grid;
+  gap: 8px;
+}
+
+.quiz-options button {
+  justify-content: flex-start;
+  min-height: 42px;
+  text-align: left;
+}
+
+.quiz-options button.correct {
+  border-color: var(--green);
+  background: var(--green-light);
+  color: var(--green);
+}
+
+.quiz-options button.wrong {
+  border-color: var(--accent);
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.quiz-explanation {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 8px;
+  background: var(--paper-warm);
+}
+
+.flashcard {
+  position: relative;
+  display: block;
+  width: min(100%, 560px);
+  min-height: 220px;
+  margin: 12px auto;
+  border: 0;
+  background: transparent;
+  perspective: 1000px;
+}
+
+.flashcard-face {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  gap: 12px;
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: var(--paper-warm);
+  color: var(--navy);
+  backface-visibility: hidden;
+  transition: transform 0.45s ease;
+}
+
+.flashcard-face strong {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: center;
+}
+
+.flashcard-face.back {
+  transform: rotateY(180deg);
+}
+
+.flashcard.is-flipped .front {
+  transform: rotateY(180deg);
+}
+
+.flashcard.is-flipped .back {
+  transform: rotateY(360deg);
+}
+
+.flashcard-status {
+  color: var(--ink-muted);
+  font-size: 13px;
+  font-weight: 800;
+}
+
+@media (max-width: 860px) {
+  .ak-interactive-grid,
+  .static-diagram-grid,
+  .machine-card-grid,
+  .industry-grid,
+  .pyq-grid,
+  .lab-grid,
+  .example-two {
+    grid-template-columns: 1fr;
+  }
+
+  .ak-controls {
+    order: -1;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 12mm;
+  }
+
+  .print-hide,
+  .top-nav,
+  .toc,
+  .unit-nav,
+  .progress-wrap,
+  .ak-controls,
+  .quiz-card,
+  .flashcard-module,
+  .ak-diagram-toolbar {
+    display: none !important;
+  }
+
+  body {
+    background: #fff;
+    color: #111;
+    font-size: 11px;
+    line-height: 1.45;
+  }
+
+  .page-header {
+    background: #fff;
+    color: #111;
+    border-bottom: 1px solid #aaa;
+  }
+
+  .page-header h1,
+  .page-header .subtitle,
+  .course-badge,
+  .meta-item {
+    color: #111;
+  }
+
+  .page-body {
+    display: block;
+    max-width: none;
+    padding: 0;
+  }
+
+  .main-content {
+    column-count: 2;
+    column-gap: 18px;
+  }
+
+  .section,
+  .worked-example,
+  .formula-card,
+  .static-diagram-card,
+  .lab-sheet,
+  .industry-connect,
+  .comparison-block {
+    break-inside: avoid;
+    box-shadow: none;
+  }
+
+  .section-header {
+    break-after: avoid;
+  }
+
+  .ak-table th {
+    position: static;
+  }
+}
+
 @keyframes slowSpin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }

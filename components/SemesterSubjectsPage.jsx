@@ -2,6 +2,7 @@ import Link from 'next/link';
 
 import SiteFooter from './SiteFooter';
 import { getProgramData, getSemesterData } from '@/lib/syllabus';
+import { diplomaSubjects } from '@/src/data/diploma';
 
 export default function SemesterSubjectsPage({ degree, semester }) {
   const program = getProgramData(degree);
@@ -10,8 +11,13 @@ export default function SemesterSubjectsPage({ degree, semester }) {
   if (!program || !semesterData) return null;
 
   const semesterEntries = Object.entries(program.semesters);
-  const subjects = Object.entries(semesterData.subjects);
-  const availableCount = subjects.filter(([, item]) => item.available).length;
+  const richSubjects = degree === 'diploma'
+    ? diplomaSubjects.filter((subject) => subject.semester === semester)
+    : null;
+  const subjects = richSubjects?.length
+    ? richSubjects.map((subject) => [subject.slug, subject])
+    : Object.entries(semesterData.subjects);
+  const availableCount = richSubjects?.length || subjects.filter(([, item]) => item.available).length;
 
   return (
     <>
@@ -57,11 +63,11 @@ export default function SemesterSubjectsPage({ degree, semester }) {
             const content = (
               <>
                 <div className="subject-card-head">
-                  <span>{item.category || 'Subject'}</span>
-                  <strong>{item.code}</strong>
-                </div>
-                <h2>{item.label}</h2>
-                <p>{item.topics}</p>
+            <span>{item.category || 'Subject'}</span>
+            <strong>{item.code}</strong>
+          </div>
+                <h2>{item.title || item.label}</h2>
+                <p>{item.topics || item.units?.map((unit) => unit.title).join(', ')}</p>
                 {item.electiveOptions && (
                   <div className="subject-electives">
                     {item.electiveOptions.map((option) => (
@@ -76,7 +82,7 @@ export default function SemesterSubjectsPage({ degree, semester }) {
               </>
             );
 
-            if (item.available) {
+            if (item.available || richSubjects?.length) {
               return (
                 <Link
                   className="subject-card subject-card-link"

@@ -510,6 +510,8 @@ Real lifting machines lose energy in pulley pins, screw threads, gear teeth, bea
         { name: 'n-pulley block VR', latex: 'VR=2n', description: 'n movable pulleys give 2n supporting rope segments.', symbols: [{ symbol: 'n', name: 'number of movable pulleys', unit: 'none' }] },
         { name: 'Wheel and axle VR', latex: 'VR=\\frac{D}{d}', description: 'Wheel diameter divided by axle diameter.', symbols: [{ symbol: 'D', name: 'wheel diameter', unit: 'mm' }, { symbol: 'd', name: 'axle diameter', unit: 'mm' }] },
         { name: 'Worm wheel VR', latex: 'VR=T', description: 'For a single-start worm before drum ratio, one worm turn advances the wheel by one tooth.', symbols: [{ symbol: 'T', name: 'number of teeth on worm wheel', unit: 'teeth' }] },
+        { name: 'Single purchase crab VR', latex: 'VR=\\frac{2L}{d}\\times\\frac{T}{t}', description: 'Handle-to-drum motion multiplied by one gear reduction stage.', symbols: [{ symbol: 'L', name: 'handle radius', unit: 'mm' }, { symbol: 'd', name: 'load drum diameter', unit: 'mm' }, { symbol: 'T,t', name: 'teeth on gear and pinion', unit: 'teeth' }] },
+        { name: 'Double purchase crab VR', latex: 'VR=\\frac{2L}{d}\\times\\frac{T_1}{t_1}\\times\\frac{T_2}{t_2}', description: 'Handle-to-drum motion multiplied by two gear reduction stages.', symbols: [{ symbol: 'T_1,T_2', name: 'teeth on spur wheels', unit: 'teeth' }, { symbol: 't_1,t_2', name: 'teeth on pinions', unit: 'teeth' }] },
       ],
       workedExamples: [
         {
@@ -562,7 +564,7 @@ Real lifting machines lose energy in pulley pins, screw threads, gear teeth, bea
         { file: 'crab-winch.svg', caption: 'Crab winch gear reduction and load drum.', labels: ['Pinion', 'Gear', 'Drum', 'Load'] },
         { file: 'axle-wheel.svg', caption: 'Wheel and axle geometry for VR = D/d.', labels: ['Wheel D', 'Axle d', 'Effort', 'Load'] },
       ],
-      comparisonTable: { title: 'Comparison of Simple Lifting Machines', headers: ['Machine', 'VR formula', 'Typical efficiency', 'Self-locking?', 'Use'], rows: [['Wheel and axle', 'D/d', '60-80%', 'No', 'winch'], ['Pulley block', '2n', '70-85%', 'No', 'chain hoist'], ['Screw jack', '2 pi L/p', '25-40%', 'Yes', 'vehicle lifting'], ['Worm wheel', 'T before drum ratio', '30-60%', 'Usually', 'hoist'], ['Crab winch', 'gear ratio x handle/drum ratio', '50-70%', 'Often', 'dock crane']] },
+      comparisonTable: { title: 'Comparison of Simple Lifting Machines', headers: ['Machine', 'MA meaning', 'VR formula', 'Typical VR', 'Efficiency %', 'Self-locking', 'Application'], rows: [['Wheel and axle', 'load lifted per handle effort', 'D/d', '5-20', '60-80', 'No', 'small winch'], ['Pulley block', 'load shared by supporting rope segments', '2n', '4-10', '70-85', 'No', 'chain hoist'], ['Screw jack', 'large load lifted by small handle effort', '2 pi L/p', '100-500', '25-40', 'Yes', 'vehicle lifting'], ['Worm wheel', 'tooth reduction multiplies effort', 'T for single-start worm before drum ratio', '30-100+', '30-60', 'Usually', 'hoist'], ['Single purchase crab', 'one gear stage multiplies handle effort', '(2L/d)(T/t)', '20-80', '50-70', 'Often', 'workshop winch'], ['Double purchase crab', 'two gear stages give very high MA', '(2L/d)(T1/t1)(T2/t2)', '100-300+', '40-65', 'Often', 'dock crane']] },
       vivaBank: [
         { question: 'Define mechanical advantage.', answer: 'MA = W/P, load lifted divided by effort applied; it is dimensionless.' },
         { question: 'Define velocity ratio.', answer: 'VR = distance moved by effort divided by distance moved by load in the same time.' },
@@ -623,8 +625,11 @@ The unit is formula-rich, but the formulas come from definitions. Constant-accel
         { name: 'Third equation of motion', latex: 'v^2=u^2+2as', description: 'Velocity-displacement relation without time.', symbols: [{ symbol: 'a', name: 'acceleration', unit: 'm/s^2' }] },
         { name: 'Projectile time of flight', latex: 'T=\\frac{2u\\sin\\theta}{g}', description: 'Time for projectile to return to same level.', symbols: [{ symbol: 'g', name: 'acceleration due to gravity', unit: 'm/s^2' }] },
         { name: 'Projectile range', latex: 'R=\\frac{u^2\\sin2\\theta}{g}', description: 'Horizontal range on level ground.', symbols: [{ symbol: 'R', name: 'range', unit: 'm' }] },
+        { name: 'Newton second law', latex: 'F=ma', description: 'Resultant force equals mass times acceleration.', symbols: [{ symbol: 'F', name: 'resultant force', unit: 'N' }, { symbol: 'm', name: 'mass', unit: 'kg' }, { symbol: 'a', name: 'acceleration', unit: 'm/s^2' }] },
+        { name: 'Linear momentum', latex: 'p=mv', description: 'Momentum of a moving body.', symbols: [{ symbol: 'p', name: 'momentum', unit: 'kg m/s' }] },
         { name: 'Centripetal acceleration', latex: 'a_c=\\frac{v^2}{r}=\\omega^2r', description: 'Acceleration toward centre in circular motion.', symbols: [{ symbol: 'r', name: 'radius', unit: 'm' }] },
         { name: 'Kinetic energy', latex: 'KE=\\frac{1}{2}mv^2', description: 'Energy due to motion.', symbols: [{ symbol: 'm', name: 'mass', unit: 'kg' }] },
+        { name: 'Potential energy', latex: 'PE=mgh', description: 'Energy due to height in a gravitational field.', symbols: [{ symbol: 'h', name: 'height above datum', unit: 'm' }, { symbol: 'g', name: 'acceleration due to gravity', unit: 'm/s^2' }] },
         { name: 'Power', latex: 'P=\\frac{Work}{time}', description: 'Rate of doing work.', symbols: [{ symbol: 'P', name: 'power', unit: 'W' }] },
       ],
       workedExamples: [

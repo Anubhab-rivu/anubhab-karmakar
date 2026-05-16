@@ -638,16 +638,16 @@ Belts are flexible friction drives, so slip, creep, angle of wrap and coefficien
           ],
         },
         {
-          name: 'Compound gear train speed ratio',
+          name: 'Compound gear train velocity ratio',
           latex: '\\frac{N_{in}}{N_{out}}=\\frac{\\prod T_{driven}}{\\prod T_{driver}}',
-          description: 'Product rule for compound gear trains.',
+          description: 'Product rule for compound gear trains; multiply driven teeth and divide by product of driver teeth.',
           symbols: [
             { symbol: '\\prod T_{driven}', name: 'product of teeth on driven gears', unit: 'teeth product' },
             { symbol: '\\prod T_{driver}', name: 'product of teeth on driver gears', unit: 'teeth product' },
           ],
         },
         {
-          name: 'Simple gear train velocity ratio',
+          name: 'Velocity ratio of simple gear train',
           latex: 'VR=\\frac{N_{driver}}{N_{driven}}=\\frac{T_{driven}}{T_{driver}}',
           description: 'Idler gears alter direction and spacing but not magnitude of VR.',
           symbols: [
@@ -655,9 +655,9 @@ Belts are flexible friction drives, so slip, creep, angle of wrap and coefficien
           ],
         },
         {
-          name: 'Epicyclic gear train tabular method',
+          name: 'Velocity ratio of epicyclic gear train by tabular method',
           latex: 'N_{final}=N_{arm}+x(N_{relative})',
-          description: 'Motion is built by locking, rotating and superposing turns in tabular solution.',
+          description: 'Tabular method obtains member speeds by locking, rotating and superposing arm motion before taking the required VR.',
           symbols: [
             { symbol: 'N_{arm}', name: 'arm speed added to all elements', unit: 'rpm' },
             { symbol: 'x', name: 'relative rotation multiplier', unit: 'none' },

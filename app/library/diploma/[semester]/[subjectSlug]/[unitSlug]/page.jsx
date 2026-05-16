@@ -47,6 +47,8 @@ export default function DiplomaUnitPage({ params }) {
       semester={params.semester}
       subjectSlug={params.subjectSlug}
       unitNum={unitNum}
+      subjectData={subject}
+      unitData={unit}
     />
   );
 }

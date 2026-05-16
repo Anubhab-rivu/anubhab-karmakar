@@ -52,6 +52,13 @@ export const diplomaSubjects = [
   subject24,
 ];
 
+export const subjectRegistry = diplomaSubjects.reduce((acc, subject) => {
+  const semester = subject.semester || `sem-${subject.semesterNumber}`;
+  if (!acc[semester]) acc[semester] = {};
+  acc[semester][subject.slug] = subject;
+  return acc;
+}, {});
+
 export const diplomaSubjectMap = Object.fromEntries(diplomaSubjects.map((subject) => [`${subject.semester}/${subject.slug}`, subject]));
 
 export function getDiplomaSubject(semester, subjectSlug) {
@@ -62,7 +69,15 @@ export function getDiplomaUnit(semester, subjectSlug, unitSlugOrNum) {
   const subject = getDiplomaSubject(semester, subjectSlug);
   if (!subject) return null;
   const unitNum = typeof unitSlugOrNum === 'number' ? unitSlugOrNum : Number(String(unitSlugOrNum || '').replace('unit-', ''));
-  return subject.units.find((unit) => unit.num === unitNum) || null;
+  return subject.units.find((unit) => (unit.num || unit.number) === unitNum || unit.slug === unitSlugOrNum) || null;
+}
+
+export function getSubjectData(semester, subjectSlug) {
+  return getDiplomaSubject(semester, subjectSlug);
+}
+
+export function getUnitData(semester, subjectSlug, unitSlug) {
+  return getDiplomaUnit(semester, subjectSlug, unitSlug);
 }
 
 export function getDiplomaUnitNav(semester, subjectSlug, unitNum) {

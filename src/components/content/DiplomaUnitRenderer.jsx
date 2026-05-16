@@ -24,9 +24,69 @@ function paragraphs(text) {
     .filter(Boolean);
 }
 
-export default function DiplomaUnitRenderer({ degree = 'diploma', semester, subjectSlug, unitNum }) {
-  const subject = getDiplomaSubject(semester, subjectSlug);
-  const unit = subject ? getDiplomaUnit(semester, subjectSlug, Number(unitNum)) : null;
+function toSemesterNumber(value) {
+  return Number(String(value || '').replace('sem-', ''));
+}
+
+function normalizeSubject(rawSubject, semester, subjectSlug) {
+  if (!rawSubject) return null;
+  const semesterNumber = rawSubject.semesterNumber || toSemesterNumber(rawSubject.semester || semester);
+  return {
+    ...rawSubject,
+    slug: rawSubject.slug || subjectSlug,
+    title: rawSubject.title || rawSubject.subjectTitle || rawSubject.label,
+    code: rawSubject.code || rawSubject.subjectCode,
+    semester: String(rawSubject.semester || semester || `sem-${semesterNumber}`),
+    semesterNumber,
+    category: rawSubject.category || 'Program Core',
+    units: rawSubject.units || [],
+  };
+}
+
+function normalizeUnit(rawUnit, subject, semester) {
+  if (!rawUnit || !subject) return null;
+  const num = rawUnit.num || rawUnit.number || Number(String(rawUnit.slug || '').replace('unit-', ''));
+  const syllabusTopics = rawUnit.syllabusTopics || (rawUnit.syllabusScope ? rawUnit.syllabusScope.split(',').map((item) => item.trim()).filter(Boolean) : []);
+  const interactiveDiagram = rawUnit.interactiveDiagram || (rawUnit.interactiveDiagramType ? {
+    type: rawUnit.interactiveDiagramType,
+    description: `Explore ${rawUnit.title} with the interactive ${rawUnit.interactiveDiagramType} model.`,
+    controls: [],
+    outputs: [],
+  } : null);
+
+  return {
+    ...rawUnit,
+    id: rawUnit.id || `${subject.semester}-${subject.slug}-unit-${num}`,
+    slug: rawUnit.slug || `unit-${num}`,
+    num,
+    number: rawUnit.number || num,
+    title: rawUnit.title,
+    subject: rawUnit.subject || subject.title,
+    subjectCode: rawUnit.subjectCode || subject.code,
+    semester: rawUnit.semester || toSemesterNumber(semester || subject.semester),
+    credits: rawUnit.credits ?? subject.credits,
+    board: rawUnit.board || 'WBSCTE/WBSCTVESD',
+    lectureHours: rawUnit.lectureHours,
+    tutorialHours: rawUnit.tutorialHours,
+    family: rawUnit.family || subject.family,
+    syllabusTopics,
+    introduction: rawUnit.introduction || rawUnit.syllabusScope || '',
+    concepts: rawUnit.concepts || [],
+    formulas: rawUnit.formulas || [],
+    workedExamples: rawUnit.workedExamples || [],
+    interactiveDiagram,
+    staticDiagrams: rawUnit.staticDiagrams || [],
+    vivaBank: rawUnit.vivaBank || [],
+    previousYearQuestions: rawUnit.previousYearQuestions || [],
+    quiz: rawUnit.quiz || [],
+    checkpoints: rawUnit.checkpoints || [],
+  };
+}
+
+export default function DiplomaUnitRenderer({ degree = 'diploma', semester, subjectSlug, unitNum, subjectData, unitData }) {
+  const subject = normalizeSubject(subjectData || getDiplomaSubject(semester, subjectSlug), semester, subjectSlug);
+  const rawUnit = unitData || (subject ? getDiplomaUnit(semester, subjectSlug, Number(unitNum)) : null);
+  const unit = normalizeUnit(rawUnit, subject, semester);
   if (!subject || !unit) return null;
 
   const { prev, next } = getDiplomaUnitNav(semester, subjectSlug, unit.num);

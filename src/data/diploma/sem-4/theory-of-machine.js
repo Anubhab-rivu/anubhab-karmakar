@@ -639,11 +639,11 @@ Belts are flexible friction drives, so slip, creep, angle of wrap and coefficien
         },
         {
           name: 'Compound gear train velocity ratio',
-          latex: '\\frac{N_{in}}{N_{out}}=\\frac{\\prod T_{driven}}{\\prod T_{driver}}',
-          description: 'Product rule for compound gear trains; multiply driven teeth and divide by product of driver teeth.',
+          latex: '\\frac{N_{input}}{N_{output}}=\\frac{T_2\\times T_4}{T_1\\times T_3}',
+          description: 'For a four-gear compound train, T1 and T3 are drivers; T2 and T4 are driven gears.',
           symbols: [
-            { symbol: '\\prod T_{driven}', name: 'product of teeth on driven gears', unit: 'teeth product' },
-            { symbol: '\\prod T_{driver}', name: 'product of teeth on driver gears', unit: 'teeth product' },
+            { symbol: 'T_1,T_3', name: 'driver gear teeth', unit: 'teeth' },
+            { symbol: 'T_2,T_4', name: 'driven gear teeth', unit: 'teeth' },
           ],
         },
         {
@@ -656,11 +656,11 @@ Belts are flexible friction drives, so slip, creep, angle of wrap and coefficien
         },
         {
           name: 'Velocity ratio of epicyclic gear train by tabular method',
-          latex: 'N_{final}=N_{arm}+x(N_{relative})',
-          description: 'Tabular method obtains member speeds by locking, rotating and superposing arm motion before taking the required VR.',
+          latex: '\\frac{N_S-N_C}{N_R-N_C}=-\\frac{T_R}{T_S}',
+          description: 'Sun-ring-carrier relation for a simple planetary train. The negative sign applies when sun and ring rotate oppositely with the carrier fixed.',
           symbols: [
-            { symbol: 'N_{arm}', name: 'arm speed added to all elements', unit: 'rpm' },
-            { symbol: 'x', name: 'relative rotation multiplier', unit: 'none' },
+            { symbol: 'N_S,N_R,N_C', name: 'sun, ring and carrier speeds', unit: 'rpm' },
+            { symbol: 'T_S,T_R', name: 'sun and ring teeth', unit: 'teeth' },
           ],
         },
       ],
@@ -703,16 +703,24 @@ Belts are flexible friction drives, so slip, creep, angle of wrap and coefficien
           examTip: 'Gears on the same shaft have the same speed; do not treat them as meshing gears.',
         },
         {
-          title: 'Maximum power speed of a belt',
-          given: ['Maximum permissible tension Tmax = 900 N', 'Mass of belt m = 0.75 kg/m'],
-          find: 'Belt speed for maximum power',
-          solution: [
-            { step: 1, text: 'Condition for maximum power is v = sqrt(Tmax/(3m)).' },
-            { step: 2, text: 'v = sqrt(900/(3 x 0.75)) = sqrt(400) = 20 m/s.' },
-            { step: 3, text: 'At this speed, centrifugal tension equals one-third of maximum tension.' },
+          title: 'Epicyclic gear train: ring fixed, carrier output',
+          given: [
+            'Sun gear teeth TS = 30',
+            'Ring gear teeth TR = 90',
+            'Ring gear is fixed, so NR = 0',
+            'Sun gear speed NS = 300 rpm',
+            'Carrier/arm is the output',
           ],
-          answer: 'v = 20 m/s for maximum power transmission.',
-          examTip: 'This formula belongs to belts, not shafts or gear design.',
+          find: 'Carrier speed NC and speed reduction',
+          solution: [
+            { step: 1, text: 'Use the planetary relation: (NS - NC)/(NR - NC) = -TR/TS.' },
+            { step: 2, text: 'Substitute values: (300 - NC)/(0 - NC) = -90/30 = -3.' },
+            { step: 3, text: '300 - NC = -3(0 - NC) = 3NC.' },
+            { step: 4, text: '300 = 4NC, so NC = 75 rpm.' },
+            { step: 5, text: 'Speed reduction = NS/NC = 300/75 = 4:1.' },
+          ],
+          answer: 'Carrier speed = 75 rpm in the same direction as the sun gear. Speed reduction = 4:1.',
+          examTip: 'For epicyclic questions, first mark which member is fixed, which member is input and which member is output.',
         },
       ],
       interactiveDiagram: {
